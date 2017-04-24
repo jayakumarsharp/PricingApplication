@@ -1,0 +1,142 @@
+<div style="height: 10%">
+    <!--<label><input type="checkbox" checked onchange="onCbAthlete(this.checked)"/>Athlete</label>
+    <label><input type="checkbox" checked onchange="onCbAge(this.checked)"/>Age</label>
+    <label><input type="checkbox" checked onchange="onCbCountry(this.checked)"/>Country</label>-->
+</div>
+<h2>
+    Applications - User Interfaces & Services
+
+</h2>
+
+<!--<a ng-click="Viewpage()" style="cursor:pointer;float:right;width:30%;color:green;">
+    <span class="text ng-binding">Add</span>
+</a>
+<br>-->
+<hr>
+<button class="btn bg-blue-active btn-flat  margin-r-5 " style="margin-left:10px;" id="btnadd" ng-click="addnewpricerow()"
+    title="Add Row"><i class="fa fa-plus"></i> </button>
+<button class="btn bg-red-active btn-flat  margin-r-5 " style="margin-left:10px;" id="btnadd" ng-click="deleteRow()"
+    title="Delete Row"><i class="fa fa-trash"></i> </button>
+    
+<button class="btn bg-green-active btn-flat  margin-r-5 " style="margin-left:10px;" id="btnadd" ng-click="showmaster()" title="Add Row">Show Master </button>
+
+<button class="btn bg-blue-active btn-flat  margin-r-5 " style="margin-left:10px;" id="btnadd" ng-click="savemaster()" title="Save Master">Save Master </button>
+<br>
+
+
+<hr>
+<div id='test' class="modal fade" id="milestoneModel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="align-self:center;width:35%;max-height:500px">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #3c8dbc;color:white">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h4 class="modal-title" id="myModalLabel">Add New Feature</h4>
+            </div>
+            <div class="modal-body">
+                <form novalidate class="form-horizontal" role="form" name="addEditMilestoneForm">
+                    <div class="form-group">
+                        <label for="PaymentCode" class="col-sm-4 control-label">GroupType</label>
+                        <div class="col-sm-6" style="margin-top:6px">
+                            <select class="form-control" type="text" ng-model="GroupEditor.GroupType" required>
+                                <option value="">--Select--</option>
+                                <option value="Framework">Framework</option>
+                                <option value="ScreenApplicationDevelopment">Screen & Application Development</option>
+                                <option value="HostOperations">Host Operations</option>
+	                            <option value="Others">Others</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="MilestoneDescription" class="col-sm-4 control-label">Group name</label>
+                        <div class="col-sm-6" style="margin-top:6px">
+                            <input class="form-control" type="text" ng-model="GroupEditor.Name" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="PaymentCode" class="col-sm-4 control-label">Col1 Input Type</label>
+                        <div class="col-sm-6" style="margin-top:6px">
+                            <select class="form-control" type="text" ng-model="GroupEditor.col1" required>
+                                <option value="">--Select--</option>
+                                <option value="Text">Text</option>
+                                <option value="Combo">Combo</option>
+                                <option value="None">None</option>
+                                <option value="Formula">Formula</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="VendorBreakdown" class="col-sm-4 control-label">Col2 Input Type</label>
+                        <div class="col-sm-6" style="margin-top:6px">
+
+                            <select class="form-control" type="text" ng-model="GroupEditor.col2" required>
+                                <option value="">--Select--</option>
+                                <option value="Text">Text</option>
+                                <option value="Combo">Combo</option>
+                                <option value="None">None</option>
+                                <option value="Formula">Formula</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="PercentageType" class="col-sm-4 control-label">Col3 Input Type</label>
+                        <div class="col-sm-6" style="margin-top:6px">
+                            <select class="form-control" type="text" ng-model="GroupEditor.col3" required>
+                                <option value="">--Select--</option>
+                                 <option value="Text">Text</option>
+                                <option value="Combo">Combo</option>
+                                <option value="None">None</option>
+                                <option value="Formula">Formula</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="PercentageType" class="col-sm-4 control-label">Col3 Input Type</label>
+                        <div class="col-sm-6" style="margin-top:6px">
+                            <select class="form-control" type="text" ng-model="GroupEditor.col4" required>
+                                <option value="">--Select--</option>
+                                 <option value="Text">Text</option>
+                                <option value="Combo">Combo</option>
+                                <option value="None">None</option>
+                                <option value="Formula">Formula</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="MilestoneDescription" class="col-sm-4 control-label">Formula</label>
+                        <div class="col-sm-6" style="margin-top:6px">
+                            <input class="form-control" type="text" ng-model="GroupEditor.FormulaExp" required />
+                        </div>
+                    </div>
+
+            </div>
+            <!---->
+            <div class="modal-footer">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="submit" value="Update" ng-disabled="addEditMilestoneForm.$invalid" data-ng-click="Addrow(GroupEditor)" class="btn btn-primary"
+                    />
+                    <input type="button" value="Cancel" data-ng-click="cancel()" class="btn btn-primary" />
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div ng-show="master">
+    <div ag-grid="gridOptionsFixed" style=" height:20%;" class="ag-blue"></div>
+    <div ag-grid="gridOptionsFixedBottom1" style=" height:20%;" class="ag-blue"></div>
+    <div ag-grid="gridOptionsFixedBottom2" style=" height:20%;" class="ag-blue"></div>
+    <div ag-grid="gridOptionsFixedBottom3" style=" height:20%;" class="ag-blue"></div>
+</div>
+
+<hr>
+<button data-ng-click="onRefreshView()">Refresh All</button> <button class="btn bg-orange-active btn-flat  margin-r-5 " style="margin-left:10px;" id="btnadd" ng-click="addadditional()"
+    title="Add Row">addadditional</button>
+
+<div ag-grid="gridOptionsTop" style=" height:20%;" class="ag-blue"></div>
+<div ag-grid="gridOptionsBottom1" style=" height:20%;" class="ag-blue"></div>
+<div ag-grid="gridOptionsBottom2" style=" height:20%;" class="ag-blue"></div>
+<div ag-grid="gridOptionsBottom3" style=" height:20%;" class="ag-blue"></div>
+
+</body>
+
+<!--<button data-ng-click="onRefreshAll()">Refresh All</button>-->

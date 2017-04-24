@@ -1,0 +1,88 @@
+﻿<div class="modal fade" id="discountModel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="align-self:center;width:35%;max-height:500px">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #3c8dbc;color:white">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h4 class="modal-title" id="myModalLabel" ng-hide="editMode">Add Discount</h4>
+                <h4 class="modal-title" id="myModalLabel" ng-show="editMode">Edit Discount</h4>
+            </div>
+            <div class="modal-body">
+                <form novalidate class="form-horizontal" role="form" name="addEditDiscountForm">
+                    <div class="form-group">
+                        <label for="BU" class="col-sm-4 control-label">SBU</label>
+                        <div class="col-sm-6" style="margin-top:6px">
+                            <select class="form-control" ng-change="RefreshRegion(discount.SBUID)" data-ng-hide="editMode" type="text" ng-model="discount.SBUID" ng-options="item.id as item.SBU for item in SBU"
+                                title="Select SBU" ng-required="!editMode">
+                                 <option value="">-- Select --</option></select>
+                            <input class="form-control" data-ng-show="editMode" type="text" ng-model="discount.BU" disabled />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Region" class="col-sm-4 control-label">Region</label>
+                        <div class="col-sm-6" style="margin-top:6px">
+                            <select class="form-control" data-ng-hide="editMode" type="text" ng-model="discount.CountryId" ng-options="item.Id as item.CountryName for item in Region"
+                                title="Select Region" ng-required="!editMode">
+                                <option value="">-- Select --</option></select>
+                           <input class="form-control" data-ng-show="editMode" type="text" ng-model="discount.Region" disabled />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Vendor" class="col-sm-4 control-label">Vendor</label>
+                        <div class="col-sm-6" style="margin-top:6px">
+                            <select class="form-control" data-ng-hide="editMode" type="text" ng-model="discount.VendorId" ng-options="item.Id as item.VendorName for item in Vendor"
+                                title="Select Vendor" ng-required="!editMode">
+                                <option value="">-- Select --</option></select>
+                           <input class="form-control" data-ng-show="editMode" type="text" ng-model="discount.Vendor" disabled />
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label for="Component" class="col-sm-4 control-label">Component</label>
+                        <div class="col-sm-6" style="margin-top:6px">
+                            <select class="form-control" data-ng-hide="editMode" type="text" ng-model="discount.ComponentId" ng-options="item.Id as item.ComponentType for item in Component"
+                                title="Select Component" ng-required="!editMode">
+                                <option value="">-- Select --</option></select>
+                            <input class="form-control" data-ng-show="editMode" type="text" ng-model="discount.ComponentType" disabled />
+                        </div>
+                    </div>                                  
+                    <div class="form-group">
+                        <label for="Default" class="col-sm-4 control-label">Default(%)</label>
+                        <div class="col-sm-6" style="margin-top:6px">
+                            <input class="form-control"numberonly maxlength="3" ng-model="discount.DefaultVal" title="Enter Default %" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Level1" class="col-sm-4 control-label">Level 1(%)</label>
+                        <div class="col-sm-6" style="margin-top:6px">
+                            <input class="form-control"numberonly maxlength="3" ng-model="discount.Level1" title="Enter Level 1 %" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Level2" class="col-sm-4 control-label">Level 2(%)</label>
+                        <div class="col-sm-6" style="margin-top:6px">
+                            <input class="form-control"numberonly maxlength="3" ng-model="discount.Level2" title="Enter Level 2 %" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Level3" class="col-sm-4 control-label">Level 3(%)</label>
+                        <div class="col-sm-6" style="margin-top:6px">
+                            <input class="form-control"maxlength="3" numberonly ng-model="discount.Level3" title="Enter Level 3 %" required />
+                        </div>
+                    </div>
+            </div>
+            <!---->
+            <div class="modal-footer">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <span data-ng-hide="editMode">
+                                <input type="submit" value="Add" ng-disabled="addEditDiscountForm.$invalid" data-ng-click="AddDiscount(discount)" class="btn btn-primary" />
+                            </span>
+                    <span data-ng-show="editMode">
+                                <input type="submit" value="Update" data-ng-click="UpdateDiscount(discount)" class="btn btn-primary" />
+                            </span>
+                    <input type="button" value="Cancel" data-ng-click="cancel()" class="btn btn-primary" />
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>

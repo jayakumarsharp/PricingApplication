@@ -1,0 +1,23 @@
+<div class="row">
+    <span ng-show="!loading" class="oauth">
+    <oauth site="https://adfs.servion.com/adfs" client-id="1234567"
+      redirect-uri="http://localhost/PT/Login.html"
+      authorize-path="/oauth2/authorize"
+      token-path="/oauth2/token"
+      response-type="code"
+	resource="pricingtooldemo">
+    </oauth>
+
+    <!--<oauth site="https://adfs.servion.com/adfs" client-id="123456"
+      redirect-uri="https://pricing.servion.com/PricingTool"
+      authorize-path="/oauth2/authorize"
+      token-path="/oauth2/token"
+      response-type="code"
+	resource="pricingtool">
+    </oauth>-->
+    </span>
+    <p ng-show="loading" class="login-box-msg"><img height="25" width="25" id="mySpinner" src="{{imagesPath}}spinner.gif" /> Authenticating...</p>
+
+    <span style="color:red;float:right;" ng-bind="errMsg">  </span>
+
+</div>

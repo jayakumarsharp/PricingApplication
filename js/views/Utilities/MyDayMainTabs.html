@@ -1,0 +1,18 @@
+﻿<form class="form-horizontal" role="form" name="mydayform">     
+  <div id="tabs" class="nav-tabs-custom">        
+        <ul class="nav nav-tabs">
+            <li ng-class="{active:isActiveMainTab('js/views/Utilities/MyDay.html')}">
+                <a ng-click="onClickMainTab('js/views/Utilities/MyDay.html')">My Day</a>
+            </li>
+            <li ng-show="true" ng-class="{active:isActiveMainTab('js/views/Utilities/MyDayTaskDetails.html')}">
+                <a ng-click="onClickMainTab('js/views/Utilities/MyDayTaskDetails.html')">Task Details Report</a>
+            </li>
+            <li ng-show="true" ng-class="{active:isActiveMainTab('js/views/Utilities/MyDayTaskSummary.html')}">
+                <a ng-click="onClickMainTab('js/views/Utilities/MyDayTaskSummary.html')">Task Summary Report</a>
+            </li>                    
+        </ul>       
+        <div id="mainView">
+            <div ng-include="currentMainTab"></div>
+        </div>        
+    </div>
+</form>

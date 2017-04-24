@@ -1,0 +1,60 @@
+<div class="modal fade" id="AddModel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="align-self:center;width:35%;max-height:500px">
+<div class="modal-content">
+    <div class="modal-header" style="background-color: #3c8dbc;color:white">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+<h4 class="modal-title" id="myModalLabel" ng-hide="editMode">Add Dynamic Section Management</h4>
+<h4 class="modal-title" id="myModalLabel" ng-show="editMode">Edit Dynamic Section Management</h4>
+</div>
+<form novalidate class="form-horizontal" role="form" name="addEditMarginForm">
+    <div class="modal-body">
+
+        <div class="form-group">
+            <label for="BU" class="col-sm-4 control-label">Page Name</label>
+            <div class="col-sm-6" style="margin-top:6px">
+<select class="form-control" data-ng-show="!editMode" ng-options="item.Id as item.PageName for item in Pages" ng-model="Vendor.PageID"
+    title="- Select Page -">
+                        <option value="">- Select Page -</option>
+                </select>
+<input class="form-control" data-ng-show="editMode" type="text" ng-model="Vendor.PageName" disabled />
+</div>
+</div>
+<div class="form-group">
+    <label for="Region" class="col-sm-4 control-label">Section</label>
+    <div class="col-sm-6" style="margin-top:6px">
+<input charonly type="text" data-ng-show="!editMode" class="form-control" maxlength="50" name="inputVendor" ng-model=Vendor.SectionName>
+<input class="form-control" data-ng-show="editMode" type="text" ng-model="Vendor.SectionName" disabled />
+</div>
+</div>
+<div class="form-group">
+    <label for="Region" class="col-sm-4 control-label">Display Name</label>
+    <div class="col-sm-6" style="margin-top:6px">
+<input charonly type="text" data-ng-show="!editMode" class="form-control" maxlength="50" name="inputVendor" ng-model=Vendor.DisplayName>
+<input class="form-control" data-ng-show="editMode" type="text" ng-model="Vendor.DisplayName" />
+</div>
+<div class="form-group">
+    <label for="Region" class="col-sm-4 control-label">Order Sequence</label>
+    <div class="col-sm-6" style="margin-top:6px">
+<input type="text" data-ng-show="!editMode" class="form-control" maxlength="2" name="inputVendor" ng-model=Vendor.OrderSequence
+/>
+<input class="form-control" data-ng-show="editMode" type="text" ng-model="Vendor.OrderSequence" />
+</div>
+</div>
+
+<!---->
+<div class="modal-footer">
+    <div class="col-sm-offset-2 col-sm-10">
+        <span data-ng-hide="editMode">
+                                <input type="submit" value="Add" ng-disabled="addEditMarginForm.$invalid" data-ng-click="add(Vendor)" class="btn btn-primary" />
+                            </span>
+        <span data-ng-show="editMode">
+                                <input type="submit" value="Update" data-ng-click="UpdateMargin(Vendor)" class="btn btn-primary" />
+                            </span>
+        <button data-ng-click="cancel()" class="btn btn-primary">cancel </button>
+
+    </div>
+</div>
+</form>
+</div>
+</div>
+</div>

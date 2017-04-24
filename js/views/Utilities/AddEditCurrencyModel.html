@@ -1,0 +1,50 @@
+﻿<div class="modal fade" id="currencyModel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="width:40%">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #3c8dbc;color:white;height:10%">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h4 class="modal-title" id="myModalLabel" ng-hide="editMode">Add Currency Conversion Rate</h4>
+                <h4 class="modal-title" id="myModalLabel" ng-show="editMode">Edit Currency Conversion Rate</h4>
+            </div>
+            <div class="modal-body">
+
+                <form novalidate class="form-horizontal" role="form" name="addcurrencyform">                   
+                    <div class="form-group">
+                        <label for="SBU" class="col-sm-3 control-label">Currency Description</label>
+                        <div class="col-sm-8" style="margin-top:6px">
+                            <input class="form-control" type="text" ng-model="ecurrency.CurrencyDescrition" title="Select Currency Description" disabled />                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="SBU" class="col-sm-3 control-label">Currency</label>
+                        <div class="col-sm-8" style="margin-top:6px">
+                            <input data-ng-show="editMode" class="form-control" type="text" ng-model="ecurrency.Currency" title="Select Currency" disabled />
+                            <select ng-change="SetCurrencyDescription(currency.CurrencyId)" data-ng-hide="editMode" class="form-control" ng-model="currency.CurrencyId" ng-options="item.Id as item.Currency for item in Currency" title="Select Currency" required>
+                                <option value="">- Select Currency-</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="RoleID" class="col-sm-3 control-label">Conversion Rate</label>
+                        <div class="col-sm-8" style="margin-top:6px">
+                            <input data-ng-show="editMode" class="form-control" numberdotonly type="text" maxlength="8" ng-model="ecurrency.ConversionRate" />
+                            <input data-ng-hide="editMode" type="text" numberdotonly class="form-control" maxlength="8" ng-model="currency.ConversionRate" title="Select Role" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-10">
+                            <span data-ng-hide="editMode">
+                                <input type="button" value="Add" ng-disabled="addcurrencyform.$invalid" ng-click="add(currency)" class="btn btn-primary" />
+                            </span>
+                            <span data-ng-show="editMode">
+                                <input type="button" value="Update" data-ng-click="UpdatecurrencyConversion(ecurrency)" class="btn btn-primary" />
+                            </span>
+                            <input type="button" value="Cancel" data-ng-click="cancel()" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,101 @@
+﻿<div ng-app="ReportApp" class="box box-info" style="margin-top:20px">
+<div ng-include="'js/views/confirmModel.html'"></div>
+<div ng-include="'js/views/Utilities/AddOpportunities.html'"></div>
+<div ng-include="'js/views/Utilities/TaskDetailModel.html'"></div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-1">
+                <label>Resource: </label>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control" ng-options="item for item in UsersForMyDay" ng-model="taskDetails.Resource"
+                    title="Select User">
+                        <option value="">- All -</option>
+                </select>
+            </div>
+            <!--<div class="col-xs-1">
+                <label>Opportunity ID: </label>
+            </div>
+            <div class="col-md-2">
+                 <select class="form-control" ng-options="item.OppId for item in OppIDsForMyDay" ng-model="taskDetails.OppId"
+                    title="- Select ID -">
+                        <option value="">- All -</option>
+                </select>
+            </div>
+             <div class="col-xs-1">
+                <label>Opportunity Name: </label>
+            </div>
+            <div class="col-md-2">
+                 <select class="form-control" ng-options="item.OpportunityName for item in OppNamesForMyDay" ng-model="taskDetails.OpportunityName"
+                    title="- Select Opportunity -">
+                        <option value="">- All -</option>
+                </select>
+            </div>-->
+            <div class="col-xs-1">
+                <label>SBU: </label>
+            </div>
+            <div class="col-md-2">
+                 <select class="form-control" ng-options="item.id as item.SBU for item in SBUs" ng-model="taskDetails.SBUId"
+                    title="Select SBU">
+                        <option value="">- All -</option>
+                </select>
+            </div>
+            <div class="col-md-1">
+                <label>From: </label>
+            </div>
+            <div class="col-md-2">
+                <div class='input-group date' datetimepicker ng-model="taskDetails.FromDate">
+                    <input type='text' class="form-control" readonly required />
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-1">
+                <label>To: </label>
+            </div>
+            <div class="col-md-2">
+                <div class='input-group date' datetimepicker ng-model="taskDetails.ToDate">
+                    <input type='text' class="form-control" readonly required />
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-xs-1">
+                <label>Opportunity: </label>
+            </div>
+            <div class="col-md-2">
+                <button ng-click="GetOppForMyDay()" class="btn btn-sm btn-warning btn-rounded">- Click to Filter Opportunities -               
+                </button>
+            </div>
+             <div class="col-xs-3">
+                 <span class="label label-success">&nbsp;{{FilterOpps.length}} opp(s) selected</span>
+            </div>
+           
+            <div class="col-md-3 pull-right">
+                <button data-ng-click="FetchTaskDetails()" class="btn btn-sm btn-info btn-flat pull-right">Search <i class="fa fa-search" style="color:white"></i></button>
+                <button ng-disabled="TaskDetails.length == 0" ng-show="showGrid" data-ng-click="ExportTaskDetails()" class="btn btn-sm btn-info btn-flat pull-right">Export &nbsp;<i class="fa fa-file-excel-o" style="color:white"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.box-header -->
+<div class="box-body" ng-show="showGrid">
+    <div class="mnbxcont">
+        <label style="color:blue">Total Hours - {{TotalHoursSpent}}</label>
+    </div>
+</div>
+<div class="box-body" ng-show="showGrid">
+    <div class="mnbxcont">
+        <div data-ag-grid="taskDetailsGrid" class="ag-blue" style="color:#000;!important;"></div>
+    </div>
+</div>
+<div class="box-body" ng-show="showErr">
+    <div class="mnbxcont">
+        <label style="color:red">{{DateMessage}}</label>
+    </div>
+</div>
+</div>

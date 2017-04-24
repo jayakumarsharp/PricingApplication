@@ -1,0 +1,129 @@
+﻿<div class="modal fade" id="editModel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div ng-include="'js/views/confirmRoleChange.html'"></div>
+    <div class="modal-dialog" style="width:60%>
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #3c8dbc;color:white">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h4 class="modal-title" id="myModalLabel">Edit User</h4>
+            </div>
+            <div class="box-comments">
+                <div class="modal-body" style="height:450px;overflow-y:auto">
+                    <form class="form-horizontal" role="form" name="edituser">
+                        <div class="form-group">
+                            <label for="Name" class="col-sm-4 control-label">Name</label>
+                            <div class="col-sm-6" style="margin-top:6px">
+                                {{user.UserName}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="EmailId" class="col-sm-4 control-label">Email Id</label>
+                            <div class="col-sm-6" style="margin-top:6px">
+                                {{user.EmailId}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="TypeID" class="col-sm-4 control-label">Type</label>
+                            <div class="col-sm-6" style="margin-top:6px">
+                                <select name="ddlEditType" class="form-control" ng-model="user.selectedType" ng-change="stateChanged(user.selectedType)" ng-options="item.TypeName for item in Types"
+                                    title="Select Type" required>
+                                    <option value="">- Select Type - </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="RoleID" class="col-sm-4 control-label">Role</label>
+                            <div class="col-sm-6" style="margin-top:6px">
+                                <select name="ddlEditRole" class="form-control" ng-model="user.Role" ng-options=" item.RoleName for item in Roles" title="Select Role" required>
+                                    <option value="">- Select Role - </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="SBU" class="col-sm-4 control-label">User SBU</label>
+                            <div class="col-sm-6" style="margin-top:6px">
+                                <select name="ddlEditSBU" class="form-control" name="ddlSBU" ng-model="user.selectedSBU" ng-options="item.id as item.SBU for item in SBU" title="Select User SBU"
+                                    multiple>
+                                    <option value="">- Select User SBU -</option>
+                                </select>
+                            </div>
+                        </div>                        
+                        <div class="form-group">
+                            <label for="TypeID" class="col-sm-4 control-label">Billing Type</label>
+                            <div class="col-sm-6" style="margin-top:6px">
+                                <select name="ddlEditBillingType" class="form-control" ng-change="stateChanged(user.selectedBilling)" ng-model="user.selectedBilling" ng-options="item.Billing for item in Billings" title="Select Billing Type" >
+                                    <option value="">- Select Billing Type - </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="SBU" class="col-sm-4 control-label">Billing SBU</label>
+                            <div class="col-sm-6" style="margin-top:6px">
+                                <select name="editBillingSBU" class="form-control" name="ddlBillingSBU" ng-model="user.selectedBillingSBU" ng-options="item.id as item.SBU for item in BillingSBU" title="Select Billing SBU"
+                                    multiple>
+                                    <option value="">- Select Billing SBU -</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="TypeID" class="col-sm-4 control-label">Base Skill</label>
+                            <div class="col-sm-6" style="margin-top:6px">
+                                <select name="ddlEditBaseSkill" class="form-control" ng-model="user.selectedBaseSkill" ng-options="item.BaseSkill for item in BaseSkills" title="Select Base Skill">
+                                    <option value="">- Select Base Skill - </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="TypeID" class="col-sm-4 control-label">Location</label>
+                            <div class="col-sm-6" style="margin-top:6px">
+                                <select name="ddlEditLocation" class="form-control" ng-model="user.selectedLocation" ng-options="item.Location for item in Locations" title="Select Location">                                    
+                                    <option value="">- Select Location - </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="TypeID" class="col-sm-4 control-label">First Working Date</label>
+                            <div class="col-sm-6">
+                            <div class="input-group date" datetimepicker ng-model="user.FirstWorkingDate">
+                                <input name="editFWD" type='text' class="form-control" readonly />
+                                <span name="editFWDCal" class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                            </div>
+                        </div>                        
+                        <div class="form-group">
+                            <label for="TypeID" class="col-sm-4 control-label">Last Working Date</label>
+                            <div class="col-sm-6">
+                            <div class="input-group date" datetimepicker ng-model="user.LastWorkingDate">
+                                <input name="editLWD" type='text' class="form-control" readonly />
+                                <span name="editLWDCal" class="input-group-addon"><span class="glyphicon glyphicon-calendar "></span>
+                                </span>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Status" class="col-sm-4 control-label">Status</label>
+                            <div class="col-sm-6" style="margin-top:6px">
+                                <select name="ddlEditStatus" class="form-control" ng-model="user.selectedStatus" title="Select Status" required>
+                                    <option value="">- Select Status -</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                </div>
+                </form>
+                <div class="modal-footer">
+                    <input name="modifyUser" type="submit" value="Update" data-ng-click="ModifyUser(user)" class="btn btn-primary" ng-disabled="edituser.$invalid || user.selectedSBU < 1 || user.selectedSBU == null"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+ .table-borderless td,
+.table-borderless th {
+    border: 0;
+}
+</script>

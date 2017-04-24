@@ -1,0 +1,959 @@
+﻿<!--<style>
+	.img-circle {
+		max-width: 50% !important;
+	}
+	
+	.users-list>li {
+		width: 130px;
+	}
+</style>
+<section class="content" ng-app="reportApp" ng-controller="UtilController">
+
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h4 class="box-title">Configurations</h4>
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool pull-right" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+					</div>
+				</div>
+				<div class="box-body no-padding">
+					<ul class="users-list clearfix">
+						<li ng-show="showVendorMgmt">
+							<div>
+								<a title="Vendor Configuration" href="VendorList">
+									<figure class="imghvr-slide-down"><img src="{{ UtilImagesPath }}Vendor.jpg" alt="Vendor">
+										<figcaption>
+											<h3 style="padding-left: 0px !important">Vendor</h3>
+</figcaption>
+</figure>
+</a>
+
+</div>
+
+</li>
+<li ng-show="showProductMgmt">
+	<div>
+		<a title="Product Configuration" href="ProductList">
+
+			<figure class="imghvr-slide-down"><img src="{{ UtilImagesPath }}Product.jpg" alt="Vendor">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">Product</h3>
+</figcaption>
+</figure>
+
+</a>
+
+</div>
+</li>
+<li ng-show="showEmailConfig">
+	<div>
+		<a title="Email Configuration" href="EmailConfiguration">
+
+			<figure class="imghvr-slide-down"><img src="{{ UtilImagesPath }}Email.jpg" alt="Vendor">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">Email</h3>
+</figcaption>
+</figure>
+</a>
+
+</div>
+</li>
+<li ng-show="showDiscount">
+	<div>
+		<a title="Discount Configuration" href="DiscountMgmt">
+
+			<figure class="imghvr-slide-down"><img src="{{ UtilImagesPath }}Discount1.png" alt="Discount">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">Discount</h3>
+</figcaption>
+</figure>
+</div>
+</li>
+<li ng-show="showMargin">
+	<div>
+		<a title="Margin Configuration" href="MarginMgmt">
+
+			<figure class="imghvr-slide-down"><img src="{{ UtilImagesPath }}Margin.jpg" alt="Margin">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">Margin</h3>
+</figcaption>
+</figure>
+
+
+</div>
+</li>
+
+
+<li ng-show="showMargin">
+	<div>
+
+
+		<a title="Project Margin Configuration" href="ProjectMarginAdmin">
+
+			<figure class="imghvr-slide-down"><img src="{{ UtilImagesPath }}Margin1.jpg" alt="Margin">
+				<figcaption>
+					<h4 style="padding-left: 0px !important">Project Margin Admin</h4>
+</figcaption>
+</figure>
+
+</div>
+</li>
+<li ng-show="showPaymentMgmt">
+	<div>
+		<a title="Payment Configuration" href="PaymentMgmt">
+			<figure class="imghvr-slide-down"><img src="{{ UtilImagesPath }}Payment.jpg" alt="Margin">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">Payment</h3>
+</figcaption>
+</figure>
+
+
+</a>
+
+</div>
+</li>
+<li ng-show="showMilestone">
+	<div>
+		<a title="Payment Milestone Configuration" href="Milestone">
+
+
+
+			<figure class="imghvr-slide-down"><img src="{{ UtilImagesPath }}Milestone.jpg" alt="Margin">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">Milestone</h3>
+</figcaption>
+</figure>
+
+</a>
+
+</div>
+</li>
+<li ng-show="showOppConfig">
+	<div>
+		<a title="Opportunity Configuration" href="OppConfiguration">
+			<figure class="imghvr-slide-down"><img src="{{ UtilImagesPath }}Opportunities1.jpg" alt="Margin">
+				<figcaption>
+					<h4 style="padding-left: 0px !important">Opportunity</h4>
+</figcaption>
+</figure>
+</a>
+
+</div>
+</li>
+<li ng-show="showOppConfig">
+	<div>
+		<a title="Opportunity Rate" href="OpportunityRate">
+
+			<figure class="imghvr-slide-down"><img src="{{ UtilImagesPath }}Opportunities1.jpg" alt="Margin">
+				<figcaption>
+					<h4 style="padding-left: 0px !important">Opportunity Rate</h4>
+</figcaption>
+
+</figure>
+</a>
+</div>
+</li>
+<li ng-show="showTaskType">
+	<div>
+		<a title="TaskType Configuration" href="TaskTypeMgmt">
+
+
+
+
+			<figure class="imghvr-slide-down"><img src="{{ UtilImagesPath }}Task.jpg" alt="Margin">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">TaskType</h3>
+</figcaption>
+</figure>
+</a>
+
+</div>
+</li>
+<li ng-show="showCurrencyRate">
+	<div>
+		<a title="Currency Rate" href="CurrencyConversions">
+
+			<figure class="imghvr-slide-down"><img src="{{ UtilImagesPath }}CurrencyRate1.jpg" alt="Margin">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">Currency Rate</h3>
+</figcaption>
+</figure>
+</a>
+</div>
+</li>
+<li ng-show="showWeekendLeaves">
+	<div>
+		<a title="Weekend Leaves Configuration" href="WeekendLeaves">
+
+			<figure class="imghvr-slide-down"><img src="{{ UtilImagesPath }}Weekend1.jpg" alt="Margin">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">Weekend Leaves</h3>
+</figcaption>
+</figure>
+</a>
+</div>
+</li>
+<li ng-show="showHolidayCalendar">
+	<div>
+		<a title="Holiday Calendar Configuration" href="HolidayCalendar">
+
+			<figure class="imghvr-slide-down"><img src="{{ UtilImagesPath }}Holiday.jpg" alt="Margin">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">Holiday Calendar</h3>
+</figcaption>
+</figure>
+
+</a>
+</div>
+</li>
+
+<li ng-show="showLocation">
+	<div>
+		<a title="Location" href="Location">
+
+
+
+
+			<figure class="imghvr-slide-down"><img src="{{ UtilImagesPath }}Location1.png" alt="Margin">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">Milestone</h3>
+</figcaption>
+</figure>
+</a>
+</div>
+</li>
+
+<li ng-show="showBaseSkill">
+	<div>
+		<a title="BaseSkill" href="BaseSkill">
+			<figure class="imghvr-slide-down"><img src="{{ UtilImagesPath }}baseskill.png" alt="Margin">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">BaseSkill</h3>
+</figcaption>
+</figure>
+</a>
+</div>
+</li>
+
+</ul>
+</div>
+<div class="box-footer text-center">
+</div>
+</div>
+</div>
+</div>
+<div class="row">
+	<div class="col-xs-5">
+		<div class="box box-primary">
+			<div class="box-header with-border">
+				<h4 class="box-title">Manage Pages</h4>
+
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool pull-right" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+				</div>
+			</div>
+			<div class="box-body no-padding">
+				<ul class="users-list clearfix">
+					<li ng-show="showPriceSheetLock">
+						<div>
+							<a title="Price Sheet Unlock" href="PriceSheetLock">
+
+<figure class="imghvr-slide-down"><img src="{{ UtilImagesPath }}Unlock.jpg" alt="Margin">
+									<figcaption>
+										<h4 style="padding-left: 0px !important">Price Sheet Unlock</h4>
+</figcaption>
+</figure>
+</a>
+</div>
+</li>
+<li ng-show="showMergeOpp">
+	<div>
+		<a title="Merge Opportunities" href="mergeOpportunity">
+
+			<figure class="imghvr-slide-down"><img src="{{ UtilImagesPath }}Merge1.jpg" alt="Margin">
+				<figcaption>
+					<h4 style="padding-left: 0px !important">Merge Opportunities</h4>
+</figcaption>
+</figure>
+
+</a>
+</div>
+</li>
+<li ng-show="showLoggedInUsers">
+	<div>
+		<a title="Find Logged-In Users" href="UserSession">
+			<figure class="imghvr-slide-down"><img src="{{ UtilImagesPath }}Find1.jpg" alt="Margin">
+				<figcaption>
+					<h4 style="padding-left: 0px !important">Find Logged-In Users</h4>
+</figcaption>
+</figure>
+
+</a>
+
+</div>
+</li>
+</ul>
+
+<div class="box-footer text-center">
+</div>
+</div>
+</div>
+</div>
+<div class="col-xs-7">
+	<div class="box box-primary">
+		<div class="box-header with-border">
+			<h4 class="box-title">My Day</h4>
+
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool pull-right" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+
+			</div>
+		</div>
+		<div class="box-body no-padding">
+			<ul class="users-list clearfix">
+
+				<li ng-show="showUserHierarchy">
+					<div>
+						<a title="User Hierarchy Configuration" href="UserHierarchy">
+
+
+
+							<figure class="imghvr-slide-down"><img src="{{ UtilImagesPath }}Hierarchy.jpg" alt="Margin">
+								<figcaption>
+									<h3 style="padding-left: 0px !important">User Hierarchy</h3>
+</figcaption>
+</figure>
+</a>
+</div>
+</li>
+
+<li ng-show="showMyDayReports">
+	<div>
+		<a title="My Day Reports" href="MyDayReports">
+
+			<figure class="imghvr-slide-down"><img src="{{ UtilImagesPath }}MyDay.jpg" alt="Margin">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">Reports</h3>
+</figcaption>
+</figure>
+</a>
+</div>
+</li>
+<li ng-show="showHRMISLeaves">
+	<div>
+		<a title="HRMIS Leaves" href="HRMISLeaves">
+			<figure class="imghvr-slide-down"><img src="{{ UtilImagesPath }}Hrmis.jpg" alt="Margin">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">HRMIS Leaves</h3>
+</figcaption>
+</figure>
+</a>
+</div>
+</li>
+
+<li ng-show="showBillingConfig">
+	<div>
+		<a title="Billing Report Configuration" href="BillingConfig">
+
+			<figure class="imghvr-slide-down"><img src="{{ UtilImagesPath }}BillingConfig.jpg" alt="Margin">
+				<figcaption>
+					<h4 style="padding-left: 0px !important">Billing Report Configuration</h4>
+</figcaption>
+</figure>
+</div>
+</li>
+</ul>
+
+<div class="box-footer text-center">
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box box-primary">
+			<div class="box-header with-border">
+				<h4 class="box-title">Estimation Master Sheet</h4>
+
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool pull-right" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+				</div>
+			</div>
+			<div class="box-body no-padding">
+				<ul class="users-list clearfix">
+					<li>
+						<div>
+							<a title="Self Service" href="selfservicemaster">
+
+								<figure class="imghvr-slide-down"><img src="{{EstImagesPath}}self.png" alt="Margin">
+									<figcaption>
+										<h3 style="padding-left: 0px !important">Self Service</h3>
+</figcaption>
+</figure>
+</div>
+</li>
+<li>
+	<div>
+		<a title="Applications Master" href="applicationmaster">
+
+			<figure class="imghvr-slide-down"><img src="{{ EstImagesPath }}applications.png" alt="Margin">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">Applications</h3>
+</figcaption>
+</figure>
+</a>
+</div>
+</li>
+
+
+<li>
+	<div>
+		<a title="Admin Reports" href="AdminReportsMaster">
+
+			<figure class="imghvr-slide-down"><img src="{{ EstImagesPath }}report.png" alt="Margin">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">Admin Reports</h3>
+</figcaption>
+</figure>
+</a>
+
+
+</div>
+</li>
+
+
+<li>
+	<div>
+		<a title="Cisco Master" href="ciscomaster">
+			<figure class="imghvr-slide-down"><img src="{{ EstImagesPath }}cisco.png" alt="Margin">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">Cisco</h3>
+</figcaption>
+</figure>
+</a>
+
+</div>
+</li>
+
+<li>
+	<div>
+		<a title="Avaya Master" href="avayamaster">
+			<figure class="imghvr-slide-down"><img src="{{ EstImagesPath }}avaya.png" alt="Margin">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">Avaya</h3>
+</figcaption>
+</figure>
+</a>
+</div>
+</li>
+
+<li>
+	<div>
+		<a title="EGain Master" href="egainmaster">
+
+			<figure class="imghvr-slide-down"><img src="{{ EstImagesPath }}egain.png" alt="Margin">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">EGain</h3>
+</figcaption>
+</figure>
+</a>
+</div>
+</li>
+
+<li>
+	<div>
+		<a title="Servion Master" href="servionproductmaster">
+
+			<figure class="imghvr-slide-down"><img src="{{ EstImagesPath }}servion.jpg" alt="Margin">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">Servion</h3>
+</figcaption>
+</figure>
+</a>
+</div>
+</li>
+
+<li>
+	<div>
+		<a title="Acqueon Master" href="acqueonmaster">
+			<figure class="imghvr-slide-down"><img src="{{ EstImagesPath }}acqueon.png" alt="Margin">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">Acqueon</h3>
+</figcaption>
+</figure>
+</a>
+</div>
+</li>
+
+</ul>
+<ul class="users-list clearfix">
+
+	<li>
+		<div>
+			<a title="WFO Master" href="wfomaster">
+
+				<figure class="imghvr-slide-down"><img src="{{ EstImagesPath }}wfo1.png" alt="Margin">
+					<figcaption>
+						<h3 style="padding-left: 0px !important">WFO</h3>
+</figcaption>
+</figure>
+</a>
+</div>
+</li>
+
+<li>
+	<div>
+		<a title="Others" href="othermaster">
+
+			<figure class="imghvr-slide-down"><img src="{{ EstImagesPath }}e2.png" alt="Margin">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">Others</h3>
+</figcaption>
+</figure>
+</a>
+</div>
+</li>
+<li>
+	<div>
+		<a title="Others" href="Selection">
+
+			<figure class="imghvr-slide-down"><img src="{{ EstImagesPath }}select.png" alt="Margin">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">Select Options</h3>
+</figcaption>
+</figure>
+</a>
+</div>
+</li>
+
+<li>
+	<div>
+		<a title="Others" href="ManualEstimationType">
+
+			<figure class="imghvr-slide-down"><img src="{{ EstImagesPath }}esttypes.png" alt="Margin">
+				<figcaption>
+					<h4 style="padding-left: 0px !important">Manual Estimation Type</h4>
+</figcaption>
+</figure>
+</a>
+</div>
+</li>
+
+<li>
+	<div>
+		<a title="SDLC" href="EstimationSDLC">
+			<figure class="imghvr-slide-down"><img src="{{ EstImagesPath }}s.jpg" alt="Margin">
+				<figcaption>
+					<h3 style="padding-left: 0px !important">SDLC</h3>
+</figcaption>
+</figure>
+</a>
+</div>
+</li>
+
+
+<li>
+	<div>
+		<a title="Extended Efforts SDLC" href="ExtendedEffortsSDLC">
+
+			<figure class="imghvr-slide-down"><img src="{{ EstImagesPath }}s.jpg" alt="Margin">
+				<figcaption>
+					<h4 style="padding-left: 0px !important">Extended Efforts SDLC</h4>
+</figcaption>
+</figure>
+</a>
+</div>
+</li>
+
+<li>
+	<div>
+		<a title="SDLC Resource" href="SDLCResource">
+			<figure class="imghvr-slide-down"><img src="{{ EstImagesPath }}s.jpg" alt="Margin">
+				<figcaption>
+					<h4 style="padding-left: 0px !important">SDLC Resource</h4>
+</figcaption>
+</figure>
+</a>
+</div>
+</li>
+
+</ul>
+<div class="box-footer text-center">
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+</section>-->
+
+
+<style>
+	.img-circle {
+		max-width: 50% !important;
+	}
+	
+	.users-list>li {
+		width: 130px;
+	}
+</style>
+<section class="content" ng-app="reportApp" ng-controller="UtilController">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h4 class="box-title">Configurations</h4>
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool pull-right" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+					</div>
+				</div>
+				<div class="box-body no-padding">
+					<ul class="users-list clearfix">
+						<li ng-show="showVendorMgmt">
+							<div>
+								<a title="Vendor Configuration" href="VendorList"><img src="{{ UtilImagesPath }}Vendor.jpg" style="width=20%" class="img-circle"></a>
+<a title="Vendor Configuration" class=" users-list-name" href="VendorList">Vendor</a>
+</div>
+</li>
+<li ng-show="showProductMgmt">
+	<div>
+		<a title="Product Configuration" href="ProductList"><img src="{{ UtilImagesPath }}Product1.jpg" class="img-circle"></a>
+		<a title="Product Configuration" class=" users-list-name" href="ProductList">Product</a>
+	</div>
+</li>
+<li ng-show="showEmailConfig">
+	<div>
+		<a title="Email Configuration" href="EmailConfiguration"><img src="{{ UtilImagesPath }}Email1.jpg" class="img-circle"></a>
+		<a title="Email Configuration" class=" users-list-name" href="EmailConfiguration">Email</a>
+	</div>
+</li>
+<li ng-show="showDiscount">
+	<div>
+		<a title="Discount Configuration" href="DiscountMgmt"><img src="{{ UtilImagesPath }}Discount1.png" class="img-circle"></a>
+		<a title="Discount Configuration" class=" users-list-name" href="DiscountMgmt">Discount</a>
+	</div>
+</li>
+<li ng-show="showMargin">
+	<div>
+		<a title="Margin Configuration" href="MarginMgmt"><img src="{{ UtilImagesPath }}Margin1.jpg" class="img-circle"></a>
+		<a title="Margin Configuration" class=" users-list-name" href="MarginMgmt">Margin</a>
+	</div>
+</li>
+<li ng-show="showMargin">
+	<div>
+		<a title="Project Margin Configuration" href="ProjectMarginAdmin"><img src="{{ UtilImagesPath }}Margin1.jpg" class="img-circle"></a>
+		<a title="Project Margin Configuration" class=" users-list-name" href="ProjectMarginAdmin">Project Margin Admin</a>
+	</div>
+</li>
+<li ng-show="showPaymentMgmt">
+	<div>
+		<a title="Payment Configuration" href="PaymentMgmt"><img src="{{ UtilImagesPath }}Payment1.jpg" class="img-circle"></a>
+		<a title="Payment Configuration" class=" users-list-name" href="PaymentMgmt">Payment</a>
+	</div>
+</li>
+<li ng-show="showMilestone">
+	<div>
+		<a title="Payment Milestone Configuration" href="Milestone"><img src="{{ UtilImagesPath }}Milestone1.jpg" class="img-circle"></a>
+		<a title="Payment Milestone Configuration" class=" users-list-name" href="Milestone">Milestone</a>
+	</div>
+</li>
+<li ng-show="showOppConfig">
+	<div>
+		<a title="Opportunity Configuration" href="OppConfiguration"><img src="{{ UtilImagesPath }}Opportunities1.jpg" class="img-circle"></a>
+		<a title="Opportunity Configuration" class=" users-list-name" href="OppConfiguration">Opportunity</a>
+	</div>
+</li>
+<li ng-show="showOppConfig">
+	<div>
+		<a title="Opportunity Rate" href="OpportunityRate"><img src="{{ UtilImagesPath }}Opportunities1.jpg" class="img-circle"></a>
+		<a title="Opportunity Rate" class=" users-list-name" href="OppConfiguration">Opportunity Rate</a>
+	</div>
+</li>
+<li ng-show="showTaskType">
+	<div>
+		<a title="TaskType Configuration" href="TaskTypeMgmt"><img src="{{ UtilImagesPath }}Task.jpg" class="img-circle"></a>
+		<a title="TaskType Configuration" class=" users-list-name" href="TaskTypeMgmt">TaskType</a>
+	</div>
+</li>
+<li ng-show="showCurrencyRate">
+	<div>
+		<a title="Currency Rate" href="CurrencyConversions"><img src="{{ UtilImagesPath }}CurrencyRate1.jpg" class="img-circle"></a>
+		<a title="Currency Rate" class=" users-list-name" href="CurrencyConversions">Currency Rate</a>
+	</div>
+</li>
+<li ng-show="showUserHierarchy">
+	<div>
+		<a title="User Hierarchy Configuration" href="UserHierarchy"><img src="{{ UtilImagesPath }}Hierarchy.jpg" class="img-circle"></a>
+		<a title="User Hierarchy Configuration" class=" users-list-name" href="UserHierarchy">User Hierarchy</a>
+	</div>
+</li>
+<li ng-show="showWeekendLeaves">
+	<div>
+		<a title="Weekend Leaves Configuration" href="WeekendLeaves"><img src="{{ UtilImagesPath }}Weekend1.jpg" class="img-circle"></a>
+		<a title="Weekend Leaves Configuration" class=" users-list-name" href="WeekendLeaves">Weekend Leaves</a>
+	</div>
+</li>
+<li ng-show="showHolidayCalendar">
+	<div>
+		<a title="Holiday Calendar Configuration" href="HolidayCalendar"><img src="{{ UtilImagesPath }}Holiday.jpg" class="img-circle"></a>
+		<a title="Holiday Calendar Configuration" class=" users-list-name" href="HolidayCalendar">Holiday Calendar</a>
+	</div>
+</li>
+
+<li ng-show="showLocation">
+	<div>
+		<a title="Location" href="Location"><img src="{{ UtilImagesPath }}Location1.png" class="img-circle"></a>
+		<a title="Location" class=" users-list-name" href="Location">Location</a>
+	</div>
+</li>
+
+<li ng-show="showBaseSkill">
+	<div>
+		<a title="BaseSkill" href="BaseSkill"><img src="{{ UtilImagesPath }}baseskill.png" class="img-circle"></a>
+		<a title="BaseSkill" class=" users-list-name" href="BaseSkill">BaseSkill</a>
+	</div>
+</li>
+
+</ul>
+</div>
+<div class="box-footer text-center">
+</div>
+</div>
+</div>
+</div>
+<div class="row">
+	<div class="col-xs-6">
+		<div class="box box-primary">
+			<div class="box-header with-border">
+				<h4 class="box-title">Manage Pages</h4>
+
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool pull-right" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+				</div>
+			</div>
+			<div class="box-body no-padding">
+				<ul class="users-list clearfix">
+					<li ng-show="showPriceSheetLock">
+						<div>
+							<a title="Price Sheet Unlock" href="PriceSheetLock"><img src="{{ UtilImagesPath }}Unlock.jpg" class="img-circle"></a>
+							<a title="Price Sheet Unlock" class=" users-list-name" href="PriceSheetLock">Price Sheet Unlock</a>
+						</div>
+					</li>
+					<li ng-show="showMergeOpp">
+						<div>
+							<a title="Merge Opportunities" href="mergeOpportunity"><img src="{{ UtilImagesPath }}Merge1.jpg" class="img-circle"></a>
+							<a title="Merge Opportunities" class=" users-list-name" href="mergeOpportunity">Merge Opportunities</a>
+						</div>
+					</li>
+					<li ng-show="showLoggedInUsers">
+						<div>
+							<a title="Find Logged-In Users" href="UserSession"><img src="{{ UtilImagesPath }}Find1.jpg" class="img-circle"></a>
+							<a title="Find Logged-In Users" class=" users-list-name" href="UserSession">Find Logged-In Users</a>
+						</div>
+					</li>
+				</ul>
+
+				<div class="box-footer text-center">
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="col-xs-6">
+		<div class="box box-primary">
+			<div class="box-header with-border">
+				<h4 class="box-title">My Day</h4>
+
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool pull-right" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+				</div>
+			</div>
+			<div class="box-body no-padding">
+				<ul class="users-list clearfix">
+					<li ng-show="showMyDayReports">
+						<div>
+							<a title="My Day Reports" href="MyDayReports"><img src="{{ UtilImagesPath }}MyDay.jpg" class="img-circle"></a>
+							<a title="My Day Reports" class=" users-list-name" href="MyDayReports">Reports</a>
+						</div>
+					</li>
+					<li ng-show="showMyDayReports">
+						<div>
+							<a title="My Day Reports" href="OpportunityReport"><img src="{{ UtilImagesPath }}MyDay.jpg" class="img-circle"></a>
+							<a title="My Day Reports" class=" users-list-name" href="OpportunityReport">Opportunity Reports</a>
+						</div>
+					</li>
+
+					<li ng-show="showHRMISLeaves">
+						<div>
+							<a title="HRMIS Leaves" href="HRMISLeaves"><img src="{{ UtilImagesPath }}Hrmis.jpg" class="img-circle"></a>
+							<a title="HRMIS Leaves" class=" users-list-name" href="HRMISLeaves">HRMIS Leaves</a>
+						</div>
+					</li>
+					<li ng-show="showBillingConfig">
+						<div>
+							<a title="Billing Report Configuration" href="BillingConfig"><img src="{{ UtilImagesPath }}BillingConfig.jpg" class="img-circle"></a>
+							<a title="Billing Report Configuration" class=" users-list-name" href="BillingConfig">Billing Report Configuration</a>
+						</div>
+					</li>
+				</ul>
+
+				<div class="box-footer text-center">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box box-primary">
+			<div class="box-header with-border">
+				<h4 class="box-title">Estimation Master Sheet</h4>
+
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool pull-right" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+				</div>
+			</div>
+			<div class="box-body no-padding">
+				<ul class="users-list clearfix">
+					<li>
+						<div>
+							<a title="Self Service" href="selfservicemaster">
+								<img src="{{EstImagesPath}}self.png" class="img-circle"></a>
+							<a title="Self Service Master" class=" users-list-name" href="selfservicemaster">Self Service</a>
+						</div>
+					</li>
+					<li>
+						<div>
+							<a title="Applications Master" href="applicationmaster"><img src="{{ EstImagesPath }}applications.png" class="img-circle"></a>
+							<a title="Applications Master" class=" users-list-name" href="applicationmaster">Applications</a>
+						</div>
+					</li>
+					<li>
+						<div>
+							<a title="Admin Reports" href="AdminReportsMaster"><img src="{{ EstImagesPath }}report.png" class="img-circle"></a>
+							<a title="Admin Reports" class=" users-list-name" href="AdminReportsMaster">Admin Reports</a>
+						</div>
+					</li>
+
+
+					<li>
+						<div>
+							<a title="Cisco Master" href="ciscomaster"><img src="{{ EstImagesPath }}cisco.png" style="height: 56px;" class="img-circle"></a>
+<a title="Cisco Master" class=" users-list-name" href="ciscomaster">Cisco</a>
+</div>
+</li>
+
+<li>
+	<div>
+		<a title="Avaya Master" href="avayamaster"><img src="{{ EstImagesPath }}avaya.png" class="img-circle"></a>
+		<a title="Avaya Master" class=" users-list-name" href="avayamaster">Avaya</a>
+	</div>
+</li>
+
+<li>
+	<div>
+		<a title="EGain Master" href="egainmaster"><img src="{{ EstImagesPath }}egain.png" class="img-circle"></a>
+		<a title="EGain Master" class=" users-list-name" href="egainmaster">EGain</a>
+	</div>
+</li>
+
+<li>
+	<div>
+		<a title="Servion Master" href="servionproductmaster"><img src="{{ EstImagesPath }}servion.jpg" class="img-circle"></a>
+		<a title="Servion Master" class=" users-list-name" href="servionproductmaster">Servion</a>
+	</div>
+</li>
+
+<li>
+	<div>
+		<a title="Acqueon Master" href="acqueonmaster"><img src="{{ EstImagesPath }}acqueon.png" class="img-circle"></a>
+		<a title="Acqueon Master" class=" users-list-name" href="acqueonmaster">Acqueon</a>
+	</div>
+</li>
+
+
+</ul>
+<ul class="users-list clearfix">
+
+	<li>
+		<div>
+			<a title="WFO Master" href="wfomaster"><img src="{{ EstImagesPath }}wfo1.png" class="img-circle"></a>
+			<a title="WFO Master" class=" users-list-name" href="wfomaster">WFO</a>
+		</div>
+	</li>
+
+	<li>
+		<div>
+			<a title="Others" href="othermaster"><img src="{{ EstImagesPath }}e2.png" class="img-circle"></a>
+			<a title="Others" class=" users-list-name" href="othermaster">Others</a>
+		</div>
+	</li>
+
+	<li>
+		<div>
+			<a title="Others" href="DynamiceSection"><img src="{{ EstImagesPath }}e2.png" class="img-circle"></a>
+			<a title="Others" class=" users-list-name" href="DynamiceSection">DynamiceSection</a>
+		</div>
+	</li>
+	<li>
+		<div>
+			<a title="Others" href="Selection"><img src="{{ EstImagesPath }}select.png" class="img-circle"></a>
+			<a title="Others" class=" users-list-name" href="Selection">Select Options</a>
+		</div>
+	</li>
+
+	<li>
+		<div>
+			<a title="Others" href="ManualEstimationType"><img src="{{ EstImagesPath }}esttypes.png" class="img-circle"></a>
+			<a title="Others" class=" users-list-name" href="ManualEstimationType">Manual Estimation Type</a>
+		</div>
+	</li>
+
+	<li>
+		<div>
+			<a title="SDLC" href="EstimationSDLC"><img src="{{ EstImagesPath }}s.jpg" class="img-circle"></a>
+			<a title="SDLC" class=" users-list-name" href="EstimationSDLC">SDLC</a>
+		</div>
+	</li>
+
+
+	<li>
+		<div>
+			<a title="Extended Efforts SDLC" href="ExtendedEffortsSDLC"><img src="{{ EstImagesPath }}s.jpg" class="img-circle"></a>
+			<a title="Extended Efforts SDLC" class=" users-list-name" href="ExtendedEffortsSDLC">Extended Efforts SDLC</a>
+		</div>
+	</li>
+
+	<li>
+		<div>
+			<a title="SDLC Resource" href="SDLCResource"><img src="{{ EstImagesPath }}s.jpg" class="img-circle"></a>
+			<a title="SDLC Resource" class=" users-list-name" href="SDLCResource">SDLC Resource</a>
+		</div>
+	</li>
+
+
+
+</ul>
+<div class="box-footer text-center">
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+</section>

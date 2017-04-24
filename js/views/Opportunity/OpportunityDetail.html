@@ -1,0 +1,31 @@
+﻿<form class="form-horizontal" role="form" name="opportunityform">
+    <div ng-include="'js/views/messageModel.html'"></div>
+    <!--<div ng-include="'js/views/Users/View360.html'"></div>-->
+    <div id="tabs" class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li ng-show="ShowTab1" ng-class="{active:isActiveTab('js/views/Opportunity/OpportunityDetailTab.html')}">
+                <a ng-click="onClickTab('js/views/Opportunity/OpportunityDetailTab.html')">Opportunity/Site/Configuration Details   <!--<span style="color:red" class="fa fa-exclamation-triangle" ng-show="!Tab1Isvalid"></span>--></a>
+            </li>
+            <li ng-show="ShowTab2" ng-class="{active:isActiveTab('js/views/Opportunity/AccessDetails.html')}">
+                <a ng-click="onClickTab('js/views/Opportunity/AccessDetails.html')">Access Details  <!--<span style="color:red" class="fa fa-exclamation-triangle" ng-show="!Tab2Isvalid"></span>--></a>
+            </li>
+            <li ng-show="ShowTab3" ng-class="{active:isActiveTab('js/views/Opportunity/CSCDetails.html')}">
+                <a ng-click="onClickTab('js/views/Opportunity/CSCDetails.html')">CSC Details/Opportunity History <!--<span style="color:red" class="fa fa-exclamation-triangle" ng-show="!Tab3Isvalid"></span>--></a>
+            </li>
+            <li ng-show="IsSCUser" ng-class="{active:isActiveTab('js/views/Opportunity/EstimationSDLC.html')}">
+                <a ng-click="onClickTab('js/views/Opportunity/EstimationSDLC.html')">SDLC Product<!--<span style="color:red" class="fa fa-exclamation-triangle" ng-show="!Tab3Isvalid"></span>--></a>
+            </li>
+            <!--<div class="pull-right"  style="margin-top:5px;margin-right:10px;margin-bottonm:10px; ">         
+             <a data-ng-click="View360(OpportunityDetail.id)" style="cursor:pointer">
+                <img src="{{ view360imgPath }}logo360.jpg" class="img-circle" width="65" height="50" title="View 360 menu">                 
+             </a>
+           
+             </div>        -->
+            <div my360></div>
+        </ul>
+
+        <div id="mainView">
+            <div ng-include="currentTab"></div>
+        </div>
+    </div>
+</form>

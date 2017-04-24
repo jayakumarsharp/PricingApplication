@@ -1,0 +1,55 @@
+﻿<div class="modal fade" id="milestoneModel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="align-self:center;width:35%;max-height:500px">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #3c8dbc;color:white">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h4 class="modal-title" id="myModalLabel">Edit Payment Milestone</h4>
+            </div>
+            <div class="modal-body">
+                <form novalidate class="form-horizontal" role="form" name="addEditMilestoneForm">
+                    <div class="form-group">
+                        <label for="MilestoneDescription" class="col-sm-4 control-label">Milestone Description</label>
+                        <div class="col-sm-6" style="margin-top:6px">
+                            <input class="form-control" type="text" ng-model="milestone.MilestoneDescription" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="PaymentCode" class="col-sm-4 control-label">Payment Code</label>
+                        <div class="col-sm-6" style="margin-top:6px">
+                            <input class="form-control" type="text" ng-model="milestone.PaymentCode" disabled />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="VendorBreakdown" class="col-sm-4 control-label">Vendor Breakdown</label>
+                        <div class="col-sm-6" style="margin-top:6px">
+
+                            <select class="form-control" ng-disabled="milestone.PaymentCode=='S3' || milestone.PaymentCode=='SC1' || milestone.PaymentCode=='SC2' || milestone.PaymentCode=='SC3'" type="text" ng-model="milestone.VendorBreakdown" required>
+                                <option value="">--Select--</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="PercentageType" class="col-sm-4 control-label">Percentage Type</label>
+                        <div class="col-sm-6" style="margin-top:6px">
+                            <select class="form-control" type="text" ng-model="milestone.PercentageType" required>
+                                <option value="">--Select--</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                    </div>
+            </div>
+            <!---->
+            <div class="modal-footer">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="submit" value="Update" ng-disabled="addEditMilestoneForm.$invalid" data-ng-click="UpdateMilestone(milestone)" class="btn btn-primary" />
+                    <input type="button" value="Cancel" data-ng-click="cancel()" class="btn btn-primary" />
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>

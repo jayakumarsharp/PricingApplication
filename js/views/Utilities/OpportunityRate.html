@@ -1,0 +1,87 @@
+<div style="height: 10%">
+</div>
+<div class="box-header with-border">
+    <h3 class="box-title">Opportunity Rate</h3>
+</div>
+
+<button class="btn bg-green-active btn-flat  margin-r-5 " style="float:right;" id="btnadd" ng-click="savemaster()" title="Add Row">Save Rates </button>
+<hr>
+
+<div class="box-body">
+    <div class="mnbxcont">
+        <uib-accordion close-others="oneAtATime">
+            <uib-accordion-group is-open="status.isFirstOpen">
+                <uib-accordion-heading>
+                    Stay Travel Rates
+                    <span class="btn btn-info btn-xs pull-right">
+                        <i class="fa" ng-class="{'fa-minus': status.isFirstOpen, 'fa-plus': !status.isFirstOpen}"></i>
+                     </span>
+                </uib-accordion-heading>
+                <div ag-grid="grdDefStay_Travel_Rates" style=" height:20%;width:100%;" class="ag-blue"></div>
+            </uib-accordion-group>
+
+            <uib-accordion-group is-open="statusResource.isFirstOpen">
+                <uib-accordion-heading>
+                    Resource
+                    <span class="btn btn-info btn-xs pull-right">
+                        <i class="fa" ng-class="{'fa-minus': statusResource.isFirstOpen, 'fa-plus': !statusResource.isFirstOpen}"></i>
+                     </span>
+                </uib-accordion-heading>
+                <div ag-grid="grdDefResource" style=" height:20%;width:100%;" class="ag-blue"></div>
+            </uib-accordion-group>
+
+            <uib-accordion-group is-open="statusServcare.isFirstOpen">
+                <uib-accordion-heading>
+                    ServCare Rates
+                    <span class="btn btn-info btn-xs pull-right">
+                        <i class="fa" ng-class="{'fa-minus': statusServcare.isFirstOpen, 'fa-plus': !statusServcare.isFirstOpen}"></i>
+                     </span>
+                </uib-accordion-heading>
+                <div ag-grid="grdDefServCareRates" style=" height:20%;width:100%;" class="ag-blue"></div>
+            </uib-accordion-group>
+            
+            <uib-accordion-group is-open="statusrates.isFirstOpen">
+                <uib-accordion-heading>
+                    Man Day Rates
+                    <span class="btn btn-info btn-xs pull-right">
+                        <i class="fa" ng-class="{'fa-minus': statusrates.isFirstOpen, 'fa-plus': !statusrates.isFirstOpen}"></i>
+                     </span>
+                </uib-accordion-heading>
+               <div ag-grid="grdDefManDayRates" style=" height:20%;width:100%;" class="ag-blue"></div>
+            </uib-accordion-group>            
+
+            <uib-accordion-group is-open="statusPM.isFirstOpen">
+                <uib-accordion-heading>
+                    Project Management
+                    <span class="btn btn-info btn-xs pull-right">
+                        <i class="fa" ng-class="{'fa-minus': statusPM.isFirstOpen, 'fa-plus': !statusPM.isFirstOpen}"></i>
+                     </span>
+                </uib-accordion-heading>
+               <div ag-grid="grdDefProjectManagement" style=" height:20%;width:100%;" class="ag-blue"></div>
+            </uib-accordion-group>     
+            
+           <uib-accordion-group is-open="statusmargins.isFirstOpen">
+                <uib-accordion-heading>
+                    Project Margins
+                    <span class="btn btn-info btn-xs pull-right">
+                        <i class="fa" ng-class="{'fa-minus': statusmargins.isFirstOpen, 'fa-plus': !statusmargins.isFirstOpen}"></i>
+                     </span>
+                </uib-accordion-heading>
+               <div ag-grid="grdDefGrossMargins" style=" height:20%;width:100%;" class="ag-blue"></div>
+            </uib-accordion-group>     
+        </uib-accordion>
+    </div>
+</div>
+<br>
+
+
+
+<br>
+</body>
+<!--<button data-ng-click="onRefreshAll()">Refresh All</button>-->
+
+<style>
+    .ag-blue .ag-header-cell-text {
+        float: left !important;
+    }
+</style>

@@ -1,0 +1,42 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <h2>OEM LIST</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        &nbsp;
+    </div>
+</div>
+<div class="row" ng-app="reportApp" ng-controller="OemController as oemlist">
+    <div class="col-md-6">
+        <div class="form-group" ng-class="{'has-error':inputOEM.$invalid && !inputOEM.$pristine }">
+            <label for="inputOEM" class="col-md-2 control-label">OEM:</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" name="inputOEM" ng-model=oemlist.oem.name>
+            </div>
+            <div class="col-md-1">
+                <button class="btn-info" role="button" ng-click="addOEM()"><span class="glyphicon glyphicon-plus"></span></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                &nbsp;
+            </div>
+        </div>
+        <table class="table table-bordered table-striped table-hover table-responsive">
+            <thead class="bg-primary">
+                <tr>
+                    <th style="text-align:center">OEM</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="oem in oems">
+                <tr>
+                    <td><span ng-bind="oem.name"></span><button class="btn-danger pull-right" role="button" ng-click="removeOEM()"><span style=" font-size:1em;" class="glyphicon glyphicon-trash"></span></button></td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

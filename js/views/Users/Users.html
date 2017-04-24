@@ -1,0 +1,36 @@
+﻿<!--<div>
+    <h3>Users List</h3>   
+</div>-->
+<div ng-app="userApp" class="box box-info" style="margin-top:20px">
+    <div ng-include="'js/views/Users/UserModel.html'"></div>
+    <div ng-include="'js/views/Users/viewModel.html'"></div>
+    <div ng-include="'js/views/Users/editModel.html'"></div>
+    <div ng-include="'js/views/Users/UserCreateModel.html'"></div>
+    <div ng-include="'js/views/confirmModel.html'"></div>
+    <div class="box-header with-border">
+        <h3 class="box-title">Manage Users</h3>
+        <div class="box-tools pull-right">
+            <button ng-show="!IsReadOnly" data-ng-click="showadd()" name="addUser" class="btn btn-sm btn-info btn-flat pull-right" title="Add user">Add <i class="fa fa-plus" style="color:white"></i></button>
+            <!--<button ng-show="false" data-ng-click="showtempadd()" class="btn btn-sm btn-info btn-flat pull-right" title="Create new user">Create <i class="fa fa-plus" style="color:white"></i></button>-->
+        </div>
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <div class="mnbxcont">
+            <div data-ag-grid="userGrid" class="ag-blue" style="color:#000;height: 500px;"></div>
+        </div>      
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

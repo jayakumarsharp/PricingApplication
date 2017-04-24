@@ -1,0 +1,43 @@
+
+
+<div class="modal fade" id="userModel" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" style="width:50%;height:400px">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color: #3c8dbc;color:white">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+				<h4 class="modal-title" id="myModalLabel" ng-hide="editMode">Add User</h4>
+				<h4 class="modal-title" id="myModalLabel" ng-show="editMode">Edit User</h4>
+			</div>
+			<div class="modal-body">
+				<form novalidate class="form-horizontal" role="form" name="adduserform">
+					<div class="form-group">
+						<div>
+							&nbsp;&nbsp;&nbsp;<input name="chkShowSelected" type="checkbox" ng-change="showSelectedUsers(user.showSelected)" ng-model="user.showSelected"
+								style="font-size: 7px" class="mnbxcont">&nbsp;<label style="font-size: 12px;font: 10pt Calibri, Arial, Verdana, sans-serif">Show Selected Users</label></input>
+						</div>
+						<div class="box-body">
+							<div class="mnbxcont">
+								<div data-ag-grid="addUserGrid" class="ag-blue" style="color:#000;height: 250px"></div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<div class="pull-right" style="padding-right:10px">
+
+					<input name="UserAdd" ng-disabled="adduserform.$invalid" type="submit" value="Add Users" data-ng-click="getSelected()"
+						class="btn btn-primary" />
+
+					<input name="UserCancel" type="button" value="Cancel" data-ng-click="cancel()" class="btn btn-primary" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div id="loader " class="animationload hide ">
+	<div class="loader ">
+		Loading...
+	</div>
+</div>

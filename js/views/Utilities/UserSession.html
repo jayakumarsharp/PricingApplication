@@ -1,0 +1,34 @@
+﻿<div ng-app="ReportApp" class="box box-info" style="margin:0 auto;width:60%">
+    <div class="box-header with-border">
+        <h3 class="box-title">Find Logged-In Users</h3>
+    </div>
+    <div>
+        <div class="box-body">
+            <div class="col-md-3">
+                <label>Search Date: </label>
+            </div>
+            <div class="col-md-5">
+                <div class="input-group date" data-provide="datepicker">
+                    <input required name="searchDate" ng-model="searchDate" type="text" id="searchDate" class="form-control" readonly>
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button data-ng-click="GetUserSession()" class="btn btn-sm btn-info btn-flat pull-right">Find Users</button>
+            </div>
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body" ng-show="showGrid">
+        <div class="mnbxcont">
+            <div data-ag-grid="UserSessionGrid" class="ag-blue" style="color:#000;!important;"></div>
+        </div>
+    </div>
+    <div class="box-body" ng-show="showErr">
+        <div class="mnbxcont">
+            <label style="color:red">{{DateMessage}}</label>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<div ng-app="userApp" class="box box-info" style="margin:0 auto;width:100%">
+    <div class="box-header with-border">
+        <h3 class="box-title">Payment Configuration</h3>
+    </div>
+    <form novalidate class="form-horizontal" role="form" name="paymentConfigForm">
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="form-group">
+                <label for="BU" class="col-sm-1 control-label">SBU</label>
+                <div class="col-sm-3" style="margin-top:6px">
+                    <select class="form-control" ng-change="RefreshRegion(paymentConfig.SBUID)" type="text" ng-model="paymentConfig.SBUID" ng-options="item.id as item.SBU for item in SBU"
+                        title="Select SBU">
+                                 <option value="">-- Select --</option></select>
+                </div>
+                <label for="Region" class="col-sm-1 control-label">Region</label>
+                <div class="col-sm-3" style="margin-top:6px">
+                    <select class="form-control" ng-change="GetPaymentConfig(paymentConfig.SBUID,paymentConfig.CountryId)" type="text" ng-model="paymentConfig.CountryId"
+                        ng-options="item.Id as item.CountryName for item in Region" title="Select Region">
+                                <option value="">-- Select --</option></select>
+                </div>
+                <div class="col-sm-3" style="margin-top:6px">
+                    <span class="btn btn-xs btn-success btn-flat" ng-show="showGrid && !Isdefaultdata">Data Available</span>
+                    <span class="btn btn-xs btn-danger btn-flat" ng-show="showGrid &&  Isdefaultdata">Data Not Available</span>
+
+                </div>
+
+            </div>
+            <div class="mnbxcont" ng-show="showGrid">
+                <div data-ag-grid="PaymentConfigGrid" class="ag-blue" style="color:#000;max-height: 600px !important;"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="col-sm-offset-2 col-sm-10">
+                <span data-ng-hide="editMode">
+                                <input type="submit" value="Save" ng-disabled="paymentConfigForm.$invalid" data-ng-click="AddPaymentConfig(paymentConfig.SBUID,paymentConfig.CountryId)" class="btn btn-primary" />
+                            </span>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,130 @@
+﻿
+<style type='text/css'>
+    fieldset.scheduler-border {
+        border: 1px solid #ddd !important;
+        padding: 0 1.4em 1.4em 1.4em !important;
+        margin: 0 0 1.5em 0 !important;
+        -webkit-box-shadow: 0px 0px 0px 0px #000;
+        box-shadow: 0px 0px 0px 0px #000;
+        width: 205px;
+        border-color: navy;
+    }
+
+    legend.scheduler-border {
+        font-size: 0.9em !important;
+        font-weight: bold !important;
+        text-align: left !important;
+        width: auto;
+        padding: 0 10px;
+        border-bottom: none;
+    }
+</style>
+
+<div class="modal fade" id="ManualOpportunityModel" tabindex="-1" role="dialog" aria-hidden="true">   
+    <div class="modal-dialog" style="width:60%">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #3c8dbc;color:white">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h4 class="modal-title" id="myModalLabel">Add Opportunity</h4>
+            </div>
+            <div class="modal-body" style="height:500px;overflow-y:auto;overflow-x:hidden">
+                <form novalidate class="form-horizontal" role="form" name="opportunityform">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="title" class="col-sm-4 control-label">SBU</label><span style="color:red" ng-show="opportunityform.SBUID.$error.required">*</span>
+                            <div class="col-sm-6">
+                                <select ng-change="refreshParentID()" ng-model="ManualOpportunityDetail.SBUID" required name="SBUID" class="form-control" ng-options="item.id as item.SBU for item in CreateSBULIST ">
+                                    <option value="">- Select SBU -</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-4 control-label">Country / Region</label><span style="color:red" ng-show="opportunityform.CountryId.$error.required">*</span>
+                            <div class="col-sm-6">
+                                <select ng-disabled="!ManualOpportunityDetail.SBUID" ng-model="ManualOpportunityDetail.CountryId" class="form-control" name="CountryId" required ng-options="item.Id as item.CountryName for item in CreateCountry ">
+                                    <option value="">- Select Country Name -</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-4 control-label">Opportunity Name</label><span style="color:red" ng-show="opportunityform.OpportunityName.$error.required">*</span>
+                            <div class="col-sm-6">
+                                <input type="text" maxlength="50" data-ng-model="ManualOpportunityDetail.OpportunityName" name="OpportunityName" class="form-control" id="Text2" placeholder="Opportunity Name" required title="Opportunity Name" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="title" class="col-sm-4 control-label">Account Name</label><span style="color:red" ng-show="opportunityform.AccountName.$error.required">*</span>
+                            <div class="col-sm-6">
+                                <input type="text" maxlength="50" data-ng-model="ManualOpportunityDetail.AccountName" name="AccountName" class="form-control" id="Text2" placeholder="Account name" required title="Account name"  />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="title" class="col-sm-4 control-label">Opportunity ID</label><span style="color:red" ng-show="opportunityform.OppId.$error.required">*</span>
+                            <div class="col-sm-6">
+                                <input type="text" maxlength="50" data-ng-model="ManualOpportunityDetail.OppId" name="OppId" class="form-control" id="Text3" placeholder="Opportunity ID" required title="Opportunity ID" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="title" class="col-sm-4 control-label">Account Manager Name</label><span style="color:red" ng-show="opportunityform.AccManagerName.$error.required">*</span>
+                            <div class="col-sm-6">
+                                <input type="text" maxlength="50" data-ng-model="ManualOpportunityDetail.AccManagerName" name="AccManagerName" class="form-control" id="Text5" placeholder="Account Manager Name" required title="Account Manager Name" charonly />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-4 control-label">Email</label><span style="color:red" ng-show="opportunityform.AccountSalesManager.$error.required">*</span><span style="color:red" ng-show="opportunityform.AccountSalesManager.$error.email">Invalid Email</span>
+                            <div class="col-sm-6">
+                                <input type="email" maxlength="254" data-ng-model="ManualOpportunityDetail.AccountSalesManager" name="AccountSalesManager" class="form-control" required id="Text5" placeholder="Email" title="Email" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-4 control-label">Parent Opportunity</label><span style="color:red" ng-show="opportunityform.ParentOppID.$error.required">*</span>
+                            <div class="col-sm-6">
+                                <select  data-ng-model="ManualOpportunityDetail.ParentOppID" name="ParentOppID" class="form-control" ng-options="item.OppId as item.OppId for item in ParentOpportunityList">
+                                    <option value="">- Select Parent Opportunity -</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="title" class="col-sm-4 control-label">Customer Type</label><span style="color:red" ng-show="opportunityform.CustomerType.$error.required">*</span>
+                            <div class="col-sm-6">
+                                <select data-ng-model="ManualOpportunityDetail.CustomerType" name="CustomerType" class="form-control" ng-options="item.CustomerTypeID as item.CustomerType for item in OpportunityCustomerTypeList">
+                                     <option value="">- Select Customer Type -</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-4 control-label">Servion Legal Entity</label><span style="color:red" ng-show="opportunityform.ServionLegalEntity.$error.required">*</span>
+                            <div class="col-sm-6">
+                                <select multiple data-ng-model="ManualOpportunityDetail.ServionLegalEntity" name="ServionLegalEntity" class="form-control" ng-options="item.ServionLegalEntityID as item.ServionLegalEntity for item in OpportunityServionLegalEntityList"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-4 control-label">Vertical </label><span style="color:red" ng-show="opportunityform.Vertical.$error.required">*</span>
+                            <div class="col-sm-6">
+                                <input type="text" maxlength="50" data-ng-model="ManualOpportunityDetail.Vertical" name="Vertical" required class="form-control" id="Text8" placeholder="Vertical" title="Enter your Vertical" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-4 control-label">Source  </label><span style="color:red" ng-show="opportunityform.Source.$error.required">*</span>
+                            <div class="col-sm-6">
+                                <input type="text" maxlength="50" data-ng-model="ManualOpportunityDetail.Source" name="Source" required class="form-control" id="Text8" placeholder="Source" title="Enter your Source" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-9 col-sm-10">
+                            <input data-ng-hide="editMode" ng-disabled="opportunityform.$invalid" type="submit" value="Add" data-ng-click="CreateManualOpportunity(ManualOpportunityDetail)" class="btn btn-primary" />
+                            <input type="button" value="Cancel" data-ng-click="cancel()" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

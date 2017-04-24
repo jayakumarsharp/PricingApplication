@@ -1,0 +1,84 @@
+<div class="box-header">
+    <h6 class="box-title">Opportunity Wise Report</h3>
+</div>
+<!-- /.box-header -->
+<div>
+    <table class="table table-bordered" style="width: 100%">
+<tbody>
+    <tr>
+        <th style="width: 11%">SBU</th>
+<th style="width: 11%">Sales status</th>
+<th style="width: 12%">Pre Sales status</th>
+<th colspan="2" style="width: 21%">TCV - VAD (Value Range)</th>
+<th colspan="2" style="width: 21%">ACV - VAD (Value Range)</th>
+<th colspan="2" style="width: 26%">Opportunity Creation Date (Date Range)</th>
+</tr>
+<tr>
+    <td> <select multiple class="form-control" ng-options="item.id as item.SBU for item in SBUs" ng-model="OppReport.SBUId" title="Select SBU">
+                        <option value="">- All -</option>
+               </select></td>
+
+    <td>
+        <select multiple class="form-control" name="SalesStatusId" required ng-model="OppReport.SalesStatusId" ng-options="sales.Id as sales.StatusName for sales in SalesStatus">
+                                <option value="">- All -</option>
+                            </select>
+    </td>
+    <td>
+        <select multiple class="form-control" name="PreSalesStatusId" required ng-model="OppReport.PreSalesStatusId" ng-options="presales.Id as presales.StatusName for presales in ListPreSalesStatus">
+                                <option value="">- All -</option>
+                            </select>
+        <td> From :
+            <input class="form-control" style="margin-top:5px" maxlength="7" numberonly ng-model="OppReport.TCVFrom" title="Enter Level 3 %" required />
+</td>
+<td>
+    To :
+    <input class="form-control" style="margin-top:5px" maxlength="7" numberonly ng-model="OppReport.TCVTo" title="Enter Level 3 %" required />
+</td>
+<td>
+    From :
+    <input class="form-control" style="margin-top:5px" maxlength="7" numberonly ng-model="OppReport.TCV1From" title="Enter Level 3 %" required />
+</td>
+<td>
+    To :
+    <input class="form-control" style="margin-top:5px" maxlength="7" numberonly ng-model="OppReport.TCV1To" title="Enter Level 3 %" required />
+</td>
+<td>
+    From :
+    <div class='input-group date' datetimepicker ng-model="OppReport.fromDate" name="summaryFromDate" id="TDFromDate">
+        <input type='text' class="form-control" readonly/>
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+        </span>
+    </div>
+</td>
+<td>
+    To:
+    <div class='input-group date' datetimepicker ng-model="OppReport.toDate" name="summaryToDate" id="TDToDate">
+        <input type='text' class="form-control" readonly/>
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+        </span>
+    </div>
+</td>
+
+</tr>
+</tbody>
+</table>
+</div>
+<!-- /.box-body -->
+<a target="_self" id="downloadpdf" href={{downloadurl}} download={{filename}} style="display: none"></a>
+
+<div class="row">
+    <div class="pull-right;" style="padding-top:10px;padding-right:10px">
+<button data-ng-click="GenerateReport(OppReport)" class="btn btn-sm btn-info btn-flat pull-right">Search <i class="fa fa-search" style="color:white"></i>
+</button>
+<button ng-disabled="ReportGriddata.length == 0" ng-show="showUtilsGrid" class="btn bg-teal btn-flat pull-right" ng-click="MakeContainerFullScreen(DefautState)"><i title="expand" ng-show="!DefautState" class="fa fa-expand"></i> <i title="collapse" ng-show="DefautState" class="fa fa-compress"></i></button>
+<button ng-disabled="ReportGriddata.length == 0" ng-show="showUtilsGrid" data-ng-click="Export()" class="btn btn-sm btn-info btn-flat pull-right">Export &nbsp;<i class="fa fa-file-excel-o" style="color:white"></i>
+
+</button>
+</div>
+</div>
+
+<div class="box-body">
+    <div class="mnbxcont">
+        <div data-ag-grid="OppReportGrid" class="ag-blue" style="color:#000;height: 270px"></div>
+</div>
+</div>

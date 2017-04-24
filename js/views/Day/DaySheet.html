@@ -1,0 +1,139 @@
+<uib-accordion close-others="oneAtATime">
+	<uib-accordion-group is-open="status.isFirstOpen">
+		<uib-accordion-heading>
+			Extended Efforts Cycle Configuration
+			<span class="btn btn-info btn-xs pull-right">
+                        <i class="fa" ng-class="{'fa-minus': status.isFirstOpen, 'fa-plus': !status.isFirstOpen}"></i>
+                     </span>
+		</uib-accordion-heading>
+
+
+		<form novalidate class="form-horizontal" name="myForm">
+			<div class="box-body">
+
+				<div class="form-group">
+					<label for="SBU" class="col-sm-2 control-label">REQ</label>
+					<div class="col-sm-2" style="margin-top:6px">
+						<input type="text" name="REQ" class="form-control" ng-model="ExtendedEffortCycle.REQ" ng-minlength="1" ng-maxlength="2" min="0"
+							max="100" ng-class="{'red':myForm.REQ.$invalid}" required ng-blur="changeExtendedEffort()" />
+					</div>
+
+					<label for="SBU" class="col-sm-2 control-label">Design</label>
+					<div class="col-sm-2" style="margin-top:6px">
+						<input type="text" name="Design" class="form-control" ng-model="ExtendedEffortCycle.Design" ng-minlength="1" ng-maxlength="2"
+							min="0" max="100" ng-class="{'red':myForm.Design.$invalid}" required ng-blur="changeExtendedEffort()" />
+					</div>
+
+
+					<label for="SBU" class="col-sm-2 control-label">DevTest</label>
+					<div class="col-sm-2" style="margin-top:6px">
+						<input type="text" name="DevTest" class="form-control" ng-model="ExtendedEffortCycle.DevTest" ng-minlength="1" ng-maxlength="2"
+							min="0" max="100" ng-class="{'red':myForm.DevTest.$invalid}" required ng-blur="changeExtendedEffort()" />
+
+					</div>
+
+					<label for="SBU" class="col-sm-2 control-label">SysTest</label>
+					<div class="col-sm-2" style="margin-top:6px">
+						<input type="text" name="SysTest" class="form-control" ng-model="ExtendedEffortCycle.SysTest" ng-minlength="1" ng-maxlength="2"
+							min="0" max="100" ng-class="{'red':myForm.SysTest.$invalid}" required ng-blur="changeExtendedEffort()" />
+					</div>
+
+
+
+					<label for="SBU" class="col-sm-2 control-label">IMPL</label>
+					<div class="col-sm-2" style="margin-top:6px">
+						<input type="text" name="IMPL" class="form-control" ng-model="ExtendedEffortCycle.IMPL" ng-minlength="1" ng-maxlength="2"
+							min="0" max="100" ng-class="{'red':myForm.IMPL.$invalid}" required  ng-blur="changeExtendedEffort()" />
+
+					</div>
+
+
+					<label for="SBU" class="col-sm-2 control-label">UAT</label>
+
+					<div class="col-sm-2" style="margin-top:6px">
+						<input type="text" name="UAT" class="form-control" ng-model="ExtendedEffortCycle.UAT" ng-minlength="1" ng-maxlength="2" min="0"
+							max="100" ng-class="{'red':myForm.UAT.$invalid}" required ng-blur="changeExtendedEffort()" />
+					</div>
+					<!--<div class="col-sm-4" ng-messages="myForm.DevTest.$error" style="margin-top:6px">
+                                                            <div ng-message="max">Please enter less than or equal to 100</div>
+                                                            <div ng-message="required" class="error-message">You did not enter a field</div>
+                                                        </div>-->
+
+					<label for="SBU" class="col-sm-2 control-label">PROD</label>
+					<div class="col-sm-2" style="margin-top:6px">
+						<input type="text" name="PROD" class="form-control" ng-model="ExtendedEffortCycle.PROD" ng-minlength="1" ng-maxlength="2"
+							min="0" max="100" ng-class="{'red':myForm.PROD.$invalid}" required ng-blur="changeExtendedEffort()" />
+
+					</div>
+
+					<label for="SBU" class="col-sm-2 control-label">Train</label>
+					<div class="col-sm-2" style="margin-top:6px">
+						<input type="text" name="Train" class="form-control" ng-model="ExtendedEffortCycle.Train" ng-minlength="1" ng-maxlength="2"
+							min="0" max="100" ng-class="{'red':myForm.Train.$invalid}" required  ng-blur="changeExtendedEffort()" />
+					</div>
+					<!--<div class="col-sm-4" ng-messages="myForm.PS.$error" style="margin-top:6px">
+                                                            <div ng-message="max">Please enter less than or equal to 100</div>
+                                                            <div ng-message="required" class="error-message">You did not enter a field</div>
+                                                        </div>-->
+
+
+					<label for="RoleID" class="col-sm-2 control-label">Manual</label>
+					<div class="col-sm-2" style="margin-top:6px">
+						<input type="text" name="Manual" class="form-control" ng-model="ExtendedEffortCycle.Manual" ng-minlength="1" ng-maxlength="2"
+							min="0" max="100" ng-class="{'red':myForm.Manual.$invalid}" required ng-blur="changeExtendedEffort()" />
+					</div>
+
+					<label for="SBU" class="col-sm-2 control-label">O & H</label>
+					<div class="col-sm-2" style="margin-top:6px">
+						<input type="text" name="OH" class="form-control" ng-model="ExtendedEffortCycle.OH" ng-minlength="1" ng-maxlength="2" min="0"
+							max="100" ng-class="{'red':myForm.OH.$invalid}" required  ng-blur="changeExtendedEffort()" />
+					</div>
+					<!--<div class="col-sm-4" ng-messages="myForm.RESOURCING.$error" style="margin-top:6px">
+                                                            <div ng-message="max">Please enter less than or equal to 100</div>
+                                                            <div ng-message="required" class="error-message">You did not enter a field</div>
+                                                        </div>-->
+
+
+					<label for="SBU" class="col-sm-2 control-label">SQA </label>
+					<div class="col-sm-2" style="margin-top:6px">
+						<input type="text" name="SQA" class="form-control" ng-model="ExtendedEffortCycle.SQA" ng-minlength="1" ng-maxlength="2" min="0"
+							max="100" ng-class="{'red':myForm.SQA.$invalid}" required  ng-blur="changeExtendedEffort()" />
+
+					</div>
+					<!--				
+					<label for="SBU" class="col-sm-2 control-label">PM</label>
+					<div class="col-sm-2" style="margin-top:6px">
+						<input type="text" name="PM" class="form-control" ng-model="ExtendedEffortCycle.PM" ng-minlength="1" ng-maxlength="2" min="0"
+							max="100" ng-class="{'red':myForm.PM.$invalid}" required />
+					</div>-->
+					<!--<div class="col-sm-4" ng-messages="myForm.TRADING.$error" style="margin-top:6px">
+                                                            <div ng-message="max">Please enter less than or equal to 100</div>
+                                                            <div ng-message="required" class="error-message">You did not enter a field</div>
+                                                        </div>-->
+				</div>
+			</div>
+
+			<!--<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-10">
+					<button class="btn bg-purple btn-flat margin-r-5" ng-disabled="!myForm.$valid" ng-show="grideditable" ng-click="changeExtendedEffort()"><i class="fa fa-save"></i>&nbsp;Save</button>
+					<button class="btn bg-blue btn-flat margin-r-5" ng-show="grideditable" ng-click="ResetEffors()"><i class="glyphicon glyphicon-remove-circle"></i>&nbsp;Cancel</button>
+				</div>
+			</div>-->
+
+		</form>
+		</div>
+	</uib-accordion-group>
+</uib-accordion>
+
+<div class="row">
+	<!-- ng-show="dvarea"-->
+	Estimated Efforts From Tool (in Hours)
+	<div ag-grid="gridExtendedEffortTool" class="ag-blue"></div>
+	Estimated Efforts Manually (in Hours)
+	<div ag-grid="gridExtendedEffortManual" class="ag-blue"></div>
+	Extended Efforts (in Hours)
+	<div ag-grid="gridExtendedEffortAdditional" class="ag-blue"></div>
+	Calculcated Efforts (in Hours)
+	<div ag-grid="gridCalculatedEffort" class="ag-blue"></div>
+
+</div>

@@ -1,0 +1,31 @@
+﻿<div class="modal fade" id="ViewRole" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="width:35%">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #3c8dbc;color:white">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h4 class="modal-title" id="myModalLabel">{{rolename.roleName}}</h4>
+            </div>
+            <div class="modal-body" style="max-height: 300px; overflow-y: auto">
+                <form class="form-horizontal" role="form" name="viewrole">
+                    <!--<div class="form-group">
+                        <label for="Name" class="col-sm-4 control-label">Role:</label>
+                        <div class="col-sm-8" style="margin-top:6px">
+                            {{rolename.roleName}}
+                        </div>
+                    </div>-->
+                    <div class="form-group">
+                        <label for="Access Rights" class="col-sm-4 control-label">Access Rights:</label>
+                        <div class="col-sm-8">
+                            <ul ng-repeat="item in rightnames" style="margin-top:6px">
+                                <li>{{item.rightName}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" name="closeRoleView" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

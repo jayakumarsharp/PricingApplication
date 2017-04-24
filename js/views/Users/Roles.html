@@ -1,0 +1,66 @@
+﻿<!--<div>
+    <h3>Roles List</h3>-->
+    <!--<form class="form-inline" style="margin-top:20px">
+        <div class="form-group">
+            <label>Search</label>
+            <input type="text" ng-model="search" class="form-control" placeholder="Search for roles">           
+        </div>
+        <div></div>
+    </form>-->    
+<!--</div>-->
+<div ng-app="roleApp" class="box box-info" style="margin-top: 20px; width: 35%; margin:0 auto; ">
+    <div ng-include="'js/views/Users/AddEditRole.html'"></div>
+    <div ng-include="'js/views/Users/ViewRole.html'"></div>
+    <div ng-include="'js/views/confirmModel.html'"></div>
+    <div class="box-header with-border">
+        <h3 class="box-title">Manage Roles</h3>
+        <div class="box-tools pull-right">
+            <!--<button class="btn btn-box-tool" data-ng-click="showadd()"><i class="fa fa-plus" style="color:deepskyblue"></i></button>-->
+            <button name="addRole" ng-show="!IsReadOnly" data-ng-click="showadd()" class="btn btn-sm btn-info btn-flat pull-right">Add <i class="fa fa-plus" style="color:white"></i></button>
+        </div>
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <div class="table-responsive">
+            <table class="table no-margin table-striped">
+                <thead>
+                    <tr>
+                        <th>Role Name</th>
+                        <th>Access Rights</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--<tr data-ng-repeat="role in RoleMenu | filter:search">-->
+                    <tr data-ng-repeat="role in Roles">
+                        <td><p>{{ role.RoleName }}</p></td>
+                        <!--<td data-ng-repeat=""><p>{{ menu.MenuID }}</p></td>-->
+                        <td>
+                            <p>
+                                <a data-ng-click="ViewRole(role.id)" name="viewRole" href="javascript:;">View</a> <span ng-show="!IsReadOnly"> | </span>
+                                <a ng-show="!IsReadOnly" name="editRole" data-ng-click="EditRole(role)" href="javascript:;">Edit</a><span ng-show="!IsReadOnly"> | </span>
+                                <a ng-show="!IsReadOnly" name="deleteRole" data-ng-click="showconfirm(role)" href="javascript:;">Delete</a>
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

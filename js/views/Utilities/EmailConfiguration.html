@@ -1,0 +1,85 @@
+﻿<div ng-app="userApp" class="box box-info" style="margin:0 auto;width:80%">
+<div class="box-header with-border">
+    <h3 class="box-title">Email Management</h3>
+</div>
+
+<div class="box-body">
+    <div class="mnbxcont">
+        <form class="form-horizontal" role="form" name="edituser">
+            <div class="form-group">
+                <label for="Group" class="col-sm-1 control-label">SBU</label>
+                <div class="col-sm-3" style="margin-top:6px">
+
+<select class="form-control" ng-change="GetEmails(email.BU,email.Group,email.Level)" data-ng-hide="editMode" type="text"
+    ng-model="email.BU" ng-options="item.id as item.SBU for item in SBU" title="Select SBU">
+                                 <option value="">-- Select --</option></select>
+</select>
+</div>
+<label for="Group" class="col-sm-1 control-label">Group</label>
+<div class="col-sm-3" style="margin-top:6px">
+<select class="form-control" ng-model="email.Group" title="Select Group" ng-change="GetEmails(email.BU,email.Group,email.Level)" required>
+                                    <option value="">- Select Group - </option>
+                                    <option value="Margin">Margin</option>
+                                    <option value="Discount">Discount</option>
+                                     <option value="ProjectMargin">Project Margin</option>
+                                </select>
+</div>
+<label for="Level" class="col-sm-1 control-label">Level</label>
+<div class="col-sm-3" style="margin-top:6px">
+<select class="form-control" ng-model="email.Level" title="Select Level" ng-change="GetEmails(email.BU,email.Group,email.Level)" required>
+                                    <option value="">- Select Level - </option>
+                                    <option value="1">Level 1 </option>
+                                    <option value="2">Level 2 </option>
+                                    <option value="3">Level 3 </option>
+                                </select>
+</div>
+</div>
+<div class="form-group">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 col-sm-offset-1">
+                <div class="list-group box-comments" id="list1" style="height:300px;overflow-x:auto">
+<a href="javascript:;" class="list-group-item active">
+                                            Available Emails
+                                        </a>
+<span ng-repeat="emailId in listA | orderBy:'emailId'">
+                                            <a href="javascript:;" data-id="{{emailId}}" class="list-group-item">
+                                                {{emailId}}
+                                                <input id="{{emailId}}" ng-model="isCheckedA" ng-click="stateAChanged(isCheckedA, emailId)" name="selectedA[]" value="{{emailId}}" class="pull-right" type="checkbox" ng-true-value="true" ng-false-value="false">
+                                            </a>
+                                        </span>
+</div>
+</div>
+<div class="col-md-1 v-center text-center">
+    <br /><br /><br />
+    <div class="btn-group-vertical">
+        <button class="btn btn-primary" ng-click="AlltoA()" id="btnAllA"><i class="fa fa-angle-double-left"></i></button>
+        <button class="btn btn-primary" ng-click="bToA()" id="btnA"><i class="fa fa-angle-left"></i></button>
+        <button class="btn btn-primary" ng-click="aToB()" id="btnB"><i class="fa fa-angle-right"></i></button>
+        <button class="btn btn-primary" ng-click="AlltoB()" id="btnAllB"><i class="fa fa-angle-double-right"></i></button>
+    </div>
+</div>
+<div class="col-sm-3">
+    <div class="list-group box-comments" id="list2" style="height:300px;overflow-x:auto">
+<a href="javascript:;" class="list-group-item active">
+                                                Selected Emails
+                                            </a>
+<span ng-repeat="emailId in listB | orderBy:'emailId'">
+                                                <a href="javascript:;" data-id="{{emailId}}" class="list-group-item">
+                                                    {{emailId}}
+                                                    <input id="{{emailId}}" ng-click="stateBChanged(isCheckedB, emailId)" ng-model="isCheckedB" name="selectedB[]" value="{{emailId}}" class="pull-right" type="checkbox" ng-true-value="true" ng-false-value="false">
+                                                </a>
+                                            </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</form>
+</div>
+<div class="modal-footer">
+    <input type="submit" value="Add Email" data-ng-click="AddEmails(email)" class="btn btn-primary" ng-disabled="edituser.$invalid || listB.length == 0"
+    />
+</div>
+</div>
+</div>

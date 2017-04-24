@@ -1,0 +1,35 @@
+﻿<div class="row">
+    <section class="col-lg-4 connectedSortable ui-sortable" ng-repeat="(key, value) in opportunities | groupBy: 'OppId'">
+        <div class="box box-info collapsed-box">
+            <div class="box-header with-border">
+                <i class="fa fa-usd"></i><h3 class="box-title"> {{value[0].OpportunityName }}</h3>
+                <button type="button" class="btn btn-info btn-xs pull-right" data-widget="collapse">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+            
+            <div class="box-body">
+                <ul class="todo-list ui-sortable" ng-repeat="opp in value  | orderBy:PriceSheetId:true">
+                    <li>
+                        <span>
+                            <i class="fa fa-hand-o-right"></i>
+                        </span>
+                        <a ng-click="RedirectToPrice(opp.id,opp.PriceSheetId)" style="cursor:pointer">
+                            <span class="text" ng-if="opp.count>0">{{opp.OpportunityName}}</span> {{opp.Version}}
+                        </a>
+                        <span class="text " ng-if="opp.count <= 0">Add New Price Sheet</span>
+                        <div class="tools">
+                            <a ng-click="RedirectToPrice(opp.id,opp.PriceSheetId)" style="cursor:pointer">
+                                <i class="fa fa-external-link-square" style="color: #00a65a !important"></i>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</div>
+<style>
+    fa-external-link-square {
+    }
+</style>

@@ -1,0 +1,58 @@
+﻿<div ng-app="ReportApp" class="box box-info" style="margin-top:20px">
+	<form name='scUtilForm'>
+		<div class="box-body">
+			<div class="row">
+				<div class="col-xs-1">
+					<label>Role: </label>
+				</div>
+				<div class="col-md-2">
+					<select multiple ng-change="GetUsersByTypes(scUtilWeekInput.TypeId)" class="form-control" ng-options="item.TypeID as item.TypeName for item in Types"
+						ng-model="scUtilWeekInput.TypeId" title="- Select User Type -">
+                        <option value="">- All -</option>
+                </select>
+				</div>
+				<div class="col-xs-1">
+					<label>User: </label>
+				</div>
+				<div class="col-md-2">
+					<select multiple class="form-control" ng-options="item.userId as item.UserName for item in Users" ng-model="scUtilWeekInput.UserId"
+						title="- Select User -">
+                        <option value="">- All -</option>
+                </select>
+				</div>
+				<div class="col-md-1">
+					<label>From: </label>
+				</div>
+				<div class="col-md-3">
+					<input type="week" class="form-control" datepicker-popup ng-model="scUtilWeekInput.FromDate" is-open="status.opened" required
+						close-text="Close" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="pull-right;" style="padding-top:10px;padding-right:10px">
+					<button data-ng-click="FetchSCUtilizationWeekly(scUtilWeekInput.TypeId, scUtilWeekInput.UserId)" class="btn btn-sm btn-info btn-flat pull-right">Search <i class="fa fa-search" style="color:white"></i></button>
+					<button ng-disabled="SCUtilizationWeekly.length == 0" ng-show="showUtilsWeeklyGrid" data-ng-click="ExportSCUtilizationWeekly()"
+						class="btn btn-sm btn-info btn-flat pull-right">Export &nbsp;<i class="fa fa-file-excel-o" style="color:white"></i></button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<div class="box-body" ng-show="showUtilsWeeklyGrid">
+	<div class="mnbxcont">
+		<div data-ag-grid="SCUtilsWeekGrid" class="ag-blue" style="color:#000;!important;height:450px"></div>
+	</div>
+</div>
+<div class="box-body" ng-show="showErr">
+	<div class="mnbxcont">
+		<label style="color:red">{{DateMessage}}</label>
+	</div>
+</div>
+</div>
+
+<style type="text/css">
+	.ag-blue .ag-row-odd {
+		background-color: #ffffff;
+	}
+</style>

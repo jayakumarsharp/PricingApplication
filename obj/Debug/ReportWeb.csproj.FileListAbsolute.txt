@@ -1,0 +1,54 @@
+E:\Projects\SVN Folders\CCA_INTERNAL\CCA\ReportFramework\ReportWeb\ReportWeb\bin\ReportWeb.dll.config
+E:\Projects\SVN Folders\CCA_INTERNAL\CCA\ReportFramework\ReportWeb\ReportWeb\bin\ReportWeb.dll
+E:\Projects\SVN Folders\CCA_INTERNAL\CCA\ReportFramework\ReportWeb\ReportWeb\bin\ReportWeb.pdb
+E:\Projects\SVN Folders\CCA_INTERNAL\CCA\ReportFramework\ReportWeb\ReportWeb\obj\Debug\ReportWeb.csprojResolveAssemblyReference.cache
+E:\Projects\SVN Folders\CCA_INTERNAL\CCA\ReportFramework\ReportWeb\ReportWeb\obj\Debug\ReportWeb.dll
+E:\Projects\SVN Folders\CCA_INTERNAL\CCA\ReportFramework\ReportWeb\ReportWeb\obj\Debug\ReportWeb.pdb
+E:\Projects\SVN Folders\CCA_INTERNAL\CCA\ReportFramework\ReportWeb\bin\ReportWeb.dll.config
+E:\Projects\SVN Folders\CCA_INTERNAL\CCA\ReportFramework\ReportWeb\bin\ReportWeb.dll
+E:\Projects\SVN Folders\CCA_INTERNAL\CCA\ReportFramework\ReportWeb\bin\ReportWeb.pdb
+E:\Projects\SVN Folders\CCA_INTERNAL\CCA\ReportFramework\ReportWeb\obj\Debug\ReportWeb.csprojResolveAssemblyReference.cache
+E:\Projects\SVN Folders\CCA_INTERNAL\CCA\ReportFramework\ReportWeb\obj\Debug\ReportWeb.dll
+E:\Projects\SVN Folders\CCA_INTERNAL\CCA\ReportFramework\ReportWeb\obj\Debug\ReportWeb.pdb
+D:\Projects\Angular\ReportWeb\bin\ReportWeb.dll.config
+D:\Projects\Angular\ReportWeb\bin\ReportWeb.dll
+D:\Projects\Angular\ReportWeb\bin\ReportWeb.pdb
+D:\Projects\Angular\ReportWeb\obj\Debug\ReportWeb.csprojResolveAssemblyReference.cache
+D:\Projects\Angular\ReportWeb\obj\Debug\ReportWeb.dll
+D:\Projects\Angular\ReportWeb\obj\Debug\ReportWeb.pdb
+E:\Niranjana\Projects\Pricing\ReportWeb\bin\ReportWeb.dll.config
+E:\Niranjana\Projects\Pricing\ReportWeb\bin\ReportWeb.dll
+E:\Niranjana\Projects\Pricing\ReportWeb\bin\ReportWeb.pdb
+E:\Niranjana\Projects\Pricing\ReportWeb\obj\Debug\ReportWeb.dll
+E:\Niranjana\Projects\Pricing\ReportWeb\obj\Debug\ReportWeb.pdb
+E:\Niranjana\Projects\Pricing\ReportWeb\obj\Debug\ReportWeb.csprojResolveAssemblyReference.cache
+D:\Share\Pricing-10.3.16\ReportWeb\bin\ReportWeb.dll.config
+D:\Share\Pricing-10.3.16\ReportWeb\bin\ReportWeb.dll
+D:\Share\Pricing-10.3.16\ReportWeb\bin\ReportWeb.pdb
+D:\Share\Pricing-10.3.16\ReportWeb\obj\Debug\ReportWeb.csprojResolveAssemblyReference.cache
+D:\Share\Pricing-10.3.16\ReportWeb\obj\Debug\ReportWeb.dll
+D:\Share\Pricing-10.3.16\ReportWeb\obj\Debug\ReportWeb.pdb
+E:\Niranjana\Projects\Pricing\Pricing-10.3.16\ReportWeb\bin\ReportWeb.dll.config
+E:\Niranjana\Projects\Pricing\Pricing-10.3.16\ReportWeb\bin\ReportWeb.dll
+E:\Niranjana\Projects\Pricing\Pricing-10.3.16\ReportWeb\bin\ReportWeb.pdb
+E:\Niranjana\Projects\Pricing\Pricing-10.3.16\ReportWeb\obj\Debug\ReportWeb.csprojResolveAssemblyReference.cache
+E:\Niranjana\Projects\Pricing\Pricing-10.3.16\ReportWeb\obj\Debug\ReportWeb.dll
+E:\Niranjana\Projects\Pricing\Pricing-10.3.16\ReportWeb\obj\Debug\ReportWeb.pdb
+E:\Niranjana\Projects\Pricing\Pricing-21.3.16\ReportWeb\bin\ReportWeb.dll.config
+E:\Niranjana\Projects\Pricing\Pricing-21.3.16\ReportWeb\bin\ReportWeb.dll
+E:\Niranjana\Projects\Pricing\Pricing-21.3.16\ReportWeb\bin\ReportWeb.pdb
+E:\Niranjana\Projects\Pricing\Pricing-21.3.16\ReportWeb\obj\Debug\ReportWeb.dll
+E:\Niranjana\Projects\Pricing\Pricing-21.3.16\ReportWeb\obj\Debug\ReportWeb.pdb
+E:\Niranjana\Projects\Pricing\Pricing-21.3.16\ReportWeb\obj\Debug\ReportWeb.csprojResolveAssemblyReference.cache
+E:\Niranjana\Projects\Pricing\Merged\Pricing-21.3.16\ReportWeb\bin\ReportWeb.dll.config
+E:\Niranjana\Projects\Pricing\Merged\Pricing-21.3.16\ReportWeb\bin\ReportWeb.dll
+E:\Niranjana\Projects\Pricing\Merged\Pricing-21.3.16\ReportWeb\bin\ReportWeb.pdb
+E:\Niranjana\Projects\Pricing\Merged\Pricing-21.3.16\ReportWeb\obj\Debug\ReportWeb.csprojResolveAssemblyReference.cache
+E:\Niranjana\Projects\Pricing\Merged\Pricing-21.3.16\ReportWeb\obj\Debug\ReportWeb.dll
+E:\Niranjana\Projects\Pricing\Merged\Pricing-21.3.16\ReportWeb\obj\Debug\ReportWeb.pdb
+D:\Servion Projects\Pricing Tool\ReportWeb\bin\ReportWeb.dll.config
+D:\Servion Projects\Pricing Tool\ReportWeb\bin\ReportWeb.dll
+D:\Servion Projects\Pricing Tool\ReportWeb\bin\ReportWeb.pdb
+D:\Servion Projects\Pricing Tool\ReportWeb\obj\Debug\ReportWeb.dll
+D:\Servion Projects\Pricing Tool\ReportWeb\obj\Debug\ReportWeb.pdb
+D:\Servion Projects\Pricing Tool\ReportWeb\obj\Debug\ReportWeb.csprojResolveAssemblyReference.cache

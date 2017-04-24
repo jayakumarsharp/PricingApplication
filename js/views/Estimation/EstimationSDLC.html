@@ -1,0 +1,147 @@
+<div style="height: 10%">
+</div>
+<div class="box-header with-border">
+    <h3 class="box-title"> Estimation SDLC Percentage</h3>
+</div>
+
+<button class="btn bg-green-active btn-flat  margin-r-5 " style="float:right;" id="btnadd" ng-click="savemaster()" title="Add Row">Save Master </button>
+<hr>
+
+<div class="box-body">
+    <div class="mnbxcont">
+        <uib-accordion close-others="oneAtATime">
+            <uib-accordion-group is-open="status.isFirstOpen">
+                <uib-accordion-heading>
+                    ACQUEON
+                    <span class="btn btn-info btn-xs pull-right">
+                        <i class="fa" ng-class="{'fa-minus': status.isFirstOpen, 'fa-plus': !status.isFirstOpen}"></i>
+                     </span>
+                </uib-accordion-heading>
+                <div ag-grid="grdDefACQUEON" style=" height:20%;width:90%;" class="ag-blue"></div>
+            </uib-accordion-group>
+
+            <uib-accordion-group is-open="status1.isFirstOpen">
+                <uib-accordion-heading>
+                    ADMIN
+                    <span class="btn btn-info btn-xs pull-right">
+                        <i class="fa" ng-class="{'fa-minus': status1.isFirstOpen, 'fa-plus': !status1.isFirstOpen}"></i>
+                     </span>
+                </uib-accordion-heading>
+                <div ag-grid="grdDefADMIN" style=" height:20%;width:90%;" class="ag-blue"></div>
+            </uib-accordion-group>
+
+            <uib-accordion-group is-open="statusAPPLICATIONS.isFirstOpen">
+                <uib-accordion-heading>
+                    APPLICATIONS
+                    <span class="btn btn-info btn-xs pull-right">
+                        <i class="fa" ng-class="{'fa-minus': statusAPPLICATIONS.isFirstOpen, 'fa-plus': !statusAPPLICATIONS.isFirstOpen}"></i>
+                     </span>
+                </uib-accordion-heading>
+                <div ag-grid="grdDefAPPLICATIONS" style=" height:20%;width:90%;" class="ag-blue"></div>
+            </uib-accordion-group>
+            
+            <uib-accordion-group is-open="statusAvaya.isFirstOpen">
+                <uib-accordion-heading>
+                    Avaya
+                    <span class="btn btn-info btn-xs pull-right">
+                        <i class="fa" ng-class="{'fa-minus': statusAvaya.isFirstOpen, 'fa-plus': !statusAvaya.isFirstOpen}"></i>
+                     </span>
+                </uib-accordion-heading>
+               <div ag-grid="grdDefAvaya" style=" height:20%;width:90%;" class="ag-blue"></div>
+            </uib-accordion-group>            
+
+            <uib-accordion-group is-open="statusCISCO.isFirstOpen">
+                <uib-accordion-heading>
+                    CISCO
+                    <span class="btn btn-info btn-xs pull-right">
+                        <i class="fa" ng-class="{'fa-minus': statusCISCO.isFirstOpen, 'fa-plus': !statusCISCO.isFirstOpen}"></i>
+                     </span>
+                </uib-accordion-heading>
+               <div ag-grid="grdDefCISCO" style=" height:20%;width:90%;" class="ag-blue"></div>
+            </uib-accordion-group>     
+            
+           <uib-accordion-group is-open="statuseGain.isFirstOpen">
+                <uib-accordion-heading>
+                    eGain
+                    <span class="btn btn-info btn-xs pull-right">
+                        <i class="fa" ng-class="{'fa-minus': statuseGain.isFirstOpen, 'fa-plus': !statuseGain.isFirstOpen}"></i>
+                     </span>
+                </uib-accordion-heading>
+               <div ag-grid="grdDefeGain" style=" height:20%;width:90%;" class="ag-blue"></div>
+            </uib-accordion-group>     
+    
+           <uib-accordion-group is-open="statusPACKAGE.isFirstOpen">
+                <uib-accordion-heading>
+                    PACKAGE
+                    <span class="btn btn-info btn-xs pull-right">
+                        <i class="fa" ng-class="{'fa-minus': statusPACKAGE.isFirstOpen, 'fa-plus': !statusPACKAGE.isFirstOpen}"></i>
+                     </span>
+                </uib-accordion-heading>
+               <div ag-grid="grdDefPACKAGE" style=" height:20%;width:90%;" class="ag-blue"></div>
+            </uib-accordion-group>  
+            
+           <uib-accordion-group is-open="statusPED.isFirstOpen">
+                <uib-accordion-heading>
+                    PED
+                    <span class="btn btn-info btn-xs pull-right">
+                        <i class="fa" ng-class="{'fa-minus': statusPED.isFirstOpen, 'fa-plus': !statusPED.isFirstOpen}"></i>
+                     </span>
+                </uib-accordion-heading>
+               <div ag-grid="grdDefPED" style=" height:20%;width:90%;" class="ag-blue"></div>
+            </uib-accordion-group>  
+            
+           <uib-accordion-group is-open="statusREPORT.isFirstOpen">
+                <uib-accordion-heading>
+                    REPORT
+                    <span class="btn btn-info btn-xs pull-right">
+                        <i class="fa" ng-class="{'fa-minus': statusREPORT.isFirstOpen, 'fa-plus': !statusREPORT.isFirstOpen}"></i>
+                     </span>
+                </uib-accordion-heading>
+               <div ag-grid="grdDefREPORT" style=" height:20%;width:90%;" class="ag-blue"></div>
+            </uib-accordion-group>  
+            
+           <uib-accordion-group is-open="statusSERVICE.isFirstOpen">
+                <uib-accordion-heading>
+                    SELF SERVICE
+                    <span class="btn btn-info btn-xs pull-right">
+                        <i class="fa" ng-class="{'fa-minus': statusSERVICE.isFirstOpen, 'fa-plus': !statusSERVICE.isFirstOpen}"></i>
+                     </span>
+                </uib-accordion-heading>
+               <div ag-grid="grdDefSELF_SERVICE" style=" height:20%;width:90%;" class="ag-blue"></div>
+            </uib-accordion-group>                                           
+
+           <uib-accordion-group is-open="statusPRODUCTS.isFirstOpen">
+                <uib-accordion-heading>
+                    SERVION PRODUCTS
+                    <span class="btn btn-info btn-xs pull-right">
+                        <i class="fa" ng-class="{'fa-minus': statusPRODUCTS.isFirstOpen, 'fa-plus': !statusPRODUCTS.isFirstOpen}"></i>
+                     </span>
+                </uib-accordion-heading>
+               <div ag-grid="grdDefSERVION_PRODUCTS" style=" height:20%;width:90%;" class="ag-blue"></div>
+            </uib-accordion-group>  
+            
+           <uib-accordion-group is-open="statusWFO.isFirstOpen">
+                <uib-accordion-heading>
+                    WFO
+                    <span class="btn btn-info btn-xs pull-right">
+                        <i class="fa" ng-class="{'fa-minus': statusWFO.isFirstOpen, 'fa-plus': !statusWFO.isFirstOpen}"></i>
+                     </span>
+                </uib-accordion-heading>
+               <div ag-grid="grdDefWFO" style=" height:20%;width:86%;" class="ag-blue"></div>
+            </uib-accordion-group>              
+        </uib-accordion>
+    </div>
+</div>
+<br>
+
+
+
+<br>
+</body>
+<!--<button data-ng-click="onRefreshAll()">Refresh All</button>-->
+
+<style>
+    .ag-blue .ag-header-cell-text {
+        float: left !important;
+    }
+</style>

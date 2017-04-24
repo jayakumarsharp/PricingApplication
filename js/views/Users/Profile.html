@@ -1,0 +1,101 @@
+﻿<div class="box-body">
+    <div ng-app="profileApp" style="margin-top: 20px; width: 70%; margin:0 auto; ">
+        <div class="box box-primary">
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Profile Image -->
+                    <!--<div class="box box-primary">-->
+                    <div class="box-body box-profile">
+                        <img class="profile-user-img img-responsive img-rounded" src="{{UserImagePath}}.jpg" alt="User profile picture">
+
+                        <h3 class="profile-username text-center">{{UserProfile.UserName}}</h3>
+
+                        <!--<p class="text-muted text-center">Software Engineer</p>-->
+
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <b>Employee ID</b> <a class="pull-right">{{UserProfile.EmployeeID}}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Department</b> <a class="pull-right">{{UserProfile.Department}}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Location</b> <a class="pull-right">{{UserProfile.DeliveryOffice}}</a>
+                            </li>
+                        </ul>
+                        <!--<label class="btn btn-primary btn-block"><b>User Profile</b></label>-->
+                    </div>
+                    <!-- /.box-body -->
+                    <!--</div>-->
+                </div>
+                <div class="col-md-6">
+                    <!--<div class="box box-primary">-->
+                    <div class="box-header with-border">
+                        <h3 class="box-title">More Info</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <strong><i class="fa fa-envelope margin-r-5"></i> Email</strong>
+                        <ul>
+                            <li>
+                                <p class="text-muted">
+                                    {{UserProfile.EmailId}}
+                                </p>
+                            </li>
+                        </ul>
+                        <hr>
+                        <strong><i class="fa fa-phone margin-r-5"></i> Contact</strong>
+                        <ul>
+                            <li>
+                                Mobile Number: <span class="text-muted">{{UserProfile.MobileNumber}}</span>
+                            </li>
+                            <li>
+                                Work Number: <span class="text-muted">{{UserProfile.TelephoneNumber}}</span>
+                            </li>
+                        </ul>
+                        <hr>
+
+                        <strong><i class="fa fa-user margin-r-5"></i> Reporting Manager: </strong>
+                        <ul>
+                            <li>
+                                <span class="text-muted">{{UserProfile.Manager}}</span>
+                            </li>
+                        </ul>
+                        <hr>
+                        <p>
+                            <span class="label label-info">{{UserProfile.User.Status}}</span>
+                            <span class="label label-success" ng-show="{{UserProfile.User.LastAuthenticatedDate}}">Last Authenticated: {{UserProfile.User.LastAuthenticatedDate}}</span>
+                            <!--<span class="label label-danger">{{UserProfile.User.Status}}</span>
+                            <span class="label label-warning">{{UserProfile.User.Status}}</span>
+                            <span class="label label-primary">{{UserProfile.User.Status}}</span>
+                        </p>-->
+
+                        <!--<hr>-->
+                        <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>-->
+                    </div>
+                    <!-- /.box-body -->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

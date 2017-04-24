@@ -1,0 +1,37 @@
+﻿<div ng-include="'js/views/confirmModel.html'"></div>
+<div class="box box-info" style="margin-top:20px">
+    <div class="box-header with-border">
+        <h3 class="box-title">Selection Management</h3>
+        <hr />
+        <form novalidate role="form" name="addcurrencyform">
+            <div class="form-group" ng-show="!IsReadOnly" ng-class="{'has-error':inputSelection.$invalid && !inputSelection.$pristine }">
+                <label for="inputSelection" class="col-md-1 col-md-offset-2  control-label">Key</label>
+                <div class="col-md-3">
+                    <input type="text" required ng-readonly="editMode" ng-pattern="/^[a-zA-Z0-9]*$/" class="form-control" maxlength="50" name="inputSelection"
+                        ng-model=Selection.Key>
+                </div>
+                <label for="inputSelection" class="col-md-1  control-label">Value</label>
+                <div class="col-md-3">
+                    <input type="text" required class="form-control" maxlength="250" name="inputSelection" ng-model=Selection.Selection>
+                </div>
+
+                <div>
+                    <button title="Clear Selection name field" data-ng-click="cancel()" class="btn btn-sm btn-info btn-flat pull-right">Clear </button>
+                </div>
+                <div>
+                    <button title="Update Selection" data-ng-show="editMode" ng-disabled="addcurrencyform.$invalid" data-ng-click="UpdateSelection(Selection)"
+                        class="btn btn-sm btn-info btn-flat pull-right">Update</button>
+                    <!--<i class="fa fa-plus" style="color:white"></i>-->
+                    <button title="Add new Selection" data-ng-hide="editMode" ng-disabled="addcurrencyform.$invalid" data-ng-click="add(Selection)"
+                        class="btn btn-sm btn-info btn-flat pull-right">Add <i class="fa fa-plus" style="color:white"></i></button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <div class="box-body">
+        <div class="mnbxcont">
+            <div data-ag-grid="SelectionGrid" class="ag-blue" style="color:#000;height: 400px !important;width:48%;margin-left:20%"></div>
+        </div>
+    </div>
+</div>

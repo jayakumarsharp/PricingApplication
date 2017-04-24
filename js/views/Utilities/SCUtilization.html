@@ -1,0 +1,61 @@
+﻿<div ng-app="ReportApp" class="box box-info" style="margin-top:20px">
+    <form name = 'scUtilForm'>
+         <div class="box-body">
+        <div class="row">
+            <div class="col-xs-1">
+                <label>Role: </label>
+            </div>
+            <div class="col-md-2">
+                <select multiple ng-change="GetUsersByTypes(scUtilInput.TypeId)" class="form-control" ng-options="item.TypeID as item.TypeName for item in Types" ng-model="scUtilInput.TypeId" title="- Select User Type -">
+                        <option value="">- All -</option>
+                </select>
+            </div>
+            <div class="col-xs-1">
+                <label>User: </label>
+            </div>
+            <div class="col-md-2">
+                <select multiple class="form-control" ng-options="item.userId as item.UserName for item in Users" ng-model="scUtilInput.UserId" title="- Select User -">
+                        <option value="">- All -</option>
+                </select>
+            </div>    
+            <div class="col-md-1">
+                <label>From: </label>
+            </div>
+            <div class="col-md-2">
+                    <input type="month" class="form-control" datepicker-popup ng-model="scUtilInput.FromDate" is-open="status.opened" min-date="minFromDate" max-date="maxFromDate"
+                        datepicker-options="dateOptions" date-disabled="disabled(date, mode)" required close-text="Close"/>
+            </div>
+            <div class="col-xs-1">
+                <label>&nbsp;&nbsp;To: </label>
+            </div>
+           <div class="col-md-2">
+                    <input type="month" class="form-control" datepicker-popup ng-model="scUtilInput.ToDate" is-open="status.opened" min-date="minToDate" max-date="maxToDate"
+                        datepicker-options="dateOptions" date-disabled="disabled(date, mode)" required close-text="Close"/>
+            </div>                               
+        </div>
+        <div class="row">
+             <div class="pull-right;" style="padding-top:10px;padding-right:10px">
+                <button data-ng-click="FetchSCUtilization(scUtilInput.TypeId, scUtilInput.UserId)" class="btn btn-sm btn-info btn-flat pull-right">Search <i class="fa fa-search" style="color:white"></i></button>
+                <button ng-disabled="SCUtilization.length == 0" ng-show="showUtilsGrid" data-ng-click="ExportSCUtilization()" class="btn btn-sm btn-info btn-flat pull-right">Export &nbsp;<i class="fa fa-file-excel-o" style="color:white"></i></button>
+            </div> 
+        </div>
+    </div>    
+    </form>
+</div>
+<!-- /.box-header -->
+<!--<div class="box-body" ng-show="showUtilsGrid">
+    <div class="mnbxcont">
+        <label style="color:blue">Working Days - {{WorkingDaysCount}}</label>
+    </div>
+</div>-->
+<div class="box-body" ng-show="showUtilsGrid">
+    <div class="mnbxcont">
+        <div data-ag-grid="SCUtilsGrid" class="ag-blue" style="color:#000;!important;"></div>
+    </div>
+</div>
+<div class="box-body" ng-show="showErr">
+    <div class="mnbxcont">
+        <label style="color:red">{{DateMessage}}</label>
+    </div>
+</div>
+</div>

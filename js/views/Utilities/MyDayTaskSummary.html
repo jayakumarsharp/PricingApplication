@@ -1,0 +1,118 @@
+﻿<div ng-app="ReportApp" class="box box-info" style="margin-top:20px">
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-1">
+                <label>User: </label>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control" ng-options="item for item in UsersForMyDay" ng-model="taskSummary.UserId" title="{{taskSummary.UserId}}"
+                    multiple>
+                        <option value="">All</option>
+                </select>
+            </div>
+            <div class="col-xs-1">
+                <label>Opportunity SBU: </label>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control" ng-options="item.id as item.SBU for item in SBUs" ng-model="taskSummary.SBUId" title="Select SBU"
+                    multiple>
+                        <option value="">All</option>
+                </select>
+            </div>
+            <div class="col-xs-1">
+                <label>Task Type: </label>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control" ng-options="item.TaskTypeId as item.TaskName for item in TaskTypes" ng-model="taskSummary.TaskName"
+                    title="{{item.TaskName}}" multiple>
+                                            <option value="">All</option>
+                </select>
+            </div>
+
+            <div class="col-xs-1">
+                <label>Report Type : </label>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control" id="reportType" multiple ng-model="taskSummary.ReportType">
+                    <option value="All">All</option>
+                     <option value="Resource">RESOURCE</option>
+                     <option value="SBU">SBU</option>
+                     <option value="Task">TASK</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-1">
+                <label>From: </label>
+            </div>
+            <div class="col-md-2">
+                <div class='input-group date' datetimepicker ng-model="taskSummary.FromDate" name="summaryFromDate" id="TDFromDate">
+                    <input type='text' class="form-control" readonly/>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+
+
+            <div class="col-xs-1">
+                <label>To: </label>
+            </div>
+            <div class="col-md-2">
+                <div class='input-group date' datetimepicker ng-model="taskSummary.ToDate" name="summaryToDate" id="TDToDate">
+                    <input type='text' class="form-control" readonly/>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-3 pull-right">
+                <button data-ng-click="FetchTaskSummaryReport()" class="btn btn-sm btn-info btn-flat pull-right">Search <i class="fa fa-search" style="color:white"></i></button>
+                <button data-ng-click="GetTaskummaryReportTotal()" class="btn btn-sm btn-info btn-flat pull-right">Get Total <i class="fa fa-search" style="color:white"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div>
+                <button ng-show="ShowSummaryGrid" data-ng-click="ExportTaskSummary()" class="btn btn-sm btn-info btn-flat pull-right">Export SBU<i class="fa fa-file-excel-o" style="color:white"></i></button>
+
+            </div>
+            <div>
+                <button ng-show="ShowTaskTypeSummaryGrid" data-ng-click="ExportTaskTypeSummary()" class="btn btn-sm btn-info btn-flat pull-right">Export Task<i class="fa fa-file-excel-o" style="color:white"></i></button>
+
+            </div>
+            <div>
+                <button ng-show="ShowUserBasedSummaryGrid" data-ng-click="ExportUserBasedSummary()" class="btn btn-sm btn-info btn-flat pull-right">Export Resource<i class="fa fa-file-excel-o" style="color:white"></i></button>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="box-body" ng-show="showSummaryTotal">
+    <div class="mnbxcont">
+        <label style="color:blue">Total Hours - {{TotalSummaryEfforts}}</label>
+    </div>
+</div>
+<div class="box-body" ng-show="ShowSummaryGrid">
+    <div class="mnbxcont">
+        <div data-ag-grid="taskSummaryGrid" class="ag-blue" style="color:#000;!important;"></div>
+    </div>
+</div>
+<div class="box-body" ng-show="ShowTaskTypeSummaryGrid">
+    <div class="mnbxcont">
+        <div data-ag-grid="tasktypeSummaryGrid" class="ag-blue" style="color:#000;!important;"></div>
+    </div>
+</div>
+<div class="box-body" ng-show="ShowUserBasedSummaryGrid">
+    <div class="mnbxcont">
+        <div data-ag-grid="userbasedSummaryGrid" class="ag-blue" style="color:#000;!important;"></div>
+    </div>
+</div>
+<div class="box-body" ng-show="showErr">
+    <div class="mnbxcont">
+        <label style="color:red">{{DateMessage}}</label>
+    </div>
+</div>
+</div>

@@ -1,0 +1,180 @@
+﻿<div class="box-body">
+    <div class="tab-content">
+        <!--<form class="form-horizontal" role="form" name="opportunityform">-->
+        <div class="tab-pane active">
+
+            <uib-accordion>
+
+                <uib-accordion-group is-open="status.isFirstOpen">
+                    <uib-accordion-heading>
+                        <span class="glyphicon glyphicon-tag" style="color:black"></span> CSC Details/Opportunity History <span class="btn btn-info btn-xs pull-right">
+                            <i class="fa" ng-class="{'fa-minus': status.isFirstOpen, 'fa-plus': !status.isFirstOpen}"></i>
+                        </span>
+                    </uib-accordion-heading>
+
+
+                    <div class="box box-info" style="max-height:300px; overflow-x:hidden; overflow-y:hidden">
+                        <div class="box-header with-border">
+                            <i class="ion ion-clipboard"></i><h3 class="box-title">CSC Owner</h3><span style="color:red" ng-show="opportunityform.CSCOwnerID.$error.required">&nbsp;&nbsp;&nbsp; Select CSC Owner</span>
+                            <button type="button" class="btn btn-info btn-xs pull-right" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                        <div class="box-body">
+                            <div class="container-fluid">
+                                <div class="container">
+                                    <div class="row">
+                                        <select ng-model="OpportunityDetail.CSCOwnerID" required name="CSCOwnerID">
+                                            <option value="">- Select CSC Owner -</option>
+                                            <option ng-repeat="x in CSCUsers" value="{{x.Userid}}">{{x.Userid}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="box box-info" style="max-height:450px; overflow-x:hidden; overflow-y:hidden">
+                        <div class="box-header with-border">
+                            <i class="ion ion-clipboard"></i><h3 class="box-title">CSC Team member</h3><span style="color:red" ng-show="listB_TM.length==0">&nbsp;&nbsp;&nbsp; Select CSC Team member</span>
+                            <button type="button" class="btn btn-info btn-xs pull-right" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                        <div class="box-body">
+                            <div class="container-fluid">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="list-group box-comments" id="list1TM" style="height:250px;overflow-x:auto">
+                                                <a href="javascript:;" class="list-group-item active">
+                                                    Available CSC users
+
+                                                </a>
+                                                <span ng-repeat="right in listA_TM | orderBy:'right.Userid'">
+                                                    <a href="javascript:;" data-id="{{right.Userid}}" class="list-group-item">
+                                                        {{right.Userid}}
+                                                        <input id="{{right.Userid}}" ng-model="isCheckedA_TM" ng-click="stateAChanged_TM(isCheckedA_TM, right.Userid)" name="selectedA_TM[]" value="{{right.Userid}}" class="pull-right" type="checkbox" ng-true-value="true" ng-false-value="false">
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        </div><!--/col-4-->
+                                        <div class="col-md-1 v-center text-center">
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <div class="btn-group-vertical">
+                                                <button class="btn btn-primary" ng-click="AlltoA_TM()" id="btnAllA_TM"><i class="fa fa-angle-double-left"></i></button>
+                                                <button class="btn btn-primary" ng-click="bToA_TM()" id="btnA_TM"><i class="fa fa-angle-left"></i></button>
+                                                <button class="btn btn-primary" ng-click="aToB_TM()" id="btnB_TM"><i class="fa fa-angle-right"></i></button>
+                                                <button class="btn btn-primary" ng-click="AlltoB_TM()" id="btnAllB_TM"><i class="fa fa-angle-double-right"></i></button>
+                                            </div>
+                                        </div><!--/col-2-->
+                                        <div class="col-sm-4">
+                                            <div class="list-group box-comments" id="list2TM" style="height:250px;overflow-x:auto">
+                                                <a href="javascript:;" class="list-group-item active">
+                                                    Selected user(s)
+
+                                                </a>
+                                                <span ng-repeat="right in listB_TM | orderBy:'right.Userid'">
+                                                    <a href="javascript:;" data-id="{{right.Userid}}" class="list-group-item">
+                                                        {{right.Userid}}
+                                                        <input id="{{right.Userid}}" ng-model="isCheckedB_TM" ng-click="stateBChanged_TM(isCheckedB_TM, right.Userid)" name="selectedB_TM[]" value="{{right.Userid}}" class="pull-right" type="checkbox" ng-true-value="true" ng-false-value="false">
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                        
+
+                    <div class="form-group">
+                        <label for="title" class="col-sm-2 control-label">CSC Status</label>
+                        <div class="col-sm-3">
+                            <select class="form-control" ng-model="OpportunityDetail.CSCStatusId" ng-options="CSC.Id as CSC.Name for CSC in CSCStatus"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="title" class="col-sm-2 control-label">Sales Status</label><span style="color:red" ng-show="opportunityform.SalesStatusId.$error.required">Please select sales status!</span>
+                        <div class="col-sm-3">
+                            <select class="form-control" name="SalesStatusId" required ng-model="OpportunityDetail.SalesStatusId" ng-options="sales.Id as sales.StatusName for sales in SalesStatus"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="title" class="col-sm-2 control-label">Opportunity Type</label><span style="color:red" ng-show="opportunityform.OpportunityTypeId.$error.required">Please select Opportunity Type!</span>
+                        <div class="col-sm-3">
+                            <select class="form-control" required name="OpportunityTypeId" ng-model="OpportunityDetail.OpportunityTypeId" ng-options="item.Id as item.OpportunityName for item in CSCOpptype "></select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="title" class="col-sm-2 control-label">Expected Closure Date</label><!--<span style="color:red" ng-show="opportunityform.ExpectedClosureDate.$error.required">Expected Closure Date cannot be empty!</span>-->
+                        <div class="col-sm-3">
+                            <div class="input-group date" data-provide="datepicker">
+                                <input required name="ExpectedClosureDate" readonly ng-model="OpportunityDetail.ExpectedClosureDate" type="text" class="form-control" id="ExpectedClosureDate" />
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <span ng-show="showErr" style="color:red">Expected Closure Date cannot be lesser than current date!</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="title" class="col-sm-2 control-label">SLA Closure Date</label><!--<span style="color:red" ng-show="opportunityform.SLAClosureDate.$error.required">SLA Closure Date cannot be empty!</span>-->
+                        <div class="col-sm-3">
+                            <!--<div class="input-group date" data-provide="datepicker">-->
+                                <input required name="SLAClosureDate" readonly ng-model="OpportunityDetail.SLAClosureDate" type="text" id="SLAClosureDate" class="form-control">
+                                <!--<div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="title" class="col-sm-2 control-label">Comments</label>
+                        <div class="col-sm-6">
+                            <textarea rows="2" style="max-width:800px;max-height:150px" maxlength="80" data-ng-model="OpportunityDetail.Comment" class="form-control" id="Text6" placeholder="Number of Agent Locations" title="Enter your EmailId"></textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <section class="col-lg-12 connectedSortable">
+                            <input type="button" value="Fit to grid" ng-click="autoSizeAll()" ng-show="false" />
+                            <div id="opportunityHistoryGrid" data-ag-grid="gridHistoryOptions" class="ag-blue" style="height: 300px;"></div>
+                        </section>
+                    </div>
+                    <!-- /.row (main row) -->
+                </uib-accordion-group>
+            </uib-accordion>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-11 col-sm-12">
+                <span data-ng-hide="editMode">
+                    <input type="submit" value="Save" ng-disabled="opportunityform.$invalid || listB_TM.length==0" data-ng-click="SaveData(OpportunityDetail,opportunityconfigurationdetail,'CSC')" class="btn btn-primary" />
+                </span>
+            </div>
+        </div>
+        <!--</form>-->
+        <!--<div class="form-group">
+            <div class="col-sm-offset-4 col-sm-6">
+                <span data-ng-hide="editMode">
+                    <input type="submit" value="Save" ng-disabled="!CanSave || opportunityform.$invalid || listB_TM.length==0" data-ng-click="SaveData(OpportunityDetail,OpportunityConfigurationDetail)" class="btn btn-primary" />
+                </span>
+
+            </div>
+
+
+        </div>-->
+    </div>
+</div>

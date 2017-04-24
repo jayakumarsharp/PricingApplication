@@ -1,0 +1,128 @@
+<div style="height: 10%">
+</div>
+<div class="box-header with-border">
+	<h3 class="box-title">Extended Estimation SDLC Percentage</h3>
+</div>
+<form novalidate class="form-horizontal" role="form" name="oppoForm">
+	<div class="box box-info" style="margin-top:20px">
+		<div class="box-header with-border">
+
+			<div class="form-group">
+				<label for="title" class="col-sm-4 control-label">Requirements Gathering</label>
+				<div class="col-sm-4">
+					<input type="text" maxlength="6" name="visa" required ng-model="OpportunityConfigurationDetail.REQ" class="form-control"
+						id="title" placeholder="Requirements Gathering" title="Enter Requirements Gathering" numberonly />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="title" class="col-sm-4 control-label">Design</label>
+
+				<div class="col-sm-4">
+					<input type="text" maxlength="6" name="Design" required ng-model="OpportunityConfigurationDetail.Design" class="form-control"
+						id="airFair" placeholder="Design" title="Enter Design" numberonly />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="title" class="col-sm-4 control-label">Develop & Test</label>
+
+				<div class="col-sm-4">
+					<input type="text" maxlength="6" name="Accommodation" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.DevTest"
+						class="form-control" id="Text4" placeholder="Develop & Test" required title="Enter Develop & Test" numberonly />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="title" class="col-sm-4 control-label">System Testing</label>
+
+				<div class="col-sm-4">
+					<input type="text" maxlength="6" name="PerDiemLaundry" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.ST"
+						class="form-control" id="Text6" placeholder="System Testing" required title="System Testing" numberonly />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="title" class="col-sm-4 control-label">Implementation & Testing</label>
+
+				<div class="col-sm-4">
+					<input type="text" maxlength="6" name="LocalConveyance" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.IMPL"
+						class="form-control" id="Text8" placeholder="Implementation & Testing" required title="Enter Implementation & Testing"
+						numberonly />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="title" class="col-sm-4 control-label">UAT</label>
+
+				<div class="col-sm-4">
+					<input type="text" maxlength="6" name="Miscellaneous" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.UAT"
+						class="form-control" id="Text10" placeholder="UAT" required title="Enter UAT" numberonly />
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<label for="title" class="col-sm-4 control-label">Production Support</label>
+
+				<div class="col-sm-4">
+					<input type="text" maxlength="3" name="SalaryHike" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.PROD"
+						class="form-control" id="Text14" placeholder="Production Support" required title="Enter Production Support" numberonly
+					/>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="title" class="col-sm-4 control-label">Training</label>
+
+				<div class="col-sm-4">
+					<input type="text" maxlength="3" name="Training" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.Train"
+						class="form-control" id="Text14" placeholder="Training" required title="Enter Training" numberonly
+					/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="title" class="col-sm-4 control-label">Manuals</label>
+
+				<div class="col-sm-4">
+					<input type="text" maxlength="3" name="SalarySpike" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.Manual"
+						class="form-control" id="Text16" placeholder="Salary Manuals" required title="Enter Manuals" numberonly />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="title" class="col-sm-4 control-label">Orientation & Handover</label>
+				<div class="col-sm-4">
+					<input type="text" maxlength="3" name="Margin" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.OH" class="form-control"
+						id="Text18" placeholder="Orientation & Handover" required title="Enter Orientation & Handover" numberonly />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="title" class="col-sm-4 control-label">QA / CM</label>
+
+				<div class="col-sm-4">
+					<input type="text" maxlength="3" name="Penalty" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.SQA" class="form-control"
+						id="Text20" placeholder="QA / CM" required title="Enter QA / CM" numberonly />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="title" class="col-sm-4 control-label">Project Management</label>
+				<div class="col-sm-4">
+					<input type="text" maxlength="3" name="Penalty" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.PM" class="form-control"
+						id="Text20" placeholder="Project Management" required title="Enter Project Management" numberonly />
+				</div>
+			</div>
+
+			</fieldset>
+		</div>
+	</div>
+
+</form>
+<div class="modal-footer">
+	<div class="col-sm-offset-2 col-sm-10">
+		<input type="submit" value="Save" ng-disabled="oppoForm.$invalid" data-ng-click="AddExtendedEfforts(OpportunityConfigurationDetail)"
+			class="btn btn-primary" />
+	</div>
+</div>

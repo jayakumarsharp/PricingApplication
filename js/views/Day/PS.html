@@ -1,0 +1,1087 @@
+<div ng-include="'js/views/Day/UserModel.html'">
+</div>
+<div class="row" style="padding-bottom:2px;padding-top:5px;margin-left:5px;">
+
+<div class="btn-group margin-r-5">
+	<h5 style="font-weight:700;"><span style="color:blue;">{{ OpportunityDetail_PriceList.OpportunityName }}</span> {{MaxVersion_PriceList }}
+<span style="color:red;" ng-if="sheetholdedby_PriceList.length > 0">{{sheetholdedby_PriceList}}</span>
+<span ng-show="LockStatusMsg" class="margin-r-5" style="color: blue;">-
+<timer countdown="840" autostart="false" finish-callback="finished()" interval="1000">{{minutes}} Min, {{seconds}} Sec</timer>
+</span>
+</h5>
+
+</div>
+
+<button class="btn bg-teal btn-flat pull-right" ng-click="MakeContainerFullScreen(DefautState)"><i title="expand" ng-show="!DefautState" class="fa fa-expand"></i> <i title="collapse" ng-show="DefautState" class="fa fa-compress"></i></button>
+<button uib-popover-template="dynamicPopover.templateUrl" popover-placement="bottom" type="button" class="btn btn-default pull-right margin-r-5 ">Version History</button>
+
+<button class="btn bg-maroon btn-flat margin-r-5 pull-right" ng-show="LockStatusMsg" ng-click="saveasPriceSheetpop()"><i class="fa fa-save"></i>&nbsp;Save As</button>
+<button class="btn bg-purple btn-flat margin-r-5 pull-right" ng-show="LockStatusMsg" ng-click="AddPriceSheetpop()"><i class="fa fa-save"></i>&nbsp;save </button>
+<button class="btn bg-blue btn-flat margin-r-5 pull-right" ng-show="LockStatusMsg" ng-click="IgnoreChanges()"> <i class="glyphicon glyphicon-remove-circle"></i>&nbsp;Discard</button>
+
+<button class="btn bg-blue btn-flat margin-r-5  pull-right" ng-show="hasedit_PriceList && !IsReadOnly_PriceList" ng-click="EditSheet()">Edit</button>
+
+<script type="text/ng-template" id="myPopoverTemplate.html">
+                    <div class="form-group" style="width:400px">
+                        <div ng-repeat="opp in Versiondata | orderBy:PriceSheetId:true">
+                            <a ng-class="{'blinktext': {{opp.PriceSheetId}}==MaxSheetGroupID }" href="DaySheet/{{GlobalIdentityOppId_PriceList}}/{{opp.PriceSheetId}}">{{opp.Version}}&nbsp;&nbsp;<span class="badge bg-maroon">{{opp.CreatedBy}}</span>&nbsp;&nbsp;<span class="badge bg-blue" title="{{opp.Comment}}">{{opp.Comment.length > 10 ? opp.Comment.substring(0,9)+'..' : opp.Comment }}</span><span class="badge bg-yellow">{{opp.CreatedOn}}</span> </a>
+                        </div>
+                    </div>
+                </script>
+
+</div>
+<div my360></div>
+
+<div class="box-body test1">
+
+	<ul class="nav nav-tabs" class="ng-isolate-scope">
+
+		<li ng-repeat="tab1 in tabs1" data-as-sortable-item ng-class="tab1.active ? 'active' : ''">
+			<a href="" ng-click="select(tab1,2)" class="ng-binding" data-as-sortable-item-handle>{{tab1.title}}</a>
+		</li>
+
+
+	</ul>
+	<div class="tab-content" style="padding:0px !important;">
+
+<!--opp details-->
+<div class="tab-pane" ng-class="tabs1[0].active ? 'active' : ''">
+	<div class="clearfix clear">
+		<form class="form-horizontal" role="form" name="SiteDetailsform">
+			<div class="form-group">
+				<label for="title" class="col-sm-3 control-label">Number of Data Center Locations</label>
+				<span style="color:#d9534f" ng-show="opportunityform.NoOfDataCenterLocs.$error.pattern">Not a valid data!</span>
+<span style="color:#d9534f" ng-show="opportunityform.NoOfDataCenterLocs.$error.required">Not a valid data!</span>
+<div class="col-sm-3">
+	<input type="text" name="NoOfDataCenterLocs" maxlength="6" ng-pattern="/^(\d)+$/" data-ng-model="OpportunityDetail.NoOfDataCenterLocs"
+		ng-blur="onchangedatacenter()" class="form-control" id="Text1" placeholder="Number of Data Center Locations" required title="Number of Data Center Locations"
+		numberonly />
+</div>
+</div>
+<div class="form-group">
+	<label for="title" class="col-sm-3 control-label">Number of Agent Locations</label>
+	<span style="color:#d9534f" ng-show="opportunityform.NoOfAgentCenterLocs.$error.pattern">Not a valid data!</span>
+<span style="color:#d9534f" ng-show="opportunityform.NoOfAgentCenterLocs.$error.required">Not a valid data!</span>
+<div class="col-sm-3">
+	<input type="text" name="NoOfAgentCenterLocs" maxlength="6" ng-pattern="/^(\d)+$/" data-ng-model="OpportunityDetail.NoOfAgentCenterLocs"
+		ng-blur="onchangedatacenter()" class="form-control" id="Text7" placeholder="Number of Agent Locations" required title="Number of Agent Locations"
+		numberonly />
+</div>
+</div>
+<div class="form-group">
+	<label for="title" class="col-sm-3 control-label">Are Data Center and Agents Co-located</label>
+	<span style="color:#d9534f" ng-show="opportunityform.IsDataCenterandAgentsColocated.$error.pattern">Not a valid data!</span>
+<div class="col-sm-3">
+	<select ng-model="OpportunityDetail.IsDataCenterandAgentsColocated" ng-options="item.Id as item.LocatedType for item in DataCenterLocated"
+		class="form-control"></select>
+</div>
+</div>
+
+</form>
+</div>
+
+</div>
+
+<!--Resourcing-->
+<div class="tab-pane" ng-class="tabs1[1].active ? 'active' : ''">
+	<button class="btn bg-green-active btn-flat" style="margin-left:10px;" ng-show="isEditClicked" id="btnaddResource" ng-click="AddResourceRow()" title="Add Row"><i class="fa fa-plus"></i> </button>
+<button class="btn bg-red-active btn-flat" ng-show="isEditClicked" ng-click="DeleteResourceRow()" title="Delete Row"><i class="fa fa-trash"></i> </button>
+
+<div data-ag-grid="resourceGrid" class="ag-blue" style="color:#000;height:450px;"></div>
+</div>
+
+<!--T& E-->
+<div class="tab-pane" ng-class="tabs1[2].active ? 'active' : ''">
+
+	<ul class="tabrow" class="ng-isolate-scope">
+		<li ng-repeat="tab2 in TEtabs" data-as-sortable-item ng-class="tab2.active ? 'active' : ''">
+			<a href="" ng-click="select(tab2,3)" class="ng-binding" data-as-sortable-item-handle>{{tab2.title}}</a>
+		</li>
+	</ul>
+	<div class="tab-content" style="padding:0px !important;">
+<div class="tab-pane" ng-class="TEtabs[0].active ? 'active' : ''">
+	<div data-ag-grid="tandEPSGrd" class="ag-blue" style="color:#000;height:450px"></div>
+</div>
+<div class="tab-pane" ng-class="TEtabs[1].active ? 'active' : ''">
+	<div data-ag-grid="tandEResourceGrid" class="ag-blue" style="color:#000;height:450px"></div>
+</div>
+</div>
+</div>
+
+
+<!--Estimation -->
+<div class="tab-pane" ng-class="tabs1[3].active ? 'active' : ''">
+	<div class="ng-isolate-scope">
+
+
+		<div class="ng-isolate-scope">
+			<ul class="tabrow" data-as-sortable="" data-ng-model="tabs">
+				<li ng-repeat="tab in tabs" data-as-sortable-item ng-class="tab.active ? 'active' : ''">
+					<a href="" ng-click="select(tab,1)" class="ng-binding" data-as-sortable-item-handle>{{tab.title}}</a>
+				</li>
+			</ul>
+			<div class="tab-content" style="padding:0px !important;">
+<div class="tab-pane box-body" ng-class="tabs[0].active ? 'active' : ''">
+
+	<div ng-include="'js/views/Day/EstimationVersionSelection.html'"></div>
+
+</div>
+<div class="tab-pane box-body" ng-class="tabs[1].active ? 'active' : ''">
+	<div ng-include="'js/views/Day/DaySheet.html'"></div>
+</div>
+<div class="tab-pane box-body" ng-class="tabs[2].active ? 'active' : ''">
+	<div class="row">
+		LOB (Detailed view)
+		<div id="myGrid" ag-grid="gridLOB" class="ag-blue" style="overflow: hidden;"></div>
+</div>
+</div>
+<div class="tab-pane box-body" ng-class="tabs[3].active ? 'active' : ''">
+	<div class="row">
+
+		<div class="box collapsed-box box-widget  box-warning" style="width:30%;margin-left:30%;">
+<div class="box-header with-border">
+	<i class="fa fa-bookmark-o xs"></i>
+	<h3 class="box-title">Project Complexity</h3>
+
+	<div class="box-tools pull-right">
+		<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>                </button>
+		<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+	</div>
+</div>
+
+
+
+<div class="box-body" style="display: block;">
+<table style="border:1px solid black;border-collapse:collapse;background-color:yellow;width:100%; ">
+
+<tbody>
+
+	<tr>
+		<td style="border:1px solid black;">DDT PS
+
+</td>
+<td style="border:1px solid black;"><span ng-bind="DDTLEVEL">-</span><span ng-bind="DDTLEVELval"></span>
+</td>
+</tr>
+<tr style="border:1px solid black">
+<td style="border:1px solid black;">IMPL PS
+
+</td>
+<td style="border:1px solid black;"><span ng-bind="IMPLLEVEL">-</span><span ng-bind="IMPLLEVELval"></span>
+</td>
+</tr>
+<tr style="border:1px solid black">
+<td style="border:1px solid black;">MANUAL DDT PS
+
+</td>
+<td style="border:1px solid black;"><span ng-bind="MDDTLEVEL">-</span><span ng-bind="MDDTLEVELval"></span>
+</td>
+</tr>
+<tr>
+	<td style="border:1px solid black;"> MANUAL IMPL PS
+</td>
+<td style="border:1px solid black;"><span ng-bind="MIMPLLEVEL">-</span><span ng-bind="MIMPLLEVELval"></span>
+</td>
+</tr>
+
+<tr>
+	<td style="border:1px solid black;"> MANUAL OTHER
+</td>
+<td style="border:1px solid black;"><span ng-bind="MOtherLEVEL">-</span><span ng-bind="MOtherLEVELval"></span>
+</td>
+</tr>
+
+<tr>
+	<td style="border:1px solid black;"> REDUCTION</td>
+<td style="border:1px solid black;"> <span ng-bind="ReductionMsg">-</span></td>
+</tr>
+<tr>
+	<td style="border:1px solid black;"> STATUS </td>
+<td style="border:1px solid black;"> <span ng-bind="ComplexType">-</span>
+</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="myGrid" ag-grid="gridFTEDays" class="ag-blue" style="width:100%;overflow: hidden;"></div>
+<div id="myGrid" ag-grid="gridDistribution" class="ag-blue" style="width:100%;overflow: hidden;"></div>
+<div id="myGrid" ag-grid="gridPriceCost" class="ag-blue" style="width:100%;overflow: hidden;"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="tab-pane" ng-class="tabs1[4].active ? 'active' : ''">
+	<div class="row" style="padding-bottom:10px;">
+<button class="btn bg-blue-active btn-flat  margin-r-5 " style="margin-left:10px;" ng-show="isEditClicked" id="btnadd" ng-click="addnewpricerow()" title="Add Row"><i class="fa fa-plus"></i> </button>
+<button class="btn bg-red-active btn-flat" ng-show="isEditClicked" ng-click="deleteRow()"><i class="fa fa-trash" title="Delete row"></i> </button>
+</div>
+<div id="myGrid" ag-grid="gridOptions_PriceList" class="ag-blue" style="height: 515px; overflow: hidden;"></div>
+</div>
+
+<div class="tab-pane" ng-class="tabs1[5].active ? 'active' : ''">
+	<div class="row">
+		<div id="myGrid" ag-grid="gridPayment" class="ag-blue" style="height: 550px; overflow: hidden;"></div>
+<div class="row pull-right">
+	<span class="btn btn-default btn-flat">Total "Customer Price" <br />From Pricing sheet</span>
+	<span class="btn btn-success btn-flat">{{ PutComma(calculatedTotalinPricing) }}</span>
+	<span class="btn btn-default btn-flat">Total "Invoice Value"</span>
+	<span class="btn btn-success btn-flat">{{ PutComma(calculatedTotalinPayment) }}</span> &nbsp;
+	<span class="btn btn-flat btn-success" ng-show="calculatedTotalinPricing == calculatedTotalinPayment">Good to Go</span>
+	<span class="btn btn-flat btn-danger" ng-show="calculatedTotalinPricing != calculatedTotalinPayment">Check Error</span>
+</div>
+</div>
+
+</div>
+
+<div class="tab-pane" ng-class="tabs1[6].active ? 'active' : ''">
+
+	<form novalidate class="form-horizontal" name="myForm">
+
+		<div class="form-group">
+			<label for="SBU" class="col-sm-3 control-label">MAINTENANCE</label>
+			<div class="col-sm-2" style="margin-top:6px">
+<input type="text" name="MAINTANACE" class="form-control {{ColorValues.MAINTANACE}}" ng-readonly="true" ng-model="margin.MAINTANACE"
+	ng-minlength="1" ng-maxlength="8" min="0" max="100" step="0.01" required />
+</div>
+<span class="col-sm-1" style="margin-top:6px">%</span>
+<div class="col-sm-2" style="margin-top:6px">
+<input type="number" class="form-control" ng-readonly="!isEditClicked" ng-model="MAINTANACEvalue" ng-blur="calculatevalue(MAINTANACEvalue,1)"
+	ng-paste="false" ng-maxlength="15" />
+</div>
+<div class="col-sm-4" ng-messages="myForm.MAINTANACE.$error" style="margin-top:6px">
+<div ng-message="max">Please enter less than or equal to 100</div>
+<div ng-message="required" class="error-message">You did not enter a field</div>
+</div>
+</div>
+<div class="form-group">
+	<label for="SBU" class="col-sm-3 control-label">IP</label>
+	<div class="col-sm-2" style="margin-top:6px">
+<input type="text" name="IP" class="form-control {{ColorValues.IP}}" ng-readonly="true" ng-model="margin.IP" ng-maxlength="8"
+	min="0" max="100" step="0.01" required />
+
+</div>
+<span class="col-sm-1" style="margin-top:6px">%</span>
+<div class="col-sm-2" style="margin-top:6px">
+<input type="number" class="form-control" ng-readonly="!isEditClicked" ng-model="IPvalue" ng-blur="calculatevalue(IPvalue,2)"
+	ng-paste="false" ng-maxlength="15" />
+</div>
+<div class="col-sm-4" ng-messages="myForm.IP.$error" style="margin-top:6px">
+<div ng-message="max">Please enter less than or equal to 100</div>
+<div ng-message="required" class="error-message">You did not enter a field</div>
+</div>
+</div>
+<div class="form-group">
+	<label for="SBU" class="col-sm-3 control-label">HOSTED</label>
+	<div class="col-sm-2" style="margin-top:6px">
+<input type="text" name="HOSTED" class="form-control {{ColorValues.HOSTED}}" ng-readonly="true" ng-model="margin.HOSTED"
+	ng-maxlength="8" min="0" max="100" step="0.01" required />
+
+</div>
+<span class="col-sm-1" style="margin-top:6px">%</span>
+<div class="col-sm-2" style="margin-top:6px">
+<input type="number" class="form-control" ng-readonly="!isEditClicked" ng-model="HOSTEDvalue" ng-blur="calculatevalue(HOSTEDvalue,3)"
+	ng-paste="false" ng-maxlength="15" />
+</div>
+<div class="col-sm-4" ng-messages="myForm.HOSTED.$error" style="margin-top:6px">
+<div ng-message="max">Please enter less than or equal to 100</div>
+<div ng-message="required" class="error-message">You did not enter a field</div>
+</div>
+</div>
+<div class="form-group">
+	<label for="SBU" class="col-sm-3 control-label">PS</label>
+	<div class="col-sm-2" style="margin-top:6px">
+<input type="text" name="PS" class="form-control {{ColorValues.PS}}" ng-readonly="true" ng-model="margin.PS" ng-maxlength="8"
+	min="0" max="100" step="0.01" required />
+
+</div>
+<span class="col-sm-1" style="margin-top:6px">%</span>
+<div class="col-sm-2" style="margin-top:6px">
+<input type="number" class="form-control" ng-readonly="!isEditClicked" ng-model="PSvalue" ng-blur="calculatevalue(PSvalue,4)"
+	ng-paste="false" ng-maxlength="15" />
+</div>
+<div class="col-sm-4" ng-messages="myForm.PS.$error" style="margin-top:6px">
+<div ng-message="max">Please enter less than or equal to 100</div>
+<div ng-message="required" class="error-message">You did not enter a field</div>
+</div>
+</div>
+<div class="form-group">
+	<label for="RoleID" class="col-sm-3 control-label">RESOURCING</label>
+	<div class="col-sm-2" style="margin-top:6px">
+<input type="text" name="RESOURCING" class="form-control {{ColorValues.RESOURCING}}" ng-readonly="true" ng-model="margin.RESOURCING"
+	ng-minlength="1" min="0" ng-max="100" step="0.01" required />
+</div>
+<span class="col-sm-1" style="margin-top:6px">%</span>
+<div class="col-sm-2" style="margin-top:6px">
+<input type="number" class="form-control" ng-readonly="!isEditClicked" ng-model="RESOURCINGvalue" ng-blur="calculatevalue(RESOURCINGvalue,5)"
+	ng-paste="false" ng-maxlength="15" />
+</div>
+<div class="col-sm-4" ng-messages="myForm.RESOURCING.$error" style="margin-top:6px">
+<div ng-message="max">Please enter less than or equal to 100</div>
+<div ng-message="required" class="error-message">You did not enter a field</div>
+</div>
+
+</div>
+<div class="form-group">
+	<label for="SBU" class="col-sm-3 control-label">TRADING</label>
+	<div class="col-sm-2" style="margin-top:6px">
+<input type="text" min="0" name="TRADING" class="form-control {{ColorValues.TRADING}}" ng-readonly="true" ng-model="margin.TRADING"
+	ng-max="100" step="0.01" required />
+
+</div>
+<span class="col-sm-1" style="margin-top:6px">%</span>
+<div class="col-sm-2" style="margin-top:6px">
+<input type="number" class="form-control" ng-readonly="true" ng-model="TRADINGvalue" ng-paste="false" ng-maxlength="15" />
+</div>
+<div class="col-sm-4" ng-messages="myForm.TRADING.$error" style="margin-top:6px">
+<div ng-message="max">Please enter less than or equal to 100</div>
+<div ng-message="required" class="error-message">You did not enter a field</div>
+</div>
+</div>
+<div class="form-group">
+	<label for="SBU" class="col-sm-3 control-label">CONSULTING</label>
+	<div class="col-sm-2" style="margin-top:6px">
+<input type="text" name="CONSULTING" class="form-control {{ColorValues.CONSULTING}}" ng-readonly="true" ng-model="margin.CONSULTING"
+	ng-minlength="1" ng-maxlength="8" min="0" max="100" step="0.01" required />
+</div>
+<span class="col-sm-1" style="margin-top:6px">%</span>
+<div class="col-sm-2" style="margin-top:6px">
+<input type="number" class="form-control" ng-readonly="!isEditClicked" ng-model="CONSULTINGvalue" ng-blur="calculatevalue(CONSULTINGvalue,6)"
+	ng-paste="false" ng-maxlength="15" />
+</div>
+<div class="col-sm-4" ng-messages="myForm.CONSULTING.$error" style="margin-top:6px">
+<div ng-message="max">Please enter less than or equal to 100</div>
+<div ng-message="required" class="error-message">You did not enter a field</div>
+</div>
+</div>
+<!--<div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-10">
+                            <button class="btn bg-purple btn-flat margin-r-5" ng-disabled="!myForm.$valid" ng-show="isEditClicked" ng-click=" AddGrossMarginpop()"><i class="fa fa-save"></i>&nbsp;Save</button>
+                            <button class="btn bg-maroon btn-flat margin-r-5" ng-disabled="!myForm.$valid" ng-show="isEditClicked" ng-click="saveasGrossMarginpop()"> <i class="fa fa-save"></i>&nbsp;Save As</button>
+                            <button class="btn bg-blue btn-flat margin-r-5" ng-show="isEditClicked" ng-click="IgnoreChanges()"><i class="glyphicon glyphicon-remove-circle"></i>&nbsp;Cancel</button>
+                        </div>
+                    </div>-->
+
+</form>
+
+
+</div>
+<!--end-->
+</div>
+</div>
+<div id="showmod" class="modal fade" modal="showModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" ng-click="closepopup()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Day Sheet Attention</h4>
+			</div>
+			<div class="modal-body">
+				<p> Please take your action : Allocated 15 Minute is going to End</p>
+			</div>
+			<div class="modal-footer ">
+				<button type="button" class="btn btn-primary" ng-click="closepopup()" data-dismiss="modal">Discard</button>
+				<button type="button" class="btn btn-success" ng-click="AddPriceSheet()"> <i class="glyphicon glyphicon-ok"></i>&nbsp; Save changes</button>
+				<button type="button" class="btn btn-danger" ng-click="IncreaseAdditionalTimeToSheet()">Increase Time</button>
+
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div id="showsaveAsmodel" class="modal fade" modal="showModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form novalidate class="form-horizontal" role="form" name="model">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" ng-click="closepopup()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Save As Into New Version...</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="TypeID" class="col-sm-3 control-label">Comment</label>
+						<div class="col-sm-6" style="margin-top:6px">
+<input class="form-control" type="text" ng-model="Comment" title="Enter comment" ng-="true" />
+</div>
+</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-success" ng-disabled="model.$invalid" ng-click="AddPriceSheet(true)"><i class="glyphicon glyphicon-ok"></i>&nbsp;Save</button>
+	<button type="button" class="btn btn-danger" ng-click="CancelpaymentSheetsaveas()"><i class="glyphicon glyphicon-remove"></i>&nbsp;Cancel</button>
+
+</div>
+</form>
+</div>
+</div>
+</div>
+
+<div id="showSavemodel" class="modal fade" modal="showModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" ng-click="closepopup()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Payment Sheet</h4>
+			</div>
+			<div class="modal-body">
+				<p> Are you sure want to Save ?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success" ng-click="AddPriceSheet(false)"><i class="glyphicon glyphicon-ok"></i>&nbsp;  Save changes</button>
+				<button type="button" class="btn btn-danger" ng-click="CancelPaymentSheet()">Cancel</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div id="showSaveChangesmodel" class="modal fade" modal="showModal" role="dialog" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color: #3c8dbc;color:white;height:10%">
+<button type="button" class="close" data-dismiss="modal" ng-click="ClosePriceSheetdiscard()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<h4 class="modal-title">Unsaved Changes</h4>
+</div>
+<div class="modal-body">
+	<p> You have unsaved changes. Leave the page?</p>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-success" ng-click="saveasPaymentSheetdiscard()"><i class="glyphicon glyphicon-ok"></i>&nbsp;  Save changes</button>
+	<button type="button" class="btn btn-danger" ng-click="CancelPaymentSheetdiscard()"><i class="glyphicon glyphicon-remove"></i>&nbsp;Ignore Changes</button>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div id="showDatamodel" class="modal fade" modal="showModal" role="dialog" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog">
+		<div class="modal-content" style="width: 150%;">
+<div class="modal-header" style="background-color: #3c8dbc;color:white;height:10%">
+<button type="button" class="close" data-dismiss="modal" ng-click="Closedata()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<h4 class="modal-title">Version data</h4>
+</div>
+<div class="modal-body">
+
+	<!--<div class=" col-sm-6">
+                            <label style="margin-top:10px" for="inputProduct" class="col-md-6  control-label">REQ</label>
+                            <div class="col-md-4" style="margin-top:10px;">
+                                <span class="form-control" ng-bind="ViewData.REQ" />
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label style="margin-top:10px" for="inputProduct" class="col-md-6  control-label">Design </label>
+                            <div class="col-md-4" style="margin-top:10px;">
+                                <span class="form-control" ng-bind="ViewData.Design" />
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label style="margin-top:10px" for="inputProduct" class="col-md-6  control-label">DevTest</label>
+                            <div class="col-md-4" style="margin-top:10px;">
+                                <span class="form-control" ng-bind="ViewData.DevTest" />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group col-sm-6">
+                            <label style="margin-top:10px" for="inputProduct" class="col-md-6  control-label">SysTest</label>
+                            <div class="col-md-4" style="margin-top:10px;">
+                                <span class="form-control" ng-bind="ViewData.SysTest" />
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group col-sm-6">
+                            <label style="margin-top:10px" for="inputProduct" class="col-md-6  control-label">IMPL</label>
+                            <div class="col-md-4" style="margin-top:10px;">
+                                <span class="form-control" ng-bind="ViewData.IMPL" />
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group col-sm-6">
+                            <label style="margin-top:10px" for="inputProduct" class="col-md-6  control-label">UAT</label>
+                            <div class="col-md-4" style="margin-top:10px;">
+                                <span class="form-control" ng-bind="ViewData.UAT " />
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="form-group col-sm-6 ">
+                            <label style="margin-top:10px " for="inputProduct " class="col-md-6  control-label ">PROD</label>
+                            <div class="col-md-4 " style="margin-top:10px; ">
+                                <span class="form-control " ng-bind="ViewData.PROD " />
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6 ">
+                            <label style="margin-top:10px " for="inputProduct " class="col-md-6  control-label ">Train</label>
+                            <div class="col-md-4 " style="margin-top:10px; ">
+                                <span class="form-control " ng-bind="ViewData.TRAIN " />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group col-sm-6 ">
+                            <label style="margin-top:10px " for="inputProduct " class="col-md-6  control-label ">Manual</label>
+                            <div class="col-md-4 " style="margin-top:10px; ">
+                                <span class="form-control " ng-bind="ViewData.MANUAL " />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group col-sm-6 ">
+                            <label style="margin-top:10px " for="inputProduct " class="col-md-6  control-label ">O & H</label>
+                            <div class="col-md-4 " style="margin-top:10px; ">
+                                <span class="form-control " ng-bind="ViewData.OH " />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group col-sm-6 ">
+                            <label style="margin-top:10px " for="inputProduct " class="col-md-6  control-label ">SQA</label>
+                            <div class="col-md-4 " style="margin-top:10px; ">
+                                <span class="form-control " ng-bind="ViewData.SQA " />
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6 ">
+                        </div>-->
+
+	<img src="{{ imgurl }}" alt="Image source not available" width="100%">
+
+</div>
+<div class="modal-footer ">
+	<button type="button " class="btn btn-danger " ng-click="Closedata()"><i class="glyphicon glyphicon-remove "></i>&nbsp;Close</button>
+</div>
+</div>
+</div>
+</div>
+
+<div id="AdditionalInvoice " class="modal fade " modal="showModal " role="dialog " data-backdrop="static
+                                    " data-keyboard="false ">
+	<div class="modal-dialog ">
+		<div class="modal-content ">
+			<div class="modal-header " style="background-color: #3c8dbc;color:white;height:10% ">
+<button type="button " class="close " data-dismiss="modal " ng-click="CancelPaymentSheetdiscard()
+                                    " aria-label="Close "><span aria-hidden="true ">&times;</span></button>
+<h4 class="modal-title ">Editor</h4>
+</div>
+<div class="modal-body ">
+	<div class="form-group ">
+		<div class="col-sm-8 " style="margin-top:6px ">
+<input type="text " class="form-control " ng-model="dynamictext " readonly="readonly " />
+</div>
+</div>
+
+<div class="form-group ">
+	<div class="col-sm-8 " style="margin-top:6px ">
+<input type="text " class="form-control " ng-model="Newvalue " />
+</div>
+</div>
+
+</div>
+
+<div class="modal-footer ">
+	<button class="btn bg-maroon btn-flat margin-r-5 " ng-show="isEditClicked " ng-click="updatescope() ">Update</button>
+	<button class="btn bg-maroon btn-flat margin-r-5 " ng-show="isEditClicked " ng-click="cancelpopup() ">Cancel</button>
+</div>
+<!--</div>-->
+</div>
+</div>
+</div>
+
+
+<div id="loader" class="animationload hide">
+	<div class="loader">
+		Loading...
+	</div>
+</div>
+
+<style type="text/css">
+	/*.ag-fresh .ag-header-group-text {
+            float: right !important;
+        }*/
+	
+	.ag-header-expand-icon {
+		position: relative;
+		float: left;
+		/*margin-top: -24px;
+            margin-left: -9px;
+                        color: #008CBA;*/
+		font-weight: 500;
+	}
+	
+	.popover-content {
+		overflow-y: scroll;
+		height: 100px;
+	}
+	
+	#overlay {
+		display: none;
+	}
+	
+	.ag-blue .ag-row-selected {
+		background-color: #C2D98B !important;
+		/*C2D98B*/
+	}
+	
+	.ag-blue .ag-row-odd {
+		background-color: #ffffff;
+	}
+	/*.ag-header-cell-label {
+            overflow: visible;
+            white-space: normal;
+        }*/
+	
+	.redbackground {
+		background-color: #e66953 !important;
+	}
+	
+	.greenbackground {
+		background-color: green !important;
+	}
+	
+	.blockbackground {
+		background-color: #808080 !important;
+	}
+	
+	.nonservion {
+		padding-left: 27px !important;
+		color: #475F77;
+	}
+	
+	.content {
+		padding: 0px !important;
+	}
+	
+	.test1 nav-tabs > li.active > a,
+	.nav-tabs > li.active > a:focus,
+	.nav-tabs > li.active > a:hover {
+		font-weight: 600;
+	}
+	
+	.test1 .nav > li > a {
+		padding: 5px 12px;
+		margin-top: -5px;
+	}
+	
+	.tab-container {
+		position: relative;
+		.nav.nav-tabs {
+			border-bottom: 0;
+			z-index: 1;
+			margin-bottom: 0;
+			white-space: nowrap;
+			display: block;
+			> li {
+				position: relative;
+				background-color: #e9e7e4;
+				border: 1px solid #b5b4b4;
+				border-right: 0;
+				color: #656d78;
+				text-decoration: none;
+				position: relative;
+				display: block;
+				padding: 0;
+				float: left;
+			}
+			&.is-sorting {
+				li[data-toggle="modal"] {
+					@include opacity(.3);
+				}
+			}
+		}
+	}
+	
+	.tab-container {
+		.nav.nav-tabs {
+			> li {
+				.static-tab {
+					color: red;
+				}
+			}
+		}
+	}
+	
+	.tab-content {
+		background-color: #fff;
+		border: 1px solid #b5b4b4;
+		padding: 15px 30px;
+		float: left;
+		width: 100%;
+	}
+	
+	nav-tabs>li {
+		float: left;
+		margin-bottom: 0px;
+	}
+	
+	.tab-content {
+		background-color: #fff;
+		border: 1px solid #b5b4b4;
+		padding: 15px 30px;
+	}
+	
+	.nav-tabs>li {
+		margin-bottom: 0px !important;
+	}
+	
+	.nav-tabs {
+		border-bottom: 1px solid #fff;
+	}
+	
+	.tab-content {
+		border-color: #fff !important;
+	}
+	
+	.tabrow {
+		/*text-align: center;*/
+		list-style: none;
+		margin: 10px 2px 10px;
+		padding: 0;
+		line-height: 28px;
+		height: 30px;
+		overflow: hidden;
+		position: relative;
+	}
+	
+	.tabrow li {
+		border: 1px solid #AAA;
+		background: #D1D1D1;
+		background: linear-gradient(top, #ECECEC 50%, #D1D1D1 100%);
+		display: inline-block;
+		position: relative;
+		z-index: 0;
+		border-bottom-left-radius: 6px;
+		border-bottom-right-radius: 6px;
+		/*box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), inset 0 1px 0 #FFF;
+            text-shadow: 0 1px #FFF;*/
+		margin: 0 -5px;
+		padding: 0 30px;
+	}
+	
+	.tabrow a {
+		color: #555;
+		text-decoration: none;
+	}
+	
+	.tabrow li.active {
+		background: #FFF;
+		color: #333;
+		z-index: 2;
+		border-top-color: #FFF;
+	}
+	
+	.tabrow:before {
+		position: absolute;
+		content: "";
+		width: 100%;
+		top: 0;
+		left: 0;
+		border-top: 1px solid #AAA;
+		z-index: 1;
+	}
+	
+	.tabrow li.active:before {
+		box-shadow: 2px 0px 0 #FFF;
+	}
+	
+	.tabrow li.active:after {
+		box-shadow: -2px 0px 0 #FFF;
+	}
+	
+	.tabs1 {
+		list-style: none;
+		padding: 0;
+	}
+	
+	.tabs1 a {
+		/* Make them block level
+		     and only as wide as they need */
+		float: left;
+		padding: 5px 20px;
+		text-decoration: none;
+		/* Default colors */
+		color: black;
+		background: #ddc385;
+		/* Only round the top corners */
+		-webkit-border-top-left-radius: 15px;
+		-webkit-border-top-right-radius: 15px;
+		-moz-border-radius-topleft: 15px;
+		-moz-border-radius-topright: 15px;
+		border-top-left-radius: 15px;
+		border-top-right-radius: 15px;
+	}
+	
+	.tabs1 .active {
+		/* Highest, active tab is on top */
+		z-index: 3;
+	}
+	
+	.tabs1 .active a {
+		/* Colors when tab is active */
+		background: white;
+		color: black;
+	}
+	
+	.tabs1 li a:after,
+	.tabs1 li a:before {
+		/* Circles are circular */
+		-webkit-border-radius: 10px;
+		-moz-border-radius: 10px;
+		border-radius: 10px;
+		background: #222;
+		/* Circles over squares */
+		z-index: 2;
+	}
+	/* First and last tabs have different
+		   outside color needs */
+	/** Transition **/
+	
+	.tran3s,
+	.filter-pan {
+		transition: all 0.3s ease-in-out;
+		-webkit-transition: all 0.3s ease-in-out;
+		-moz-transition: all 0.3s ease-in-out;
+		-o-transition: all 0.3s ease-in-out;
+		transition: all 0.3s ease-in-out;
+	}
+	/*
+ * Row with equal height columns
+ * --------------------------------------------------
+ */
+	
+	.redbackground {
+		background-color: #e66953 !important;
+	}
+	
+	.parentstyleapply {
+		background: red;
+	}
+	
+	.animationload {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: rgba(255, 255, 255, 0.85);
+		z-index: 999999;
+	}
+	
+	.animationload .loader {
+		width: 200px;
+		height: 200px;
+		font-size: 0;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		background-image: url("\images/loader.gif");
+		background-repeat: no-repeat;
+		background-position: center;
+		margin: -100px 0 0 -100px;
+	}
+	
+	.ag-header-group-cell-label {
+		position: relative;
+	}
+	
+	.ag-header-expand-icon {
+		position: absolute;
+		left: 0;
+		top: 5px;
+	}
+	
+	.ag-blue .ag-header-group-text {
+		margin-left: 12px;
+	}
+	
+	.ag-blue .ag-row-odd {
+		background-color: #ffffff;
+	}
+	
+	select {
+		border: 0px;
+		outline: 0px;
+	}
+	
+	input {
+		border: 0px;
+		outline: 0px
+	}
+	
+	.ag-blue .ag-row-selected {
+		background-color: #C2D98B !important;
+	}
+	
+	.ag-blue .ag-row-selected select {
+		background-color: #C2D98B !important;
+	}
+	
+	.ag-blue .ag-row-selected input {
+		background-color: #C2D98B !important;
+	}
+	
+	.ag-blue .ag-cell-selected select {
+		background-color: #ffffff !important;
+	}
+	
+	.ag-blue .ag-cell-selected input {
+		background-color: #ffffff !important;
+	}
+	
+	.test1 nav-tabs > li.active > a,
+	.nav-tabs > li.active > a:focus,
+	.nav-tabs > li.active > a:hover {
+		font-weight: 600;
+	}
+	
+	.test1 .nav > li > a {
+		padding: 5px 12px;
+		margin-top: -5px;
+		padding-bottom: 10px;
+	}
+	
+	.animationload {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: rgba(255, 255, 255, 0.85);
+		z-index: 999999;
+	}
+	
+	.animationload .loader {
+		width: 200px;
+		height: 200px;
+		font-size: 0;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		background-image: url("\images/loader.gif");
+		background-repeat: no-repeat;
+		background-position: center;
+		margin: -100px 0 0 -100px;
+	}
+	
+	.ag-header-group-cell-label {
+		position: relative;
+	}
+	
+	.ag-header-expand-icon {
+		position: absolute;
+		left: 0;
+		top: 5px;
+	}
+	
+	.ag-blue .ag-header-group-text {
+		margin-left: 12px;
+	}
+	
+	.ag-blue .ag-row-odd {
+		background-color: #ffffff;
+	}
+	
+	select {
+		border: 0px;
+		outline: 0px;
+	}
+	
+	input {
+		border: 0px;
+		outline: 0px
+	}
+	
+	.ag-blue .ag-row-selected {
+		background-color: #C2D98B !important;
+	}
+	
+	.ag-blue .ag-row-selected select {
+		background-color: #C2D98B !important;
+	}
+	
+	.ag-blue .ag-row-selected input {
+		background-color: #C2D98B !important;
+	}
+	
+	.ag-blue .ag-cell-selected select {
+		background-color: #ffffff !important;
+	}
+	
+	.ag-blue .ag-cell-selected input {
+		background-color: #ffffff !important;
+	}
+	
+	.test1 nav-tabs > li.active > a,
+	.nav-tabs > li.active > a:focus,
+	.nav-tabs > li.active > a:hover {
+		font-weight: 600;
+	}
+	
+	.test1 .nav > li > a {
+		padding: 5px 12px;
+		margin-top: -5px;
+	}
+	
+	.PMLevel1 {
+		background-color: orange!important;
+	}
+	
+	.PMLevel2 {
+		background-color: yellow!important;
+	}
+	
+	.PMLevel3 {
+		background-color: #EC7063!important;
+	}
+	
+	.PMgreat {
+		background-color: #80ff00!important;
+	}
+	
+	.Level1 {
+		background-color: orange!important;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+	}
+	
+	.Level2 {
+		background-color: yellow;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+	}
+	
+	.Level3 {
+		background-color: #EC7063;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+	}
+	
+	.great {
+		background-color: #80ff00;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+	}
+</style>

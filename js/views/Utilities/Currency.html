@@ -1,0 +1,29 @@
+﻿<div ng-app="userApp" class="box box-info" style="margin:0 auto;width:80%">
+    <div ng-include="'js/views/Utilities/AddEditCurrencyModel.html'"></div>
+    <div ng-include="'js/views/confirmModel.html'"></div>
+    <div class="box-header with-border">
+        <h3 class="box-title">Manage Currency</h3>
+        <div class="box-tools pull-right">
+            <button ng-show="!IsReadOnly" data-ng-click="showadd()" class="btn btn-sm btn-info btn-flat pull-right" title="Add Currency and Conversion Rate">Add <i class="fa fa-plus" style="color:white"></i></button>
+        </div>
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <div class="mnbxcont">
+            <div data-ag-grid="CurrencyGrid" class="ag-blue" style="color:#000;min-height: 200px !important;"></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

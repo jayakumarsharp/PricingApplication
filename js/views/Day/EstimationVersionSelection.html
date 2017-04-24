@@ -1,0 +1,126 @@
+<div style=" display: table; width: 95%;margin-left: 2%;">
+	<div class="form-group  row">
+		<div class="  col-sm-3 row-eq-height">
+
+			<div>
+
+				<dropdown-multiselect editble="isEditClicked" dropdown-title="Self Service" pre-selected="DaySheetData.SelfserviceId" model="DaySheetData.SelfserviceId"
+					options="SelfVersions"></dropdown-multiselect>
+
+			</div>
+
+		</div>
+
+		<div class=" col-sm-3 row-eq-height">
+
+			<dropdown-multiselect editble="isEditClicked" dropdown-title="Applications" pre-selected="DaySheetData.ApplicationsId" model="DaySheetData.ApplicationsId"
+				options="AppVersions"></dropdown-multiselect>
+
+
+		</div>
+		<div class="col-sm-3 row-eq-height">
+
+			<dropdown-multiselect editble="isEditClicked" dropdown-title="Admin-Package-Report" pre-selected="DaySheetData.AdminId" model="DaySheetData.AdminId"
+				options="AdminVersions"></dropdown-multiselect>
+
+		</div>
+
+
+		<div class=" col-sm-3 row-eq-height">
+			<dropdown-multiselect editble="isEditClicked" dropdown-title="Cisco" pre-selected="DaySheetData.CiscoId" model="DaySheetData.CiscoId"
+				options="CSVersions"></dropdown-multiselect>
+		</div>
+	</div>
+	<div class="form-group  row">
+		<div class="col-sm-3  row-eq-height">
+			<dropdown-multiselect editble="isEditClicked" dropdown-title="Acqueon" pre-selected="DaySheetData.AcqueonId" model="DaySheetData.AcqueonId"
+				options="ACQVersions"></dropdown-multiselect>
+		</div>
+
+		<div class="col-sm-3  row-eq-height">
+			<dropdown-multiselect editble="isEditClicked" dropdown-title="Servion Products" pre-selected="DaySheetData.ServProductsId"
+				model="DaySheetData.ServProductsId" options="ServPoductVersions"></dropdown-multiselect>
+		</div>
+
+		<div class="col-sm-3  row-eq-height">
+			<dropdown-multiselect editble="isEditClicked" dropdown-title="Avaya" pre-selected="DaySheetData.AvayaId" model="DaySheetData.AvayaId"
+				options="AVVersions"></dropdown-multiselect>
+		</div>
+
+		<div class="col-sm-3  row-eq-height">
+			<dropdown-multiselect editble="isEditClicked" editble="isEditClicked" dropdown-title="eGain" pre-selected="DaySheetData.EgainId"
+				model="DaySheetData.EgainId" options="EGVersions"></dropdown-multiselect>
+		</div>
+	</div>
+	<div class="form-group  row">
+		<div class=" col-sm-3  row-eq-height">
+
+			<dropdown-multiselect editble="isEditClicked" dropdown-title="WFO" pre-selected="DaySheetData.WFOId" model="DaySheetData.WFOId"
+				options="WFVersions"></dropdown-multiselect>
+		</div>
+
+		<div class="col-sm-3  row-eq-height">
+
+			<dropdown-multiselect editble="isEditClicked" dropdown-title="Others" pre-selected="DaySheetData.OthersId" model="DaySheetData.OthersId"
+				options="OtherVersions"></dropdown-multiselect>
+		</div>
+
+
+		<div class=" col-sm-3  row-eq-height">
+
+
+			<dropdown-multiselect editble="isEditClicked" dropdown-title="Manual Estimation" pre-selected="DaySheetData.ManualId" model="DaySheetData.ManualId"
+				style="width:100% !important;" options="ManualVersions"></dropdown-multiselect>
+		</div>
+	</div>
+</div>
+
+<div class="row  col-sm-12">
+	<button data-ng-click="getdata()" ng-show="isEditClicked" class="btn btn-sm btn-success btn-rounded pull-right"> Submit </button>
+</div>
+
+<style>
+	.form-group {
+		margin-top: 10px;
+		margin-top: 20px;
+	}
+	
+	.btntest {
+		width: 175px;
+	}
+	
+	.scrollable-menu {
+		height: auto;
+		/*  position:relative;
+	  color: white;
+	  background-color: black;*/
+		max-height: 300px;
+		overflow-x: hidden;
+		width: 100%;
+	}
+	
+	.selected {
+		background-color: #048bc5;
+		padding-right: 25px;
+		position: relative;
+	}
+	
+	.row-eq-height {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+	}
+	/*
+ * Styles copied from the Grid example to make grid rows & columns visible.
+ */
+	
+	.row {
+		margin-bottom: 20px;
+	}
+	
+	.row .row {
+		margin-top: 10px;
+		margin-bottom: 0;
+	}
+</style>

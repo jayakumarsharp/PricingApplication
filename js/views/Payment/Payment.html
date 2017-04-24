@@ -1,0 +1,262 @@
+﻿<div class="box-body test1">
+    <ul class="nav nav-tabs">
+        <li>
+            <a href="OppSiteConfig/{{GlobalIdentityOppId}}/{{GlobalGroupId}}">Opportunity Configuration</a>
+        </li>
+        <li>
+            <a href="Resource/{{GlobalIdentityOppId}}/{{GlobalGroupId}}">Resourcing</a>
+        </li>
+        <li>
+            <a href="StayTravel/{{GlobalIdentityOppId}}/{{GlobalGroupId}}">T & E</a>
+        </li>
+
+        <li ng-hide="GlobalGroupId== 'undefined'">
+            <a href="DaySheet/{{GlobalIdentityOppId}}/{{GlobalGroupId}}">Estimation</a>
+        </li>
+        <li>
+            <a href="PriceList/{{GlobalIdentityOppId}}/{{GlobalGroupId}}">Pricing Sheet</a>
+        </li>
+        <li class="active">
+            <a data-toggle="tab">Payment Sheet</a>
+        </li>
+        <li>
+            <a href="GrossMargin/{{GlobalIdentityOppId}}/{{GlobalGroupId}}">Project Margin</a>
+        </li>
+        <div my360></div>
+    </ul>
+
+    <div class="box-body" ng-init="init()">
+        <div class="tab-pane active">
+            <div class="row">
+                <a target="_self" id="downloadpdf" href={{downloadurl}} download={{filename}} style="display: none"></a>
+                <!--<div class="widget-user-image">
+                    <a title="GrossMargin" href=""> <img class="img-circle" src="img/Margin-Icon.png"></a>
+                    <a title="Pricing" href=""> <img class="img-circle" src="img/pricing.png"></a>
+                </div>-->
+                <!--<button class="btn btn-danger" ng-click="autoSizeAll()">Auto-Size All</button>-->
+                <!--<button class="btn" ng-click="resetState()">Reset</button>-->
+                <div class="btn-group margin-r-5">
+                    <h5 style="font-weight:700;"><span style="color:blue;">{{ OpportunityDetail.OpportunityName }}</span> {{MaxVersion }} <span style="color:red; "
+                            ng-if="sheetholdedby.length > 0">{{sheetholdedby}}</span> <span ng-show="grideditable" style="color: blue;">- <timer countdown="840" autostart="false" finish-callback="finished()" interval="1000">{{minutes}} Min, {{seconds}} Sec</timer> </span>                        </h5>
+                </div>
+
+                <button class="btn bg-teal btn-flat pull-right" ng-click="MakeContainerFullScreen(DefautState)"><i title="expand" ng-show="!DefautState" class="fa fa-expand"></i> <i title="collapse" ng-show="DefautState" class="fa fa-compress"></i></button>
+                <button uib-popover-template="dynamicPopover.templateUrl" popover-placement="bottom" type="button" class="btn btn-default pull-right margin-r-5">Version History</button>
+                <button class="btn bg-maroon btn-flat margin-r-5 pull-right" ng-show="grideditable" ng-click="saveaspaymentSheetpop()"><i class="fa fa-save"></i>&nbsp;Save As</button>
+                <button class="btn bg-purple btn-flat margin-r-5 pull-right" ng-show="grideditable" ng-click="AddpaymentSheetpop()"><i class="fa fa-save"></i>&nbsp;Save</button>
+                <button class="btn bg-blue btn-flat margin-r-5 pull-right" ng-show="grideditable" ng-click="IgnoreChanges()"><i class="glyphicon glyphicon-remove-circle"></i>&nbsp;Discard</button>
+
+                <button class="btn bg-aqua-gradient btn-flat margin-r-5 pull-right" title="Export" ng-click="onBtExport()"><i class="fa fa-file-excel-o"></i></button>
+
+                <button class="btn bg-blue btn-flat margin-r-5  pull-right" ng-show="!grideditable && hasedit && !IsReadOnly" ng-click="EditSheet()">Edit</button>
+
+                <script type="text/ng-template" id="popover.html">
+                    <div class="form-group" style="width:400px">
+                        <div ng-repeat="opp in Versiondata | orderBy:PriceSheetId:true">
+                            <a ng-class="{'blinktext': {{opp.PriceSheetId}}==GlobalGroupId }" href="PaymentList/{{GlobalIdentityOppId}}/{{opp.PriceSheetId}}">{{opp.Version}}&nbsp;&nbsp;<span class="badge bg-maroon">{{opp.CreatedBy}}</span>&nbsp;&nbsp;<span class="badge bg-blue" title="{{opp.Comment}}">{{opp.Comment.length > 10 ? opp.Comment.substring(0,9)+'..' : opp.Comment }}</span><span class="badge bg-yellow">{{opp.CreatedOn}}</span> </a>
+                        </div>
+                    </div>
+                </script>
+
+            </div>
+
+            <div class="row">
+                <div id="myGrid" ag-grid="gridPayment" class="ag-blue" style="height: 550px; overflow: hidden;"></div>
+                <div class="row pull-right">
+                    <span class="btn btn-default btn-flat">Total "Customer Price" <br />From Pricing sheet</span>
+                    <span class="btn btn-success btn-flat">{{ PutComma(calculatedTotalinPricing) }}</span>
+                    <span class="btn btn-default btn-flat">Total "Invoice Value"</span>
+                    <span class="btn btn-success btn-flat">{{ PutComma(calculatedTotalinPayment) }}</span> &nbsp;
+                    <span class="btn btn-flat btn-success" ng-show="calculatedTotalinPricing == calculatedTotalinPayment">Good to Go</span>
+                    <span class="btn btn-flat btn-danger" ng-show="calculatedTotalinPricing != calculatedTotalinPayment">Check Error</span>
+                </div>
+
+            </div>
+        </div>
+        <div id="showmod" class="modal fade" modal="showModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" ng-click="closepopup()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Payment Sheet Attention</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p> Please take your action : Allocated 15 Minute is going to End</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" ng-click="closepopup()" data-dismiss="modal">Discard</button>
+                        <button type="button" class="btn btn-success" ng-click="AddpaymentSheet()"> <i class="glyphicon glyphicon-ok"></i>&nbsp; Save changes</button>
+                        <button type="button" class="btn btn-danger" ng-click="IncreaseAdditionalTimeToSheet()">Increase Time</button>
+
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+        <div id="showsaveAsmodel" class="modal fade" modal="showModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form novalidate class="form-horizontal" role="form" name="model">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" ng-click="closepopup()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Save As Into New Version...</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="TypeID" class="col-sm-3 control-label">Comment</label>
+                                <div class="col-sm-6" style="margin-top:6px">
+                                    <input class="form-control" type="text" ng-model="Comment" title="Enter comment" ng-required="true" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" ng-disabled="model.$invalid" ng-click="UpdatepaymentSheetVersion()"><i class="glyphicon glyphicon-ok"></i>&nbsp;Save</button>
+                            <button type="button" class="btn btn-danger" ng-click="CancelpaymentSheetsaveas()"><i class="glyphicon glyphicon-remove"></i>&nbsp;Cancel</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="showSavemodel" class="modal fade" modal="showModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" ng-click="closepopup()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Payment Sheet</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p> Are you sure want to Save ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" ng-click="AddPaymentSheet(false)"><i class="glyphicon glyphicon-ok"></i>&nbsp;  Save changes</button>
+                        <button type="button" class="btn btn-danger" ng-click="CancelPaymentSheet()">Cancel</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div id="showSaveChangesmodel" class="modal fade" modal="showModal" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #3c8dbc;color:white;height:10%">
+                        <button type="button" class="close" data-dismiss="modal" ng-click="ClosePriceSheetdiscard()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Unsaved Changes</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p> You have unsaved changes. Leave the page?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" ng-click="saveasPaymentSheetdiscard()"><i class="glyphicon glyphicon-ok"></i>&nbsp;  Save changes</button>
+                        <button type="button" class="btn btn-danger" ng-click="CancelPaymentSheetdiscard()"><i class="glyphicon glyphicon-remove"></i>&nbsp;Ignore Changes</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="AdditionalInvoice" class="modal fade" modal="showModal" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #3c8dbc;color:white;height:10%">
+                        <button type="button" class="close" data-dismiss="modal" ng-click="CancelPaymentSheetdiscard()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Editor</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="col-sm-8" style="margin-top:6px">
+                                <input type="text" class="form-control" ng-model="dynamictext" readonly="readonly" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-8" style="margin-top:6px">
+                                <input type="text" class="form-control" ng-model="Newvalue" required />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn bg-maroon btn-flat margin-r-5" ng-show="grideditable" ng-click="updatescope()">Update</button>
+                        <button class="btn bg-maroon btn-flat margin-r-5" ng-show="grideditable" ng-click="cancelpopup()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    /*.ag-fresh .ag-header-group-text {
+            float: right !important;
+        }*/
+    
+    .ag-header-expand-icon {
+        position: relative;
+        float: left;
+        /*margin-top: -24px;
+            margin-left: -9px;
+                        color: #008CBA;*/
+        font-weight: 500;
+    }
+    
+    .popover-content {
+        overflow-y: scroll;
+        height: 100px;
+    }
+    
+    #overlay {
+        display: none;
+    }
+    
+    .ag-blue .ag-row-selected {
+        background-color: #C2D98B !important;
+        /*C2D98B*/
+    }
+    
+    .ag-blue .ag-row-odd {
+        background-color: #ffffff;
+    }
+    /*.ag-header-cell-label {
+            overflow: visible;
+            white-space: normal;
+        }*/
+    
+    .redbackground {
+        background-color: #e66953 !important;
+    }
+    
+    .greenbackground {
+        background-color: green !important;
+    }
+    
+    .blockbackground {
+        background-color: #808080 !important;
+    }
+    
+    .nonservion {
+        padding-left: 27px !important;
+        color: #475F77;
+    }
+    
+    .content {
+        padding: 0px !important;
+    }
+    
+    .test1 nav-tabs > li.active > a,
+    .nav-tabs > li.active > a:focus,
+    .nav-tabs > li.active > a:hover {
+        font-weight: 600;
+    }
+    
+    .test1 .nav > li > a {
+        padding: 5px 12px;
+        margin-top: -5px;
+    }
+</style>

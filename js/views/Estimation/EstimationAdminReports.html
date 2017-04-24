@@ -1,0 +1,295 @@
+<div style="height: 10%">
+    <!--<label><input type="checkbox" checked onchange="onCbAthlete(this.checked)"/>Athlete</label>
+    <label><input type="checkbox" checked onchange="onCbAge(this.checked)"/>Age</label>
+    <label><input type="checkbox" checked onchange="onCbCountry(this.checked)"/>Country</label>-->
+</div>
+<div class="box-header with-border">
+    <h3 class="box-title"> Admin & Packages & Reports - {{ OpportunityDetail.OpportunityName }} </h3> <span style="color:blue;" ng-bind="MaxVersion"></span>
+    <div my360></div>
+</div>
+
+<div class="box-body" ng-init="init()">
+    <div class="row" style="padding-bottom:10px;">
+        <!--<div class="widget-user-image" title="Payment">
+                    <a href="#PaymentList/{{GlobalIdentityOppId}}/{{GlobalGroupId}}"> <img class="img-circle" src="img/payment.jpg"></a>
+                </div>-->
+
+
+        <div class="btn-group">
+            <h5 style="font-weight:700;"><span style="color:red;" ng-if="sheetholdedby.length > 0">{{sheetholdedby}}</span> <span ng-show="griduseredit"
+                    class="margin-r-5" style="color: blue;">- <timer countdown="840" autostart="false" finish-callback="finished()" interval="1000">{{minutes}} Min, {{seconds}} Sec</timer> </span>                </h5>
+
+        </div>
+
+
+        <button class="btn bg-teal btn-flat pull-right" ng-click="MakeContainerFullScreen(DefautState)"><i title="expand" ng-show="!DefautState" class="fa fa-expand"></i> <i title="collapse" ng-show="DefautState" class="fa fa-compress"></i></button>
+        <button uib-popover-template="dynamicPopover.templateUrl" popover-placement="bottom" type="button" class="btn btn-default pull-right margin-r-5 ">Version History</button>
+
+        <!--<button class="btn bg-aqua-gradient btn-flat margin-r-5 pull-right" ng-click="onBtExport()" title="Excel Export"><i class="fa fa-file-excel-o"></i></button>-->
+        <button class="btn bg-maroon btn-flat margin-r-5 pull-right" ng-show="griduseredit" ng-click="saveasPriceSheetpop()"><i class="fa fa-save"></i>&nbsp;Save As</button>
+        <button class="btn bg-purple btn-flat margin-r-5 pull-right" ng-show="griduseredit" ng-click="AddPriceSheetpop()"><i class="fa fa-save"></i>&nbsp;Save </button>
+        <button class="btn bg-aqua btn-flat margin-r-5 pull-right" ng-show="griduseredit" ng-click="rerenderwholepage()"><i class="fa fa-refresh"></i>&nbsp;Refresh Cells </button>
+        <button class="btn bg-blue btn-flat margin-r-5 pull-right" ng-show="griduseredit" ng-click="IgnoreChanges()"> <i class="glyphicon glyphicon-remove-circle"></i>&nbsp;Discard</button>
+        <button class="btn bg-blue-active btn-flat  margin-r-5" style="margin-left: 10px;" ng-show="griduseredit" id="btnadd" ng-click="addadditional(2)"
+            title="Add Apps"><i class="fa fa-plus"></i> </button>
+
+        <button class="btn bg-blue-active btn-flat  margin-r-5" style="margin-left: 10px;" ng-show="griduseredit" id="btnadd" ng-click="Removeadditional(2)"
+            title="Remove Apps"><i class="fa fa-minus"></i> </button>
+
+        <button class="btn bg-blue btn-flat margin-r-5  pull-right" ng-show="hasedit && !IsReadOnly" ng-click="EditSheet()">Edit</button>
+
+        <script type="text/ng-template" id="myPopoverTemplate.html">
+                    <div class="form-group" style="width:400px">
+                        <div ng-repeat="opp in Versiondata | orderBy:ApplicationId:true">
+                            <a ng-class="{'blinktext': {{opp.ApplicationId}}==GlobalGroupId }" href="adminreports/{{GlobalIdentityOppId}}/{{opp.ApplicationId}}">{{opp.Version}}&nbsp;&nbsp;<span class="badge bg-maroon">{{opp.CreatedBy}}</span>&nbsp;&nbsp;<span class="badge bg-blue" title="{{opp.Comment}}">{{opp.Comment.length > 10 ? opp.Comment.substring(0,9)+'..' : opp.Comment }}</span><span class="badge bg-yellow">{{opp.CreatedOn}}</span> </a>
+                        </div>
+                    </div>
+                </script>
+
+    </div>
+    <div class="gridarea" style="margin-left:{{mleft}}%">
+        <div ag-grid="gridOptionsTop" style=" height:20%;width:{{currentwid+'px'}}" class="ag-blue"></div>
+        <div ag-grid="gridOptionsBottom1" style=" height:20%;width:{{currentwid+'px'}}" class="ag-blue"></div>
+        <div ag-grid="gridOptionsBottom2" style=" height:20%;width:{{currentwid+'px'}}" class="ag-blue"></div>
+        <div ag-grid="gridOptionsBottom3" ng-show="grid2enable" style=" height:20%;width:{{currentwid+'px'}}" class="ag-blue"></div>
+        <div ag-grid="gridOptionsBottom4" ng-show="grid3enable" style=" height:20%;width:{{currentwid+'px'}}" class="ag-blue"></div>
+        <div ag-grid="gridOptionsBottom5" ng-show="grid4enable" style=" height:20%;width:{{currentwid+'px'}}" class="ag-blue"></div>
+        <div ag-grid="gridOptionsBottom6" ng-show="grid5enable" style=" height:20%;width:{{currentwid+'px'}}" class="ag-blue"></div>
+        <div ag-grid="gridOptionsBottom7" ng-show="grid6enable" style=" height:20%;width:{{currentwid+'px'}}" class="ag-blue"></div>
+        <div ag-grid="gridOptionsBottom8" ng-show="grid7enable" style=" height:20%;width:{{currentwid+'px'}}" class="ag-blue"></div>
+        <div ag-grid="gridOptionsBottom9" ng-show="grid8enable" style=" height:20%;width:{{currentwid+'px'}}" class="ag-blue"></div>
+        <div ag-grid="gridOptionsBottom10" ng-show="grid9enable" style=" height:20%;width:{{currentwid+'px'}}" class="ag-blue"></div>
+        <div ag-grid="gridOptionsBottom11" ng-show="grid10enable" style=" height:20%;width:{{currentwid+'px'}}" class="ag-blue"></div>
+        <div ag-grid="gridOptionsBottom12" ng-show="grid11enable" style=" height:20%;width:{{currentwid+'px'}}" class="ag-blue"></div>
+
+        <div ag-grid="gridOptionsBottom13" style=" height:20%;width:{{currentwid+'px'}}" class="ag-blue"></div>
+
+
+    </div>
+
+    <div id="showmod" class="modal fade" modal="showModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #3c8dbc;color:white;height:10%">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="closepopup()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Application Sheet Attention</h4>
+                </div>
+                <div class="modal-body">
+                    <p> Please take your action : Allocated 15 Minute is going to End</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="closepopup()" data-dismiss="modal">Discard</button>
+                    <button type="button" class="btn btn-success" ng-click="AddEstimationApplication(false)"><i class="glyphicon glyphicon-ok"></i>&nbsp; Save changes</button>
+                    <button type="button" class="btn btn-danger" ng-click="IncreaseAdditionalTimeToSheet()">Increase Time</button>
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <div id="showsaveAsmodel" class="modal fade" modal="showModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form novalidate class="form-horizontal" role="form" name="model">
+                    <div class="modal-header" style="background-color: #3c8dbc;color:white;height:10%">
+                        <button type="button" class="close" data-dismiss="modal" ng-click="CancelPriceSheetsaveas()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Save As Into New Version...</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="TypeID" class="col-sm-3 control-label">Comment</label>
+                            <div class="col-sm-6" style="margin-top:6px">
+                                <input class="form-control" type="text" ng-model="Comment" title="Enter comment" ng-required="true" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" ng-disabled="model.$invalid" ng-click="UpdatePriceSheetVersion()"><i class="glyphicon glyphicon-ok"></i>&nbsp;Save</button>
+                        <button type="button" class="btn btn-danger" ng-click="CancelPriceSheetsaveas()"><i class="glyphicon glyphicon-remove"></i>&nbsp;Cancel</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="showSavemodel" class="modal fade" modal="showModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #3c8dbc;color:white;height:10%">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="CancelPriceSheet()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Application Sheet</h4>
+                </div>
+                <div class="modal-body">
+                    <p> Are you sure want to Save ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" ng-click="AddEstimationApplication(false)"><i class="glyphicon glyphicon-ok"></i>&nbsp; Save changes</button>
+                    <button type="button" class="btn btn-danger" ng-click="CancelPriceSheet()"><i class="glyphicon glyphicon-remove"></i>&nbsp;Cancel</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="showSaveChangesmodel" class="modal fade" modal="showModal" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #3c8dbc;color:white;height:10%">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="ClosePriceSheetdiscard()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Unsaved Changes</h4>
+                </div>
+                <div class="modal-body">
+                    <p> You have unsaved changes. Leave the page?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" ng-click="saveasPriceSheetdiscard()"><i class="glyphicon glyphicon-ok"></i>&nbsp; Save changes</button>
+                    <button type="button" class="btn btn-danger" ng-click="CancelPriceSheetdiscard()"><i class="glyphicon glyphicon-remove"></i>&nbsp;Ignore Changes</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+<style type="text/css">
+    /*.ag-fresh .ag-header-group-text {
+                    float: right !important;
+                }*/
+    
+    .ag-header-group-cell-label {
+        position: relative;
+    }
+    
+    .ag-header-expand-icon {
+        position: absolute;
+        left: 0;
+        top: 5px;
+    }
+    
+    .popover-content {
+        overflow-y: scroll;
+        height: 100px;
+    }
+    
+    #overlay {
+        display: none;
+    }
+    
+    .ag-blue .ag-row-selected {
+        background-color: #C2D98B !important;
+        /*C2D98B*/
+    }
+    
+    .ag-blue .ag-header-group-text {
+        margin-left: 12px;
+    }
+    
+    .ag-blue .ag-row-odd {
+        background-color: #ffffff;
+    }
+    
+    /*.ag-header-cell-label {
+                    overflow: visible;
+                    white-space: normal;
+                }*/
+    /*.ag-header-row{
+                height:20px !important;
+            }*/
+    
+    .animationload {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.85);
+        z-index: 999999;
+    }
+    
+    .animationload .loader {
+        width: 200px;
+        height: 200px;
+        font-size: 0;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        background-image: url("\images/loader.gif");
+        background-repeat: no-repeat;
+        background-position: center;
+        margin: -100px 0 0 -100px;
+    }
+    
+    .content {
+        padding: 0px !important;
+    }
+    
+    .test1 nav-tabs > li.active > a,
+    .nav-tabs > li.active > a:focus,
+    .nav-tabs > li.active > a:hover {
+        font-weight: 600;
+    }
+    
+    .test1 .nav > li > a {
+        padding: 5px 12px;
+        margin-top: -5px;
+    }
+    
+    .Level1 {
+        background-color: orange;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .Level2 {
+        background-color: yellow;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .Level3 {
+        background-color: red;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .great {
+        background-color: green;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .white {
+        background-color: white !important;
+    }
+    
+    .ag-blue .ag-header-cell-text {
+        float: left !important;
+    }
+     .ag-blue .ag-cell-focus
+    {
+            background: #5b9bd5 !important;
+    }
+    
+   
+</style>
+
+
+
+<div id="loader" class="animationload hide">
+    <div class="loader">
+        Loading...
+    </div>
+</div>

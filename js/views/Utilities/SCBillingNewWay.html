@@ -1,0 +1,73 @@
+﻿<div ng-app="ReportApp" class="box box-info" style="margin-top:20px">
+    <form name = 'scBillingNewForm'>
+    <div class="box-body">
+        <div class="row">
+            <a target="_self" id="downloadpdf" href={{downloadurl}} download={{filename}} style="display: none"></a>
+            <div class="col-xs-1">
+                <label>Role: </label>
+            </div>
+            <div class="col-md-2">
+                <select multiple class="form-control" ng-options="item.TypeID as item.TypeName for item in Types" ng-model="scBillingNewInput.TypeId" title="- Select User Type -">
+                        <option value="">- All -</option>
+                </select>
+            </div>
+            <div class="col-xs-1">
+                <label>Month: </label>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control" ng-model="scBillingNewInput.Month" title="- Select Month -" ng-init="scBillingNewInput.Month = 'All'">
+                        <option value="All">- ALL -</option>
+                        <option value="01">January</option>
+                        <option value="02">February</option>
+                        <option value="03">March</option>
+                        <option value="04">April</option>
+                        <option value="05">May</option>
+                        <option value="06">June</option>
+                        <option value="07">July</option>
+                        <option value="08">August</option>
+                        <option value="09">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label>Select Billing Period: </label>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control" ng-model="scBillingNewInput.BillingPeriod" title="- Select the Billing Period -" required>
+                        <option value="">- Select Billing Period -</option>
+                        <option value="2014"> FY  2014 - 2015</option>
+                        <option value="2015"> FY  2015 - 2016</option>
+                        <option value="2016"> FY  2016 - 2017</option>
+                        <option value="2017"> FY  2017 - 2018</option>
+                        <option value="2018"> FY  2018 - 2019</option>
+                        <option value="2019"> FY  2019 - 2020</option>
+                        <option value="2020"> FY  2020 - 2021</option>
+                        <option value="2021"> FY  2021 - 2022</option>
+                        <option value="2022"> FY  2022 - 2023</option>
+                        <option value="2023"> FY  2023 - 2024</option>
+                        <option value="2024"> FY  2024 - 2025</option>
+                        <option value="2025"> FY  2025 - 2026</option>
+                </select>
+            </div>            
+            <div class="col-md-3 pull-right">
+                <button data-ng-click="FetchSCBillingNew(scBillingNewInput.TypeId)" class="btn btn-sm btn-info btn-flat pull-right">Search <i class="fa fa-search" style="color:white"></i></button>
+                <button ng-show="showBillingNewGrid" data-ng-click="ExportSCBillingNew()" class="btn btn-sm btn-info btn-flat pull-right">Export &nbsp;<i class="fa fa-file-excel-o" style="color:white"></i></button>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+<!-- /.box-header -->
+<div class="box-body" ng-show="showBillingNewGrid">
+    <div class="mnbxcont">
+        <div data-ag-grid="SCBillingNewGrid" class="ag-blue" style="color:#000;!important;height:420px;width:100%"></div>
+    </div>
+</div>
+<div class="box-body" ng-show="showErr">
+    <div class="mnbxcont">
+        <label style="color:red">{{DateMessage}}</label>
+    </div>
+</div>
+</div>

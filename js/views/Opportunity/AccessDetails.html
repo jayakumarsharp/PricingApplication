@@ -1,0 +1,165 @@
+﻿<div class="box-body">
+    <div class="tab-content">
+
+        <div class="tab-pane active">
+            <!--<form class="form-horizontal" role="form" name="opportunityform-->
+            <!--John Changes-->
+            <div class="box box-info" style="max-height:450px; overflow-x:hidden; overflow-y:hidden">
+                <div class="box-header with-border">
+                    <i class="ion ion-clipboard"></i>
+                    <h3 class="box-title"> RSC users </h3> <span style="color:red" ng-show="listB_RSC.length==0">&nbsp;&nbsp;&nbsp; Select RSC owner</span>
+                    <button type="button" class="btn btn-info btn-xs pull-right" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                </div>
+                <div class="box-body">
+                    <div class="container-fluid">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="list-group box-comments" id="list1RSC" style="height:250px;overflow-x:auto">
+                                        <a href="javascript:;" class="list-group-item active">
+                                                Available RSC users
+
+                                            </a>
+                                        <span ng-repeat="right in listA_RSC | orderBy:'right.Userid'">
+                                                <a href="javascript:;" data-id="{{right.Userid}}" class="list-group-item">
+                                                    {{right.Userid}}
+                                                    <input id="{{right.Userid}}" ng-model="isCheckedA_RSC" ng-click="stateAChanged_RSC(isCheckedA_RSC, right.Userid)" name="selectedA_RSC[]" value="{{right.Userid}}" class="pull-right" type="checkbox" ng-true-value="true" ng-false-value="false">
+                                                </a>
+                                            </span>
+                                    </div>
+                                </div>
+                                <!--/col-4-->
+                                <div class="col-md-1 v-center text-center">
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <div class="btn-group-vertical">
+                                        <button class="btn btn-primary" ng-click="AlltoA_RSC()" id="btnAllA_RSC"><i class="fa fa-angle-double-left"></i></button>
+                                        <button class="btn btn-primary" ng-click="bToA_RSC()" id="btnA_RSC"><i class="fa fa-angle-left"></i></button>
+                                        <button class="btn btn-primary" ng-click="aToB_RSC()" id="btnB_RSC"><i class="fa fa-angle-right"></i></button>
+                                        <button class="btn btn-primary" ng-click="AlltoB_RSC()" id="btnAllB_RSC"><i class="fa fa-angle-double-right"></i></button>
+                                    </div>
+                                </div>
+                                <!--/col-2-->
+                                <div class="col-sm-4">
+                                    <div class="list-group box-comments" id="list2RSC" style="height:250px;overflow-x:auto">
+                                        <a href="javascript:;" class="list-group-item active">
+                                                Selected user(s)
+
+                                            </a>
+                                        <span ng-repeat="right in listB_RSC | orderBy:'right.Userid'">
+                                                <a href="javascript:;" data-id="{{right.Userid}}" class="list-group-item">
+                                                    {{right.Userid}}
+                                                    <input id="{{right.Userid}}" ng-model="isCheckedB_RSC" ng-click="stateBChanged_RSC(isCheckedB_RSC, right.Userid)" name="selectedB_RSC[]" value="{{right.Userid}}" class="pull-right" type="checkbox" ng-true-value="true" ng-false-value="false">
+                                                </a>
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--RSC user End -->
+            <!--Other user start -->
+
+            <div class="box box-info" style="max-height:450px; overflow-x:hidden; overflow-y:hidden">                
+                <div class="box-header with-border">
+                    <i class="ion ion-clipboard"></i>
+                    <h3 class="box-title">Other users</h3> <span style="color:red" ng-show="listB_Others.length==0">&nbsp;&nbsp;&nbsp; Select other user</span>
+                    <button type="button" id="otherUser" class="btn btn-info btn-xs pull-right" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                </div>
+                <div class="box-body">
+                                <div class="col-sm-3 col-xs-offset-1">
+                                    <!--<div class="input-group-addon pull-right"><i class="fa fa-search"></i></div>-->
+                                    <input type="text" class="form-control" placeholder="Filter Other users" ng-model="filters.Userid">
+                                </div>
+                            </div>
+                <div class="box-body">
+                    <div class="container-fluid">
+                        <div class="container">                            
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="list-group box-comments" id="list1RSC" style="height:300px;overflow-x:auto">
+                                        <a href="javascript:;" class="list-group-item active">
+                                                Other users
+                                            <!--<i class="fa fa-bars pull-right"></i>                                    -->
+                                            </a>
+                                        <span ng-repeat="right in listA_Others | orderBy:'right.Userid' | filter: filters">
+                                                <a href="javascript:;" data-id="{{right.Userid}}" class="list-group-item">
+                                                    {{right.Userid}}
+                                                    <input id="{{right.Userid}}" ng-model="isCheckedA_Others" ng-click="stateAChanged_Others(isCheckedA_Others, right.Userid)" name="selectedA_Others[]" value="{{right.Userid}}" class="pull-right" type="checkbox" ng-true-value="true" ng-false-value="false">
+                                                </a>
+                                            </span>
+                                    </div>
+                                </div>
+                                <!--/col-4-->
+                                <div class="col-md-1 v-center text-center">
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <div class="btn-group-vertical">
+                                        <button class="btn btn-primary" ng-click="AlltoA_Others()" id="btnAllA_Others"><i class="fa fa-angle-double-left"></i></button>
+                                        <button class="btn btn-primary" ng-click="bToA_Others()" id="btnA_Others"><i class="fa fa-angle-left"></i></button>
+                                        <button class="btn btn-primary" ng-click="aToB_Others()" id="btnB_Others"><i class="fa fa-angle-right"></i></button>
+                                        <button class="btn btn-primary" ng-click="AlltoB_Others()" id="btnAllB_Others"><i class="fa fa-angle-double-right"></i></button>
+                                    </div>
+                                </div>
+                                <!--/col-2-->
+                                <div class="col-sm-4">
+                                    <div class="list-group box-comments" id="list2RSC" style="height:300px;overflow-x:auto">
+                                        <a href="javascript:;" class="list-group-item active">
+                                                Selected user(s)
+
+                                            </a>
+                                        <span ng-repeat="right in listB_Others | orderBy:'right.Userid'">
+                                                <a href="javascript:;" data-id="{{right.Userid}}" class="list-group-item">
+                                                    {{right.Userid}}
+                                                    <input id="{{right.Userid}}" ng-model="isCheckedB_Others" ng-click="stateBChanged_Others(isCheckedB_Others, right.Userid)" name="selectedB_Others[]" value="{{right.Userid}}" class="pull-right" type="checkbox" ng-true-value="true" ng-false-value="false">
+                                                </a>
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End John-->
+            <div class="form-group">
+                <div class="col-sm-offset-11 col-sm-12">
+                    <span data-ng-hide="editMode">
+                            <input type="submit" value="Save" ng-disabled="listB_RSC.length==0 && listB_Others.length==0" data-ng-click="SaveData(OpportunityDetail,OpportunityConfigurationDetail,'Access')" class="btn btn-primary" />
+                        </span>
+                </div>
+            </div>
+            <!--<div class="form-group">
+                    <div class="col-sm-offset-10 col-sm-12">
+                        <span data-ng-hide="editMode">
+                            <input type="submit" value="Next &nbsp;&nbsp;&nbsp;  >>" ng-disabled="opportunityform.$invalid" data-ng-click="RedirectNext(2)" class="btn btn-primary" />
+                        </span>
+
+                    </div>
+                </div>-->
+            <div>
+            </div>
+            <!--</form>-->
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- <div ng-app="demoapp" ng-controller="demoController as vm">
+    <div class="container">
+
+        <duallist template-url="template.html" duallist-option="vm.options" leftscope="vm.leftValue" rightscope="vm.rightValue"></duallist>
+    </div>
+
+</div>-->

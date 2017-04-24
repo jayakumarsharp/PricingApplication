@@ -1,0 +1,690 @@
+﻿<div ng-show="Ishome" class="pull-right">
+	<a data-ng-click="View360(OpportunityDetail)" style="cursor:pointer">
+		<img src="{{ view360imgPath }}logo360.png" class="img-circle" title="View 360 menu">
+	</a>
+
+</div>
+<div class="modal fade" id="View360" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" style="align-self:center;width:60%">
+		<div class="modal-content" style="height:auto;background-color:ghostwhite;overflow-y:auto">
+			<div class="modal-header" style="background-color: #3c8dbc;color:white">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+				<h3 class="modal-title" id="myModalLabel">{{Opp.OpportunityName}}</h3>
+			</div>
+			<div class="modal-body" style="max-height:500px;overflow-x:hidden;overflow-y:auto">
+				<div class="row">
+					<section class="col-lg-6 connectedSortable ui-sortable">
+						<!-- Widget: user widget style 1 -->
+						<div class="box box-info collapsed-box box-widget widget-user-2">
+							<!-- Add the bg color to the header using any of the bg-* classes -->
+							<div class="widget-user-header bg-light-blue-gradient">
+								<div class="widget-user-image">
+									<img class="img-circle" src="{{view360imgPath}}opportunity.jpg" alt="User Avatar">
+								</div>
+								<!-- /.widget-user-image -->
+								<h3 class="widget-user-username">Opportunity Control</h3>
+								<a ng-show="RightToViewOpp" style="cursor:pointer;color:white" ng-click="RedirectToOpp(Opp.id)">
+									<h5 class="widget-user-desc">Click here to view more details</h5>
+								</a>
+								<h5 ng-show="!RightToViewOpp" class="widget-user-desc" style="color:white">You do not have permission to view!</h5>
+								<button type="button" data-widget="collapse" class="btn btn-primary btn-xs pull-right no-border" style="cursor:pointer">
+                                    <i class="fa fa-plus pull-right"></i>
+                                </button>
+							</div>
+							<div class="box-body box-primary no-padding" style="max-height: 120px; overflow-y: auto">
+								<ul class="nav nav-stacked" style="cursor:pointer">
+									<li><a ng-click="RedirectDummy()"><span class="badge bg-blue col-md-3">Status</span>&nbsp;&nbsp;&nbsp;&nbsp;{{Opp.CSCStatus}} </a></li>
+									<li><a ng-click="RedirectDummy()"><span class="badge bg-blue col-md-3">SBU</span>&nbsp;&nbsp;&nbsp;&nbsp;{{Opp.SBU}} </a></li>
+									<li><a ng-click="RedirectDummy()"><span class="badge bg-blue col-md-3">Manager</span>&nbsp;&nbsp;&nbsp;&nbsp;{{Opp.AccManagerName}}</a></li>
+									<!--<li class="col-md-12"><a class="col-md-6" ng-click="RedirectDummy()"><span class="badge bg-blue col-md-6">Status</span>&nbsp;&nbsp;&nbsp;&nbsp;{{Opp.CSCStatus}} </a></li>
+                                    <li class="col-md-12"><a class="col-md-6" ng-click="RedirectDummy()"><span class="badge bg-blue col-md-6">SBU</span>&nbsp;&nbsp;&nbsp;&nbsp;{{Opp.SBU}} </a></li>
+                                    <li class="col-md-12"><a class="col-md-6" ng-click="RedirectDummy()"><span class="badge bg-blue col-md-6">Manager</span>&nbsp;&nbsp;&nbsp;&nbsp;{{Opp.AccManagerName}}</a></li>-->
+								</ul>
+							</div>
+						</div>
+					</section>
+
+					<!-- /.widget-user -->
+					<!-- Widget: user widget style 1 -->
+					<!-- /.widget-user -->
+					<section class="col-lg-6 connectedSortable ui-sortable">
+						<!-- Widget: user widget style 1 -->
+						<div class="box box-info collapsed-box  box-widget widget-user-2" ng-show="ShowPrice">
+							<!-- Add the bg color to the header using any of the bg-* classes -->
+							<div class="widget-user-header bg-blue-gradient">
+								<div class="widget-user-image">
+									<img class="img-circle" src="{{view360imgPath}}pricing.png" alt="User Avatar">
+								</div>
+								<!-- /.widget-user-image -->
+								<h3 class="widget-user-username">Estimation - Pricing</h3>
+								<a style="cursor:pointer;color:white" ng-show="isPriceSheetExist" ng-click="RedirectToPrice(Opp.id,Opp.LatestPriceVersion)">
+									<h5 class="widget-user-desc">Click here to view the latest version</h5>
+								</a>
+								<a style="cursor:pointer;color:white" ng-show="!isPriceSheetExist" ng-click="RedirectToPrice(Opp.id,Opp.PriceSheetId)">
+									<h5 class="widget-user-desc">Click here to create new sheet</h5>
+								</a>
+								<button type="button" data-widget="collapse" class="btn bg-blue btn-xs pull-right no-border" style="cursor:pointer">
+                                    <i class="fa fa-plus pull-right"></i>
+                                </button>
+							</div>
+							<div class="box-body box-warning no-padding" style="max-height: 120px; overflow-y: auto">
+								<ul class="nav nav-stacked" style="cursor:pointer" ng-repeat="opp in PriceVersions  | orderBy:PriceSheetId:true">
+									<li><a ng-click="RedirectToPrice(opp.id,opp.PriceSheetId)">{{opp.Version}}&nbsp;&nbsp;<span class="badge bg-yellow">{{opp.CreatedBy}}</span>&nbsp;&nbsp;<span class="badge bg-blue" title="{{opp.Comment}}">{{opp.Comment.length > 10 ? opp.Comment.substring(0,9)+'..' : opp.Comment }}</span><span ng-if="$first" class="pull-right badge bg-green">Latest</span></a></li>
+								</ul>
+							</div>
+						</div>
+					</section>
+
+
+
+
+					<!--<section class="col-lg-6 connectedSortable ui-sortable">
+						
+						<div class="box box-info collapsed-box  box-widget widget-user-2" ng-show="ShowPrice">
+						
+							<div class="widget-user-header bg-blue-gradient">
+								<div class="widget-user-image">
+									<img class="img-circle" src="{{view360imgPath}}pricing.png" alt="User Avatar">
+								</div>
+						
+								<h3 class="widget-user-username">Day Sheet</h3>
+								<a style="cursor:pointer;color:white" ng-show="isPriceSheetExist" ng-click="RedirectToDay(Opp.id,Opp.LatestPriceVersion)">
+									<h5 class="widget-user-desc">Click here to view the latest version</h5>
+								</a>
+								<a style="cursor:pointer;color:white" ng-show="!isPriceSheetExist" ng-click="RedirectToDay(Opp.id,Opp.PriceSheetId)">
+									<h5 class="widget-user-desc">Click here to create new Day sheet</h5>
+								</a>
+								<button type="button" data-widget="collapse" class="btn bg-blue btn-xs pull-right no-border" style="cursor:pointer">
+                                    <i class="fa fa-plus pull-right"></i>
+                                </button>
+							</div>
+							<div class="box-body box-warning no-padding" style="max-height: 120px; overflow-y: auto">
+								<ul class="nav nav-stacked" style="cursor:pointer" ng-repeat="opp in PriceVersions  | orderBy:PriceSheetId:true">
+									<li><a ng-click="RedirectToDay(opp.id,opp.PriceSheetId)">{{opp.Version}}&nbsp;&nbsp;<span class="badge bg-yellow">{{opp.CreatedBy}}</span>&nbsp;&nbsp;<span class="badge bg-blue" title="{{opp.Comment}}">{{opp.Comment.length > 10 ? opp.Comment.substring(0,9)+'..' : opp.Comment }}</span><span ng-if="$first" class="pull-right badge bg-green">Latest</span></a></li>
+								</ul>
+							</div>
+						</div>
+					</section>
+
+
+					<section class="col-lg-6 connectedSortable ui-sortable">
+						<div class="box box-info collapsed-box  box-widget widget-user-2" ng-show="ShowResource">
+							<div class="widget-user-header bg-blue-gradient">
+								<div class="widget-user-image">
+									<img class="img-circle" src="{{view360imgPath}}pricing.png" alt="User Avatar">
+								</div>
+								<h3 class="widget-user-username">Resourcing Sheet</h3>
+								<a style="cursor:pointer;color:white" ng-show="isPriceSheetExist" ng-click="RedirectToResource(Opp.id,Opp.LatestPriceVersion)">
+									<h5 class="widget-user-desc">Click here to view the latest version</h5>
+								</a>
+								<a style="cursor:pointer;color:white" ng-show="!isPriceSheetExist" ng-click="RedirectToResource(Opp.id,Opp.PriceSheetId)">
+									<h5 class="widget-user-desc">Click here to create new sheet</h5>
+								</a>
+								<button type="button" data-widget="collapse" class="btn bg-blue btn-xs pull-right no-border" style="cursor:pointer">
+                                    <i class="fa fa-plus pull-right"></i>
+                                </button>
+							</div>
+							<div class="box-body box-warning no-padding" style="max-height: 120px; overflow-y: auto">
+								<ul class="nav nav-stacked" style="cursor:pointer" ng-repeat="opp in PriceVersions  | orderBy:PriceSheetId:true">
+									<li><a ng-click="RedirectToResource(Opp.id,opp.PriceSheetId)">{{opp.Version}}&nbsp;&nbsp;<span class="badge bg-yellow">{{opp.CreatedBy}}</span>&nbsp;&nbsp;<span class="badge bg-blue" title="{{opp.Comment}}">{{opp.Comment.length > 10 ? opp.Comment.substring(0,9)+'..' : opp.Comment }}</span><span ng-if="$first" class="pull-right badge bg-green">Latest</span></a></li>
+								</ul>
+							</div>
+						</div>
+					</section>
+
+					<section class="col-lg-6 connectedSortable ui-sortable">
+						<div class="box box-info collapsed-box  box-widget widget-user-2" ng-show="ShowStayTravel">
+							<div class="widget-user-header bg-blue-gradient">
+								<div class="widget-user-image">
+									<img class="img-circle" src="{{view360imgPath}}pricing.png" alt="User Avatar">
+								</div>
+								<h3 class="widget-user-username">T & E Sheet</h3>
+								<a style="cursor:pointer;color:white" ng-show="isPriceSheetExist" ng-click="RedirectToStayTravel(Opp.id, Opp.LatestPriceVersion)">
+									<h5 class="widget-user-desc">Click here to view the latest version</h5>
+								</a>
+								<a style="cursor:pointer;color:white" ng-show="!isPriceSheetExist" ng-click="RedirectToStayTravel(Opp.id,Opp.PriceSheetId)">
+									<h5 class="widget-user-desc">Click here to create new sheet</h5>
+								</a>
+								<button type="button" data-widget="collapse" class="btn bg-blue btn-xs pull-right no-border" style="cursor:pointer">
+                                    <i class="fa fa-plus pull-right"></i>
+                                </button>
+							</div>
+							<div class="box-body box-warning no-padding" style="max-height: 120px; overflow-y: auto">
+								<ul class="nav nav-stacked" style="cursor:pointer" ng-repeat="opp in PriceVersions  | orderBy:PriceSheetId:true">
+									<li><a ng-click="RedirectToStayTravel(Opp.id,opp.PriceSheetId)">{{opp.Version}}&nbsp;&nbsp;<span class="badge bg-yellow">{{opp.CreatedBy}}</span>&nbsp;&nbsp;<span class="badge bg-blue" title="{{opp.Comment}}">{{opp.Comment.length > 10 ? opp.Comment.substring(0,9)+'..' : opp.Comment }}</span><span ng-if="$first" class="pull-right badge bg-green">Latest</span></a></li>
+								</ul>
+							</div>
+						</div>
+					</section>-->
+<!--
+					<section class="col-lg-6 connectedSortable ui-sortable">
+						<div class="box box-info collapsed-box  box-widget widget-user-2" ng-show="ShowTandE">
+							<div class="widget-user-header bg-blue-gradient">
+								<div class="widget-user-image">
+									<img class="img-circle" src="{{view360imgPath}}pricing.png" alt="User Avatar">
+								</div>
+								<h3 class="widget-user-username">Resources Sheet</h3>
+								<a style="cursor:pointer;color:white" ng-show="isPriceSheetExist" ng-click="RedirectToTandE(Opp.id,Opp.LatestPriceVersion)">
+									<h5 class="widget-user-desc">Click here to view the latest version</h5>
+								</a>
+								<a style="cursor:pointer;color:white" ng-show="!isPriceSheetExist" ng-click="RedirectToTandE(Opp.id,Opp.PriceSheetId)">
+									<h5 class="widget-user-desc">Click here to create new sheet</h5>
+								</a>
+								<button type="button" data-widget="collapse" class="btn bg-blue btn-xs pull-right no-border" style="cursor:pointer">
+                                    <i class="fa fa-plus pull-right"></i>
+                                </button>
+							</div>
+							<div class="box-body box-warning no-padding" style="max-height: 120px; overflow-y: auto">
+								<ul class="nav nav-stacked" style="cursor:pointer" ng-repeat="opp in PriceVersions  | orderBy:PriceSheetId:true">
+
+									<li><a ng-click="RedirectToTandE(Opp.id,opp.PriceSheetId)">{{opp.Version}}&nbsp;&nbsp;<span class="badge bg-yellow">{{opp.CreatedBy}}</span>&nbsp;&nbsp;<span class="badge bg-blue" title="{{opp.Comment}}">{{opp.Comment.length > 10 ? opp.Comment.substring(0,9)+'..' : opp.Comment }}</span><span ng-if="$first" class="pull-right badge bg-green">Latest</span></a></li>
+								</ul>
+							</div>
+						</div>
+					</section>-->
+
+				</div>
+
+				<uib-accordion>
+
+					<uib-accordion-group is-open="EFirstOpen">
+						<uib-accordion-heading><span style="font-size:24px" class="pull-left clearfix"> Estimation (Modules) </span><span class="btn btn-info btn-xs pull-right"><i class="fa" ng-class="{'fa-minus': EFirstOpen, 'fa-plus': !EFirstOpen}"></i></span>							</uib-accordion-heading>
+
+						<section class="col-lg-6 connectedSortable ui-sortable">
+							<!-- Widget: user widget style 1 -->
+							<div class="box box-info collapsed-box  box-widget widget-user-2" ng-show="ShowPrice">
+								<!-- Add the bg color to the header using any of the bg-* classes -->
+								<div class="widget-user-header padlef5 bg-aqua">
+									<div class="widget-user-image">
+										<img class="img-circle" src="{{view360imgPath}}Estimation/self.png" alt="User Avatar">
+									</div>
+									<!-- /.widget-user-image -->
+
+									<h3 class="widget-user-username font-control"> Opportunity product</h3>
+
+
+									<a style="cursor:pointer;color:white" ng-show="true" ng-click="RedirectToOpportunityEstimate(Opp.id)">
+										<h5 class="widget-user-desc">Click here to view the latest version</h5>
+									</a>
+
+
+								</div>
+								<div class="box-body box-warning no-padding" style="max-height: 120px; overflow-y: auto">
+									<ul class="nav nav-stacked" style="cursor:pointer" ng-repeat="opp in SelfServiceVersions  | orderBy:ApplicationId:true">
+										<li><a ng-click="RedirectToEstimateSelf(opp.oppautoid,opp.ApplicationId)">{{opp.Version}}&nbsp;&nbsp;<span class="badge bg-yellow">{{opp.CreatedBy}}</span>&nbsp;&nbsp;
+                                    <span class="badge bg-blue" title="{{opp.Comment}}">{{opp.Comment.length > 10 ? opp.Comment.substring(0,9)+'..' : opp.Comment }}</span>
+                                    <span ng-if="$first" class="pull-right badge bg-green">Latest</span>
+                                    </a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</section>
+
+
+
+						<section ng-show="SELF_SERVICE" class="col-lg-6 connectedSortable ui-sortable">
+							<!-- Widget: user widget style 1 -->
+							<div class="box box-info collapsed-box  box-widget widget-user-2" ng-show="ShowPrice">
+								<!-- Add the bg color to the header using any of the bg-* classes -->
+								<div class="widget-user-header padlef5 bg-aqua">
+									<div class="widget-user-image">
+										<img class="img-circle" src="{{view360imgPath}}Estimation/self.png" alt="User Avatar">
+									</div>
+									<!-- /.widget-user-image -->
+
+									<h3 class="widget-user-username font-control"> Self Service</h3>
+
+
+									<a style="cursor:pointer;color:white" ng-show="isSelfServiceSheetExist" ng-click="RedirectToEstimateSelf(Opp.id,Opp.LatestSelfServiceVersion)">
+										<h5 class="widget-user-desc">Click here to view the latest version</h5>
+									</a>
+									<a style="cursor:pointer;color:white" ng-show="!isSelfServiceSheetExist" ng-click="RedirectToEstimateSelf(Opp.id,Opp.ApplicationId)">
+										<h5 class="widget-user-desc">Click here to create new sheet</h5>
+									</a>
+									<button type="button" data-widget="collapse" class="btn bg-aqua-active  btn-xs pull-right no-border" style="cursor:pointer">
+                                    <i class="fa fa-plus pull-right"></i>
+                                </button>
+
+								</div>
+								<div class="box-body box-warning no-padding" style="max-height: 120px; overflow-y: auto">
+									<ul class="nav nav-stacked" style="cursor:pointer" ng-repeat="opp in SelfServiceVersions  | orderBy:ApplicationId:true">
+										<li><a ng-click="RedirectToEstimateSelf(opp.oppautoid,opp.ApplicationId)">{{opp.Version}}&nbsp;&nbsp;<span class="badge bg-yellow">{{opp.CreatedBy}}</span>&nbsp;&nbsp;
+                                    <span class="badge bg-blue" title="{{opp.Comment}}">{{opp.Comment.length > 10 ? opp.Comment.substring(0,9)+'..' : opp.Comment }}</span>
+                                    <span ng-if="$first" class="pull-right badge bg-green">Latest</span>
+                                    </a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</section>
+
+						<section ng-show="APPLICATIONS" class="col-lg-6 connectedSortable ui-sortable">
+							<!-- Widget: user widget style 1 -->
+							<div class="box box-info collapsed-box  box-widget widget-user-2" ng-show="ShowPrice">
+								<!-- Add the bg color to the header using any of the bg-* classes -->
+								<div class="widget-user-header padlef5 bg-aqua">
+									<div class="widget-user-image">
+										<img class="img-circle" src="{{view360imgPath}}Estimation/applications.png" alt="User Avatar">
+									</div>
+									<!-- /.widget-user-image -->
+
+									<h3 class="widget-user-username font-control"> {{Currentpage }}</h3>
+
+
+									<a style="cursor:pointer;color:white" ng-show="isApplicatonSheetExist" ng-click="RedirectToEstimate(Opp.id,Opp.LatestAppVersion)">
+										<h5 class="widget-user-desc">Click here to view the latest version</h5>
+									</a>
+									<a style="cursor:pointer;color:white" ng-show="!isApplicatonSheetExist" ng-click="RedirectToEstimate(Opp.id,Opp.ApplicationId)">
+										<h5 class="widget-user-desc">Click here to create new sheet</h5>
+									</a>
+									<button type="button" data-widget="collapse" class="btn bg-aqua-active  btn-xs pull-right no-border" style="cursor:pointer">
+                                    <i class="fa fa-plus pull-right"></i>
+                                </button>
+
+								</div>
+								<div class="box-body box-warning no-padding" style="max-height: 120px; overflow-y: auto">
+									<ul class="nav nav-stacked" style="cursor:pointer" ng-repeat="opp in AppVersions  | orderBy:ApplicationId:true">
+										<li><a ng-click="RedirectToEstimate(opp.oppautoid,opp.ApplicationId)">{{opp.Version}}&nbsp;&nbsp;<span class="badge bg-yellow">{{opp.CreatedBy}}</span>&nbsp;&nbsp;
+                                    <span class="badge bg-blue" title="{{opp.Comment}}">{{opp.Comment.length > 10 ? opp.Comment.substring(0,9)+'..' : opp.Comment }}</span>
+                                    <span ng-if="$first" class="pull-right badge bg-green">Latest</span>
+                                    </a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</section>
+						<section ng-show="ADMIN || PACKAGE || REPORT" class="col-lg-6 connectedSortable ui-sortable">
+							<!-- Widget: user widget style 1 -->
+							<div class="box box-info collapsed-box  box-widget widget-user-2" ng-show="ShowPrice">
+								<!-- Add the bg color to the header using any of the bg-* classes -->
+								<div class="widget-user-header padlef5 bg-aqua">
+									<div class="widget-user-image">
+										<img class="img-circle" src="{{view360imgPath}}Estimation/report.png" alt="User Avatar">
+									</div>
+									<!-- /.widget-user-image -->
+
+									<h3 class="widget-user-username font-control"> Admin & Report </h3>
+
+
+									<a style="cursor:pointer;color:white" ng-show="isAdminReportsSheetExist" ng-click="RedirectToEstimateAdmin(Opp.id,Opp.LatestAdminReportsVersion)">
+										<h5 class="widget-user-desc">Click here to view the latest version</h5>
+									</a>
+									<a style="cursor:pointer;color:white" ng-show="!isAdminReportsSheetExist" ng-click="RedirectToEstimateAdmin(Opp.id,Opp.ApplicationId)">
+										<h5 class="widget-user-desc">Click here to create new sheet</h5>
+									</a>
+									<button type="button" data-widget="collapse" class="btn bg-aqua-active  btn-xs pull-right no-border" style="cursor:pointer">
+                                    <i class="fa fa-plus pull-right"></i>
+                                </button>
+
+								</div>
+								<div class="box-body box-warning no-padding" style="max-height: 120px; overflow-y: auto">
+									<ul class="nav nav-stacked" style="cursor:pointer" ng-repeat="opp in AdminVersions  | orderBy:ApplicationId:true">
+										<li><a ng-click="RedirectToEstimateAdmin(opp.oppautoid,opp.ApplicationId)">{{opp.Version}}&nbsp;&nbsp;<span class="badge bg-yellow">{{opp.CreatedBy}}</span>&nbsp;&nbsp;
+                                    <span class="badge bg-blue" title="{{opp.Comment}}">{{opp.Comment.length > 10 ? opp.Comment.substring(0,9)+'..' : opp.Comment }}</span>
+                                    <span ng-if="$first" class="pull-right badge bg-green">Latest</span>
+                                    </a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</section>
+
+
+
+
+
+
+
+
+
+
+
+						<section ng-show="CISCO" class="col-lg-6 connectedSortable ui-sortable">
+							<!-- Widget: user widget style 1 -->
+							<div class="box box-info collapsed-box  box-widget widget-user-2" ng-show="ShowPrice">
+								<!-- Add the bg color to the header using any of the bg-* classes -->
+								<div class="widget-user-header padlef5 bg-aqua">
+									<div class="widget-user-image">
+										<img class="img-circle" src="{{view360imgPath}}Estimation/cisco.png" alt="User Avatar">
+									</div>
+									<!-- /.widget-user-image -->
+
+									<h3 class="widget-user-username font-control"> Cisco</h3>
+
+
+									<a style="cursor:pointer;color:white" ng-show="isCiscoSheetExist" ng-click="RedirectToEstimateCisco(Opp.id,Opp.LatestCiscoVersion)">
+										<h5 class="widget-user-desc">Click here to view the latest version</h5>
+									</a>
+									<a style="cursor:pointer;color:white" ng-show="!isCiscoSheetExist" ng-click="RedirectToEstimateCisco(Opp.id,Opp.ApplicationId)">
+										<h5 class="widget-user-desc">Click here to create new sheet</h5>
+									</a>
+									<button type="button" data-widget="collapse" class="btn bg-aqua-active  btn-xs pull-right no-border" style="cursor:pointer">
+                                    <i class="fa fa-plus pull-right"></i>
+                                </button>
+
+								</div>
+								<div class="box-body box-warning no-padding" style="max-height: 120px; overflow-y: auto">
+									<ul class="nav nav-stacked" style="cursor:pointer" ng-repeat="opp in CSVersions  | orderBy:ApplicationId:true">
+										<li><a ng-click="RedirectToEstimateCisco(opp.oppautoid,opp.ApplicationId)">{{opp.Version}}&nbsp;&nbsp;<span class="badge bg-yellow">{{opp.CreatedBy}}</span>&nbsp;&nbsp;
+                                    <span class="badge bg-blue" title="{{opp.Comment}}">{{opp.Comment.length > 10 ? opp.Comment.substring(0,9)+'..' : opp.Comment }}</span>
+                                    <span ng-if="$first" class="pull-right badge bg-green">Latest</span>
+                                    </a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</section>
+
+						<section ng-show="Avaya" class="col-lg-6 connectedSortable ui-sortable">
+							<!-- Widget: user widget style 1 -->
+							<div class="box box-info collapsed-box  box-widget widget-user-2" ng-show="ShowPrice">
+								<!-- Add the bg color to the header using any of the bg-* classes -->
+								<div class="widget-user-header padlef5 bg-aqua">
+									<div class="widget-user-image">
+										<img class="img-circle" src="{{view360imgPath}}Estimation/avaya.png" alt="User Avatar">
+									</div>
+									<!-- /.widget-user-image -->
+
+									<h3 class="widget-user-username font-control"> Avaya</h3>
+
+
+									<a style="cursor:pointer;color:white" ng-show="isAvayaSheetExist" ng-click="RedirectToEstimateAvaya(Opp.id,Opp.LatestAvayaVersion)">
+										<h5 class="widget-user-desc">Click here to view the latest version</h5>
+									</a>
+									<a style="cursor:pointer;color:white" ng-show="!isAvayaSheetExist" ng-click="RedirectToEstimateAvaya(Opp.id,Opp.ApplicationId)">
+										<h5 class="widget-user-desc">Click here to create new sheet</h5>
+									</a>
+									<button type="button" data-widget="collapse" class="btn bg-aqua-active  btn-xs pull-right no-border" style="cursor:pointer">
+                                    <i class="fa fa-plus pull-right"></i>
+                                </button>
+
+								</div>
+								<div class="box-body box-warning no-padding" style="max-height: 120px; overflow-y: auto">
+									<ul class="nav nav-stacked" style="cursor:pointer" ng-repeat="opp in AVVersions  | orderBy:ApplicationId:true">
+										<li><a ng-click="RedirectToEstimateAvaya(opp.oppautoid,opp.ApplicationId)">{{opp.Version}}&nbsp;&nbsp;<span class="badge bg-yellow">{{opp.CreatedBy}}</span>&nbsp;&nbsp;
+                                    <span class="badge bg-blue" title="{{opp.Comment}}">{{opp.Comment.length > 10 ? opp.Comment.substring(0,9)+'..' : opp.Comment }}</span>
+                                    <span ng-if="$first" class="pull-right badge bg-green">Latest</span>
+                                    </a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</section>
+
+
+
+						<section ng-show="eGain" class="col-lg-6 connectedSortable ui-sortable">
+							<!-- Widget: user widget style 1 -->
+							<div class="box box-info collapsed-box  box-widget widget-user-2" ng-show="ShowPrice">
+								<!-- Add the bg color to the header using any of the bg-* classes -->
+								<div class="widget-user-header padlef5 bg-aqua">
+									<div class="widget-user-image">
+										<img class="img-circle" src="{{view360imgPath}}Estimation/egain.png" alt="User Avatar">
+									</div>
+									<!-- /.widget-user-image -->
+
+									<h3 class="widget-user-username font-control"> EGain</h3>
+
+
+									<a style="cursor:pointer;color:white" ng-show="isEGainSheetExist" ng-click="RedirectToEstimateEGain(Opp.id,Opp.LatestEGainVersion)">
+										<h5 class="widget-user-desc">Click here to view the latest version</h5>
+									</a>
+									<a style="cursor:pointer;color:white" ng-show="!isEGainSheetExist" ng-click="RedirectToEstimateEGain(Opp.id,Opp.ApplicationId)">
+										<h5 class="widget-user-desc">Click here to create new sheet</h5>
+									</a>
+									<button type="button" data-widget="collapse" class="btn bg-aqua-active  btn-xs pull-right no-border" style="cursor:pointer">
+                                    <i class="fa fa-plus pull-right"></i>
+                                </button>
+
+								</div>
+								<div class="box-body box-warning no-padding" style="max-height: 120px; overflow-y: auto">
+									<ul class="nav nav-stacked" style="cursor:pointer" ng-repeat="opp in EGVersions  | orderBy:ApplicationId:true">
+										<li><a ng-click="RedirectToEstimateEGain(opp.oppautoid,opp.ApplicationId)">{{opp.Version}}&nbsp;&nbsp;<span class="badge bg-yellow">{{opp.CreatedBy}}</span>&nbsp;&nbsp;
+                                    <span class="badge bg-blue" title="{{opp.Comment}}">{{opp.Comment.length > 10 ? opp.Comment.substring(0,9)+'..' : opp.Comment }}</span>
+                                    <span ng-if="$first" class="pull-right badge bg-green">Latest</span>
+                                    </a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</section>
+
+						<section ng-show="SERVION_PRODUCTS" class="col-lg-6 connectedSortable ui-sortable">
+							<!-- Widget: user widget style 1 -->
+							<div class="box box-info collapsed-box  box-widget widget-user-2" ng-show="ShowPrice">
+								<!-- Add the bg color to the header using any of the bg-* classes -->
+								<div class="widget-user-header padlef5 bg-aqua">
+									<div class="widget-user-image">
+										<img class="img-circle" src="{{view360imgPath}}Estimation/servion.jpg" alt="User Avatar">
+									</div>
+									<!-- /.widget-user-image -->
+
+									<h3 class="widget-user-username font-control"> ServionProducts</h3>
+
+
+									<a style="cursor:pointer;color:white" ng-show="isServionProductsSheetExist" ng-click="RedirectToEstimateServionProducts(Opp.id,Opp.LatestServionProductsVersion)">
+										<h5 class="widget-user-desc">Click here to view the latest version</h5>
+									</a>
+									<a style="cursor:pointer;color:white" ng-show="!isServionProductsSheetExist" ng-click="RedirectToEstimateServionProducts(Opp.id,Opp.ApplicationId)">
+										<h5 class="widget-user-desc">Click here to create new sheet</h5>
+									</a>
+									<button type="button" data-widget="collapse" class="btn bg-aqua-active  btn-xs pull-right no-border" style="cursor:pointer">
+                                    <i class="fa fa-plus pull-right"></i>
+                                </button>
+
+								</div>
+								<div class="box-body box-warning no-padding" style="max-height: 120px; overflow-y: auto">
+									<ul class="nav nav-stacked" style="cursor:pointer" ng-repeat="opp in ServPoductVersions | orderBy:ApplicationId:true">
+										<li><a ng-click="RedirectToEstimateServionProducts(opp.oppautoid,opp.ApplicationId)">{{opp.Version}}&nbsp;&nbsp;<span class="badge bg-yellow">{{opp.CreatedBy}}</span>&nbsp;&nbsp;
+                                    <span class="badge bg-blue" title="{{opp.Comment}}">{{opp.Comment.length > 10 ? opp.Comment.substring(0,9)+'..' : opp.Comment }}</span>
+                                    <span ng-if="$first" class="pull-right badge bg-green">Latest</span>
+                                    </a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</section>
+
+						<section ng-show="ACQUEON" class="col-lg-6 connectedSortable ui-sortable">
+							<!-- Widget: user widget style 1 -->
+							<div class="box box-info collapsed-box  box-widget widget-user-2" ng-show="ShowPrice">
+								<!-- Add the bg color to the header using any of the bg-* classes -->
+								<div class="widget-user-header padlef5 bg-aqua">
+									<div class="widget-user-image">
+										<img class="img-circle" src="{{view360imgPath}}Estimation/acqueon.png" alt="User Avatar">
+									</div>
+									<!-- /.widget-user-image -->
+
+									<h3 class="widget-user-username font-control"> Acqueon</h3>
+
+
+									<a style="cursor:pointer;color:white" ng-show="isAcqueonSheetExist" ng-click="RedirectToEstimateAcqueon(Opp.id,Opp.LatestAcqueonVersion)">
+										<h5 class="widget-user-desc">Click here to view the latest version</h5>
+									</a>
+									<a style="cursor:pointer;color:white" ng-show="!isAcqueonSheetExist" ng-click="RedirectToEstimateAcqueon(Opp.id,Opp.ApplicationId)">
+										<h5 class="widget-user-desc">Click here to create new sheet</h5>
+									</a>
+									<button type="button" data-widget="collapse" class="btn bg-aqua-active  btn-xs pull-right no-border" style="cursor:pointer">
+                                    <i class="fa fa-plus pull-right"></i>
+                                </button>
+
+								</div>
+								<div class="box-body box-warning no-padding" style="max-height: 120px; overflow-y: auto">
+									<ul class="nav nav-stacked" style="cursor:pointer" ng-repeat="opp in ACQVersions  | orderBy:ApplicationId:true">
+										<li><a ng-click="RedirectToEstimateAcqueon(opp.oppautoid,opp.ApplicationId)">{{opp.Version}}&nbsp;&nbsp;<span class="badge bg-yellow">{{opp.CreatedBy}}</span>&nbsp;&nbsp;
+                                    <span class="badge bg-blue" title="{{opp.Comment}}">{{opp.Comment.length > 10 ? opp.Comment.substring(0,9)+'..' : opp.Comment }}</span>
+                                    <span ng-if="$first" class="pull-right badge bg-green">Latest</span>
+                                    </a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</section>
+						<section ng-show="WFO" class="col-lg-6 connectedSortable ui-sortable">
+							<!-- Widget: user widget style 1 -->
+							<div class="box box-info collapsed-box  box-widget widget-user-2" ng-show="ShowPrice">
+								<!-- Add the bg color to the header using any of the bg-* classes -->
+								<div class="widget-user-header padlef5 bg-aqua">
+									<div class="widget-user-image">
+										<img class="img-circle" src="{{view360imgPath}}Estimation/wfo1.png" alt="User Avatar">
+									</div>
+									<!-- /.widget-user-image -->
+
+									<h3 class="widget-user-username font-control"> WFO</h3>
+
+
+									<a style="cursor:pointer;color:white" ng-show="isWFOSheetExist" ng-click="RedirectToEstimateWFO(Opp.id,Opp.LatestWFOVersion)">
+										<h5 class="widget-user-desc">Click here to view the latest version</h5>
+									</a>
+									<a style="cursor:pointer;color:white" ng-show="!isWFOSheetExist" ng-click="RedirectToEstimateWFO(Opp.id,Opp.ApplicationId)">
+										<h5 class="widget-user-desc">Click here to create new sheet</h5>
+									</a>
+									<button type="button" data-widget="collapse" class="btn bg-aqua-active  btn-xs pull-right no-border" style="cursor:pointer">
+                                    <i class="fa fa-plus pull-right"></i>
+                                </button>
+
+								</div>
+
+								<div class="box-body box-warning no-padding" style="max-height: 120px; overflow-y: auto">
+									<ul class="nav nav-stacked" style="cursor:pointer" ng-repeat="opp in WFVersions  | orderBy:ApplicationId:true">
+										<li><a ng-click="RedirectToEstimateWFO(opp.oppautoid,opp.ApplicationId)">{{opp.Version}}&nbsp;&nbsp;<span class="badge bg-yellow">{{opp.CreatedBy}}</span>&nbsp;&nbsp;
+                                    <span class="badge bg-blue" title="{{opp.Comment}}">{{opp.Comment.length > 10 ? opp.Comment.substring(0,9)+'..' : opp.Comment }}</span>
+                                    <span ng-if="$first" class="pull-right badge bg-green">Latest</span>
+                                    </a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</section>
+
+
+						<section ng-show="OTHERS" class="col-lg-6 connectedSortable ui-sortable">
+							<!-- Widget: user widget style 1 -->
+							<div class="box box-info collapsed-box  box-widget widget-user-2" ng-show="ShowPrice">
+								<!-- Add the bg color to the header using any of the bg-* classes -->
+								<div class="widget-user-header padlef5 bg-aqua">
+									<div class="widget-user-image">
+										<img class="img-circle" src="{{view360imgPath}}Estimation/e2.png" alt="User Avatar">
+									</div>
+									<!-- /.widget-user-image -->
+
+									<h3 class="widget-user-username font-control"> Others</h3>
+
+
+									<a style="cursor:pointer;color:white" ng-show="isOthersSheetExist" ng-click="RedirectToEstimateOthers(Opp.id,Opp.LatestOthersVersion)">
+										<h5 class="widget-user-desc">Click here to view the latest version</h5>
+									</a>
+									<a style="cursor:pointer;color:white" ng-show="!isOthersSheetExist" ng-click="RedirectToEstimateOthers(Opp.id,Opp.ApplicationId)">
+										<h5 class="widget-user-desc">Click here to create new sheet</h5>
+									</a>
+									<button type="button" data-widget="collapse" class="btn bg-aqua-active  btn-xs pull-right no-border" style="cursor:pointer">
+                                    <i class="fa fa-plus pull-right"></i>
+                                </button>
+
+								</div>
+								<div class="box-body box-warning no-padding" style="max-height: 120px; overflow-y: auto">
+									<ul class="nav nav-stacked" style="cursor:pointer" ng-repeat="opp in OtherVersions  | orderBy:ApplicationId:true">
+										<li><a ng-click="RedirectToEstimateOthers(opp.oppautoid,opp.ApplicationId)">{{opp.Version}}&nbsp;&nbsp;<span class="badge bg-yellow">{{opp.CreatedBy}}</span>&nbsp;&nbsp;
+                                    <span class="badge bg-blue" title="{{opp.Comment}}">{{opp.Comment.length > 10 ? opp.Comment.substring(0,9)+'..' : opp.Comment }}</span>
+                                    <span ng-if="$first" class="pull-right badge bg-green">Latest</span>
+                                    </a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</section>
+
+						<section class="col-lg-6 connectedSortable ui-sortable">
+							<!-- Widget: user widget style 1 -->
+							<div class="box box-info collapsed-box  box-widget widget-user-2" ng-show="ShowPrice">
+								<!-- Add the bg color to the header using any of the bg-* classes -->
+								<div class="widget-user-header padlef5 bg-aqua">
+									<div class="widget-user-image">
+										<img class="img-circle" src="{{view360imgPath}}Estimation/manualestimation.png" alt="User Avatar">
+									</div>
+									<!-- /.widget-user-image -->
+
+									<h3 class="widget-user-username font-control"> Manual Estimation</h3>
+
+									<a style="cursor:pointer;color:white" ng-show="isManualSheetExist" ng-click="RedirectTomanualestimation(Opp.id,Opp.LatestManualVersion)">
+										<h5 class="widget-user-desc">Click here to view the latest version</h5>
+									</a>
+									<a style="cursor:pointer;color:white" ng-show="!isManualSheetExist" ng-click="RedirectTomanualestimation(Opp.id,Opp.ApplicationId)">
+										<h5 class="widget-user-desc">Click here to create new sheet</h5>
+									</a>
+									<button type="button" data-widget="collapse" class="btn bg-aqua-active  btn-xs pull-right no-border" style="cursor:pointer">
+                                    <i class="fa fa-plus pull-right"></i>
+                                </button>
+
+								</div>
+								<div class="box-body box-warning no-padding" style="max-height: 120px; overflow-y: auto">
+									<ul class="nav nav-stacked" style="cursor:pointer" ng-repeat="opp in ManualVersions  | orderBy:ApplicationId:true">
+										<li><a ng-click="RedirectTomanualestimation(opp.oppautoid,opp.ApplicationId)">{{opp.Version}}&nbsp;&nbsp;<span class="badge bg-yellow">{{opp.CreatedBy}}</span>&nbsp;&nbsp;
+                                    <span class="badge bg-blue" title="{{opp.Comment}}">{{opp.Comment.length > 10 ? opp.Comment.substring(0,9)+'..' : opp.Comment }}</span>
+                                    <span ng-if="$first" class="pull-right badge bg-green">Latest</span>
+                                    </a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</section>
+
+					</uib-accordion-group>
+				</uib-accordion>
+
+			</div>
+		</div>
+	</div>
+	<!-- /.col -->
+</div>
+
+
+
+<style>
+	h3 {
+		white-space: pre;
+	}
+	
+	.font-control {
+		font-size: 22px !important;
+	}
+	
+	.padlef5 {
+		padding: 14px !important;
+		padding-left: 5px !important;
+	}
+	/*    
+    .panel-heading {
+        background: #3c8dbc !important;
+    }*/
+	
+	.img-circle {
+		border-radius: 50%;
+		float: right;
+	}
+	
+	.col-lg-2 {
+		width: 14.2%;
+	}
+	
+	.small-box .icon {
+		top: -3px;
+		right: 10px;
+		font-size: 50px;
+	}
+	
+	.small-box:hover .icon {
+		font-size: 100px;
+		top: -39px;
+	}
+	/*span {
+        white-space: pre;
+    }*/
+</style>
+
+
+
+
+
+

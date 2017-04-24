@@ -1,0 +1,37 @@
+﻿<div class="box box-info" style="width: 85%; margin:20px auto; ">
+    <div class="box-header with-border">
+        <h3 class="box-title">Weekend Leaves</h3>
+    </div>
+    <div class="box-body">
+        <div class="mnbxcont">
+            <form novalidate class="form-horizontal" role="form" name="holidayForm">
+                <div class="form-group">
+                    <label for="title" class="col-sm-4 control-label">Select Location</label>
+                    <div class="col-sm-4">
+                        <select ng-change="GetWeekends(Weekends.LocationId)" class="form-control" name="ddlLocation" ng-model="Weekends.LocationId"
+                            ng-options="item.Id as item.Location for item in Locations" title="Select Location" required>
+                            <option value="">- Select Location -</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="title" class="col-sm-4 control-label">Select Weekends</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" name="ddlDays" ng-model="Weekends.Days" ng-options="item.Day for item in Days"
+                            title="Select Weekends" multiple required>
+                                                <option value="">- Select Weekends -</option>
+                                            </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <div class="form-group">
+                <div class="pull-right">
+                    <input ng-disabled="holidayForm.$invalid" type="submit" value="Save" data-ng-click="SaveWeekends()" class="btn btn-primary"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

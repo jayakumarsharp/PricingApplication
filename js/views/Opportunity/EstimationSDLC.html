@@ -1,0 +1,82 @@
+﻿<div class="box-body">
+    <div class="tab-content">
+        <!--<form class="form-horizontal" role="form" name="opportunityform">-->
+        <div class="tab-pane active">
+             <div class="box box-info" style="max-height:450px; overflow-x:hidden; overflow-y:hidden">
+                        <div class="box-header with-border">
+                            <i class="ion ion-clipboard"></i><h3 class="box-title">Estimation products</h3><span style="color:red" ng-show="listB_Estimation.length==0">&nbsp;&nbsp;&nbsp; Select estimation product</span>
+                            <button type="button" class="btn btn-info btn-xs pull-right" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                        <div class="box-body">
+                            <div class="container-fluid">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="list-group box-comments" id="list1Estimation" style="height:250px;overflow-x:auto">
+                                                <a href="javascript:;" class="list-group-item active">
+                                                    Available Products
+
+                                                </a>
+                                                <span ng-repeat="right in listA_Estimation | orderBy:'right.productname'">
+                                                    <a href="javascript:;" data-id="{{right.productname}}" class="list-group-item">
+                                                        {{right.productname}}
+                                                        <input id="{{right.productname}}" ng-model="isCheckedA_Estimation" ng-click="stateAChanged_Estimation(isCheckedA_Estimation, right.productname)" name="selectedA_Estimation[]" value="{{right.productname}}" class="pull-right" type="checkbox" ng-true-value="true" ng-false-value="false">
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        </div><!--/col-4-->
+                                        <div class="col-md-1 v-center text-center">
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <div class="btn-group-vertical">
+                                                <button class="btn btn-primary" ng-click="AlltoA_Estimation()" id="btnAllA_Estimation"><i class="fa fa-angle-double-left"></i></button>
+                                                <button class="btn btn-primary" ng-click="bToA_Estimation()" id="btnA_Estimation"><i class="fa fa-angle-left"></i></button>
+                                                <button class="btn btn-primary" ng-click="aToB_Estimation()" id="btnB_Estimation"><i class="fa fa-angle-right"></i></button>
+                                                <button class="btn btn-primary" ng-click="AlltoB_Estimation()" id="btnAllB_Estimation"><i class="fa fa-angle-double-right"></i></button>
+                                            </div>
+                                        </div><!--/col-2-->
+                                        <div class="col-sm-4">
+                                            <div class="list-group box-comments" id="list2Estimation" style="height:250px;overflow-x:auto">
+                                                <a href="javascript:;" class="list-group-item active">
+                                                    Selected product(s)
+
+                                                </a>
+                                                <span ng-repeat="right in listB_Estimation | orderBy:'right.productname'">
+                                                    <a href="javascript:;" data-id="{{right.productname}}" class="list-group-item">
+                                                        {{right.productname}}
+                                                        <input id="{{right.productname}}" ng-model="isCheckedB_Estimation" ng-click="stateBChanged_Estimation(isCheckedB_Estimation, right.productname)" name="selectedB_Estimation[]" value="{{right.productname}}" class="pull-right" type="checkbox" ng-true-value="true" ng-false-value="false">
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                       
+        <div class="form-group">
+            <div class="col-sm-offset-11 col-sm-12">
+                <span data-ng-hide="editMode">
+                    <input type="submit" value="Save" ng-disabled="opportunityform.$invalid || listB_Estimation.length==0" data-ng-click="SaveData(OpportunityDetail,opportunityconfigurationdetail,'CSC')" class="btn btn-primary" />
+                </span>
+            </div>
+        </div>
+        <!--</form>-->
+        <!--<div class="form-group">
+            <div class="col-sm-offset-4 col-sm-6">
+                <span data-ng-hide="editMode">
+                    <input type="submit" value="Save" ng-disabled="!CanSave || opportunityform.$invalid || listB_TM.length==0" data-ng-click="SaveData(OpportunityDetail,OpportunityConfigurationDetail)" class="btn btn-primary" />
+                </span>
+
+            </div>
+
+
+        </div>-->
+    </div>
+            
+        </div>
+
+

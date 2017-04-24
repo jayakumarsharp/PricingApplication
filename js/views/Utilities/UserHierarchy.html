@@ -1,0 +1,60 @@
+﻿<script type="text/ng-template" id="myPopoverTemplate.html">
+  <div ui-tree-handle class="tree-node tree-node-content" >
+    <a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="toggle(this)"><span
+        class="glyphicon"
+        ng-class="{
+          'glyphicon-chevron-right': collapsed,
+          'glyphicon-chevron-down': !collapsed
+        }"></span></a>
+    {{node.name}}
+    <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="showConfirm(this, node)">
+        <!--<a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="showConfirm(this, node)">-->
+        <span class="glyphicon glyphicon-remove"></span></a>
+    <!--<a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubItem(this)" style="margin-right: 8px;"><span-->
+    <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="ShowUserList(node)" style="margin-right: 8px;"><span
+        class="glyphicon glyphicon-plus"></span></a>
+  </div>
+  <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+    <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'myPopoverTemplate.html'">
+    </li>
+  </ol>
+</script>
+
+<div ng-include="'js/views/Utilities/AddUsers.html'"></div>
+<div ng-include="'js/views/confirmModel.html'"></div>
+
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Manage User Hierarchy</h3>
+        <div class="box-tools pull-right">
+            <button ng-disabled="data.length > 0" data-ng-click="ShowUserList()" class="btn btn-sm btn-info btn-rounded pull-right"
+                title="Set Root">Set Root</button>
+            <!--<button data-ng-click="ClearHierarchy()" class="btn btn-sm btn-info btn-rounded pull-right" title="Clear Hierarchy">Clear Hierarchy</button>-->
+        </div>
+    </div>
+    <div class="box-body" style="height:500px;overflow-y:auto;overflow-x:hidden">
+        <div class="row">
+            <div class="col-sm-12">             
+                <button class="btn btn-sm btn-primary btn-rounded" ng-click="expandAll()">Expand all</button>
+                <button class="btn btn-sm btn-primary btn-rounded" ng-click="collapseAll()">Collapse all</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-2">
+                <div ui-tree data-drag-enabled="false" id="tree-root">
+                    <ol ui-tree-nodes ng-model="data">
+                        <li ng-repeat="node in data" ui-tree-node ng-include="'myPopoverTemplate.html'"></li>
+                    </ol>
+                </div>
+            </div>
+
+            <!--<div class="col-sm-6">
+                <div class="info">
+                    {{info}}
+                </div>
+                <pre class="code">{{ data | json }}</pre>
+            </div>-->
+        </div>
+    </div>
+</div>

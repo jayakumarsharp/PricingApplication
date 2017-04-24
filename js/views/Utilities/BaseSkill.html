@@ -1,0 +1,26 @@
+﻿<div ng-include="'js/views/confirmModel.html'"></div>
+<div class="box box-info" style="margin-top:20px">
+    <div class="box-header with-border">
+        <h3 class="box-title">BaseSkill</h3>
+        <hr />
+        <div class="form-group" ng-show="!IsReadOnly" ng-class="{'has-error':inputBaseSkill.$invalid && !inputBaseSkill.$pristine }">
+            <label for="inputBaseSkill" class="col-md-2 col-md-offset-2  control-label">BaseSkill</label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" maxlength="50" name="inputBaseSkill" ng-model=BaseSkill.BaseSkill>
+            </div>
+            <div>
+                <button title="Clear BaseSkill name field" data-ng-click="cancel()" class="btn btn-sm btn-info btn-flat pull-right">Clear </button>                
+            </div>
+            <div>
+                <button title="Update BaseSkill" data-ng-show="editMode" data-ng-click="UpdateBaseSkill(BaseSkill)" class="btn btn-sm btn-info btn-flat pull-right">Update</button><!--<i class="fa fa-plus" style="color:white"></i>-->
+                <button title="Add new BaseSkill" data-ng-hide="editMode" data-ng-click="add(BaseSkill)" class="btn btn-sm btn-info btn-flat pull-right">Add <i class="fa fa-plus" style="color:white"></i></button>
+            </div>
+            
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="mnbxcont">
+            <div data-ag-grid="BaseSkillGrid" class="ag-blue" style="color:#000;height: 400px !important;width:50%;margin-left:20%"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+<div style="height: 10%">
+    <!--<label><input type="checkbox" checked onchange="onCbAthlete(this.checked)"/>Athlete</label>
+    <label><input type="checkbox" checked onchange="onCbAge(this.checked)"/>Age</label>
+    <label><input type="checkbox" checked onchange="onCbCountry(this.checked)"/>Country</label>-->
+</div>
+<div class="box-header with-border">
+    <h3 class="box-title"> OTHERS - Installation & Configurations </h3>
+</div>
+
+<!--<a ng-click="Viewpage()" style="cursor:pointer;float:right;width:30%;color:green;">
+    <span class="text ng-binding">Add</span>
+</a>
+<br>-->
+
+<div class="btn-wrap">
+    Selected Area : <span style=" color:blue; " ng-bind="lastselected.Gridname "> </span>
+    <button class="btn bg-teal btn-flat pull-right" ng-click="MakeContainerFullScreen(DefautState)"><i title="expand" ng-show="!DefautState" class="fa fa-expand"></i> <i title="collapse" ng-show="DefautState" class="fa fa-compress"></i></button>
+    <button class="btn bg-green-active btn-flat margin-r-5 " style="float:right; " id="btnadd " ng-click="savemaster()
+    " title="Save Master ">Save Master </button>
+    <button class="btn bg-red-active btn-flat margin-r-5 " style="margin-left:10px;float:right; " id="btnadd
+    " ng-click="deleteRow() " title="Delete Row "><i class="fa fa-trash "></i> </button>
+    <button class="btn bg-blue-active btn-flat margin-r-5 " style="margin-left:10px;float:right; " id="btnadd
+    " ng-click="addnewpricerow() " title="Add Row "><i class="fa fa-plus "></i> </button>
+</div>
+
+
+<div>
+    <div ag-grid="gridOptionsFixed" style=" height:20%;width:99%;" class="ag-blue"></div>
+    <div ag-grid="gridOptionsFixedBottom1" style=" height:20%;width:99%;" class="ag-blue"></div>
+    <div ag-grid="gridOptionsFixedBottom2" style=" height:20%;width:99%;" class="ag-blue"></div>
+    <div ag-grid="gridOptionsFixedBottom3" style=" height:20%;width:99%;" class="ag-blue"></div>
+    <div ag-grid="gridOptionsFixedBottom4" style=" height:20%;width:99%;" class="ag-blue"></div>
+    <div ag-grid="gridOptionsFixedBottom5" style=" height:20%;width:99%;" class="ag-blue"></div>
+    <div ag-grid="gridOptionsFixedBottom6" style=" height:20%;width:99%;" class="ag-blue"></div>
+
+    <div ag-grid="gridOptionsFixedBottom7" style=" height:20%;width:99%;" class="ag-blue"></div>
+    <div ag-grid="gridOptionsFixedBottom8" style=" height:20%;width:99%;" class="ag-blue"></div>
+    <div ag-grid="gridOptionsFixedBottom9" style=" height:20%;width:99%;" class="ag-blue"></div>
+
+</div>
+
+<br>
+
+
+
+<br>
+</body>
+<!--<button data-ng-click="onRefreshAll()">Refresh All</button>-->
+
+<style>
+    .ag-blue .ag-header-cell-text {
+        float: left !important;
+    }
+     .ag-blue .ag-cell-focus
+    {
+            background: #5b9bd5 !important;
+    }
+    
+   
+</style>

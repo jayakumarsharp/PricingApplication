@@ -1,0 +1,36 @@
+<div ng-app="userApp" class="box box-info" style="margin:0 auto;width:100%">
+    <div ng-include="'js/views/Utilities/AddEditDiscountModel.html'"></div>
+    <div ng-include="'js/views/confirmModel.html'"></div>
+    <div class="box-header with-border">
+        <h3 class="box-title">Discount Management</h3>
+        <div class="box-tools pull-right">
+            <button data-ng-click="showAdd()" class="btn btn-sm btn-info btn-flat pull-right">Add <i class="fa fa-plus" style="color:white"></i></button>
+        </div>
+    </div>
+    <form novalidate class="form-horizontal" role="form" name="marginForm">
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="form-group">
+                <label for="BU" class="col-sm-1 control-label">SBU</label>
+                <div class="col-sm-3" style="margin-top:6px">
+                    <select class="form-control" ng-change="RefreshRegion(discount.SBUID)" type="text" ng-model="discount.SBUID" ng-options="item.id as item.SBU for item in SBU"
+                        title="Select SBU">
+                                 <option value="">-- Select --</option></select>
+                </div>
+                <label for="Region" class="col-sm-1 control-label">Region</label>
+                <div class="col-sm-3" style="margin-top:6px">
+                    <select class="form-control" ng-change="GetDiscount(discount.SBUID,discount.CountryId)" type="text" ng-model="discount.CountryId"
+                        ng-options="item.Id as item.CountryName for item in Region" title="Select Region">
+                                <option value="">-- Select --</option></select>
+                </div>
+                <div class="col-sm-3" style="margin-top:6px">
+                    <span class="btn btn-xs btn-success btn-flat" ng-show="showGrid && IsDataAvailable">Data Available</span>
+                    <span class="btn btn-xs btn-danger btn-flat" ng-show="showGrid &&  !IsDataAvailable">Data Not Available</span>
+                </div>
+            </div>
+            <div class="mnbxcont" ng-show="showGrid">
+                <div data-ag-grid="DiscountGrid" class="ag-blue" style="color:#000;height:80%"></div>
+            </div>
+        </div>
+    </form>
+</div>

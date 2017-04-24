@@ -1,0 +1,21 @@
+﻿<form class="form-horizontal" role="form" name="mydayform">     
+  <div id="tabs" class="nav-tabs-custom">        
+        <ul class="nav nav-tabs">           
+             <li ng-show="showSCUtilReport" ng-class="{active:isActiveTab('js/views/Utilities/SCUtilization.html')}">
+                <a ng-click="onClickTab('js/views/Utilities/SCUtilization.html')">SC Utilization Report</a>
+            </li>    
+            <li ng-show="showSCBillingReport" ng-class="{active:isActiveTab('js/views/Utilities/SCBilling.html')}">
+                <a ng-click="onClickTab('js/views/Utilities/SCBilling.html')">SC Billing Report</a>
+            </li>    
+            <li ng-show="showSCUtilWeeklyReport" ng-class="{active:isActiveTab('js/views/Utilities/SCUtilizationWeekly.html')}">
+                <a ng-click="onClickTab('js/views/Utilities/SCUtilizationWeekly.html')">SC Utilization Weekly Report</a>
+            </li>       
+            <li ng-show="showSCBillingNewReport" ng-class="{active:isActiveTab('js/views/Utilities/SCBillingNewWay.html')}">
+                <a ng-click="onClickTab('js/views/Utilities/SCBillingNewWay.html')">SC Billing New Way Report</a>
+            </li>
+        </ul>       
+        <div id="mainView">
+            <div ng-include="currentTab"></div>
+        </div>        
+    </div>
+</form>

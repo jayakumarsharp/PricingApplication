@@ -1,0 +1,684 @@
+﻿<style type='text/css'>
+    fieldset.scheduler-border {
+        border: 1px solid #ddd !important;
+        padding: 0 1.4em 1.4em 1.4em !important;
+        margin: 0 0 1.5em 0 !important;
+        -webkit-box-shadow: 0px 0px 0px 0px #000;
+        box-shadow: 0px 0px 0px 0px #000;
+        width: 100%;
+        border-color: navy;
+    }
+    
+    legend.scheduler-border {
+        font-size: 0.9em !important;
+        font-weight: bold !important;
+        text-align: left !important;
+        width: auto;
+        padding: 0 10px;
+        border-bottom: none;
+    }
+</style>
+<div class="box-body">
+    <div class="tab-content">
+        <form class="form-horizontal" role="form" name="opportunityform">
+            <div class="tab-pane active">
+                <uib-accordion close-others="oneAtATime">
+
+                    <uib-accordion-group is-open="status.isFirstOpen">
+                        <uib-accordion-heading>
+                            <span class="glyphicon glyphicon-thumbs-up" style="color:black"></span> Opportunity Detail
+                            <span
+                                ng-show="!Tab1Isvalid">Error</span>
+
+                                <span class="btn btn-info btn-xs pull-right">
+                                <i class="fa" ng-class="{'fa-minus': status.isFirstOpen, 'fa-plus': !status.isFirstOpen}"></i>
+                            </span>
+
+                        </uib-accordion-heading>
+
+                        <div class="form-group">
+                            <label for="title" class="col-sm-3 control-label">SBU</label>
+                            <div class="col-sm-6">
+                                <input type="text" data-ng-model="OpportunityDetail.SBU" ng-readonly="true" class="form-control" id="title" placeholder="Your Name"
+                                    title="Enter SBU" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-3 control-label">Country / Region</label><span style="color:#d9534f"
+                                ng-show="opportunityform.CountryId.$error.required">Please select Country!</span>
+                            <div class="col-sm-6">
+                                <select ng-change="updateConfiguration()" required data-ng-model="OpportunityDetail.CountryId" name="CountryId" class="form-control" ng-options="item.Id as item.CountryName for item in Country">
+                                    <option value="">- Select country -</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!--<div class="form-group">
+                            <label for="title" class="col-sm-3 control-label">Country / Region</label><span style="color:#d9534f" ng-show="OpportunityDetail.CountryId < 1 || OpportunityDetail.CountryId == null">Please select Country!</span>
+                            <div class="col-sm-6">
+                                <select ng-model="OpportunityDetail.CountryId" class="form-control" required name="CountryId" ng-options="item.Id as item.CountryName for item in Country ">
+                                    <option value="">- Select country -</option>
+                                </select>
+                            </div>
+                        </div>-->
+                        <div class="form-group">
+                            <label for="title" class="col-sm-3 control-label">Opportunity Name</label>
+                            <div class="col-sm-6">
+                                <input type="text" data-ng-model="OpportunityDetail.OpportunityName" ng-readonly="true" class="form-control" id="Text2" placeholder="Your ContactNo"
+                                    title="Enter Opportunity Name" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-3 control-label">Account Name</label>
+                            <div class="col-sm-6">
+                                <input type="text" data-ng-model="OpportunityDetail.AccountName" ng-readonly="true" class="form-control" id="Text2" placeholder="Your ContactNo"
+                                    title="Enter Account Name" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="title" class="col-sm-3 control-label">Opportunity ID</label>
+                            <div class="col-sm-6">
+                                <input type="text" data-ng-model="OpportunityDetail.OppId" ng-readonly="true" class="form-control" id="Text3" placeholder="Your Name"
+                                    title="Enter Opportunity ID" />
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="ChildOpportunityList.length >0">
+                            <label for="title" class="col-sm-3 control-label">Child Opportunity ID</label>
+                            <div class="col-sm-6">
+                                <!--<input type="text" data-ng-model="OpportunityDetail.ChildOppId" ng-readonly="true" class="form-control" id="Text4" placeholder="Your EmailId"  title="Enter your EmailId" />-->
+                                <select multiple ng-model="sss" class="form-control" ng-options="item.OppId as item.OppId for item in ChildOpportunityList "></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-3 control-label">Account Manager Name</label>
+                            <div class="col-sm-6">
+                                <input type="text" data-ng-model="OpportunityDetail.AccManagerName" ng-readonly="true" class="form-control" id="Text5" placeholder="Account Manager Name"
+                                    title="Account Manager Name" charonly />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-3 control-label">Email</label>
+                            <div class="col-sm-6">
+                                <input type="text" data-ng-model="OpportunityDetail.AccountSalesManager" ng-readonly="true" class="form-control" id="Text5"
+                                    placeholder="Email" title="Email" />
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-show="false">
+                            <label for="title" class="col-sm-3 control-label">Opportunity Status</label><span style="color:#d9534f"
+                                ng-show="opportunityform.OppStatus.$error.required">Opportunity Status cannot be empty!</span>
+                            <div class="col-sm-6">
+                                <input type="text" data-ng-model="OpportunityDetail.OppStatus" name="OppStatus" class="form-control" id="Text6" placeholder="Opportunity Status"
+                                    title="Enter Opportunity Status" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="title" class="col-sm-3 control-label">Use Man Days / Man Hours</label>
+                            <div class="col-sm-6">
+                                <select ng-model="OpportunityDetail.UseManDayshours" class="form-control">
+                                    <option ng-repeat="x in ManDayshours" value="{{x.Type}}">{{x.Type}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-3 control-label">Principal</label><span style="color:#d9534f"
+                                ng-show="opportunityform.UseOEMPricingStrategy.$error.required">Please select Principal!</span>
+                            <div class="col-sm-6">
+                                <select required data-ng-model="OpportunityDetail.UseOEMPricingStrategy" name="UseOEMPricingStrategy" class="form-control"
+                                    ng-options="item.Id as item.OEMName for item in OEMList">
+                                    <option value="">- Select Principal -</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-3 control-label">Customer Type</label><span style="color:#d9534f"
+                                ng-show="opportunityform.CustomerType.$error.required">Please select Customer Type!</span>
+                            <div class="col-sm-6">
+                                <select required data-ng-model="OpportunityDetail.CustomerType" name="CustomerType" class="form-control" ng-options="item.CustomerTypeID as item.CustomerType for item in OpportunityCustomerTypeList">
+                                    <option value="">- Select Customer Type -</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-3 control-label">Partner / Direct</label>
+                            <div class="col-sm-6">
+                                <select disabled data-ng-model="OpportunityDetail.OppCategoryId" ng-selected="{{OpportunityDetail.CustomerType > 3 ? OpportunityDetail.OppCategoryId = 1:OpportunityDetail.OppCategoryId = 2}}"
+                                    ng-options="item.Id as item.OpportunityName for item in OppCategory" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-3 control-label">Partner Name</label><span style="color:#d9534f"
+                                ng-show="ValidatePartnerName()">Partner Name cannot be empty!</span>
+                            <div class="col-sm-6">
+                                <input type="text" maxlength="40" name="PartnerName" data-ng-model="OpportunityDetail.PartnerName" class="form-control" id="Text8"
+                                    placeholder="Your Partner Name" title="Enter your contactno" charonly />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-3 control-label">Servion Legal Entity</label><span style="color:#d9534f"
+                                ng-show="opportunityform.ServionLegalEntity.$error.required">Please select Servion Legal Entity!</span>
+                            <div class="col-sm-6">
+                                <select multiple required data-ng-model="OpportunityDetail.OpportunityServionLegalEntity" name="ServionLegalEntity" class="form-control"
+                                    ng-options="item.ServionLegalEntityID as item.ServionLegalEntity for item in ServionLegalEntity ">
+                                    <option value="">- Select Servion Legal Entity -</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-3 control-label">Vertical </label>
+                            <div class="col-sm-6">
+                                <input type="text" readonly data-ng-model="OpportunityDetail.Vertical" class="form-control" id="Text8" placeholder="Vertical"
+                                    title="Enter your Vertical" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-3 control-label">Source  </label>
+                            <div class="col-sm-6">
+                                <input type="text" readonly data-ng-model="OpportunityDetail.Source" class="form-control" id="Text8" placeholder="Source"
+                                    title="Enter your Source" />
+                            </div>
+                        </div>
+                    </uib-accordion-group>
+                    <uib-accordion-group is-open="status1.open">
+
+                        <uib-accordion-heading>
+                            <span class="glyphicon glyphicon-screenshot" style="color:black"></span> Site Details <span class="btn btn-info btn-xs pull-right">
+                                <i class="fa" ng-class="{'fa-minus': status1.open, 'fa-plus': !status1.open}"></i>
+                            </span>
+                        </uib-accordion-heading>
+
+
+                        <div class="form-group">
+                            <label for="title" class="col-sm-3 control-label">Number of Data Center Locations</label>
+                            <span
+                                style="color:#d9534f" ng-show="opportunityform.NoOfDataCenterLocs.$error.pattern">Not a valid data!</span><span style="color:#d9534f" ng-show="opportunityform.NoOfDataCenterLocs.$error.required">Not a valid data!</span>
+                                <div class="col-sm-3">
+                                    <input type="text" name="NoOfDataCenterLocs" maxlength="6" ng-pattern="/^(\d)+$/" data-ng-model="OpportunityDetail.NoOfDataCenterLocs"
+                                        class="form-control" id="Text1" placeholder="Number of Data Center Locations" required
+                                        title="Number of Data Center Locations" numberonly />
+                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-3 control-label">Number of Agent Locations</label><span style="color:#d9534f"
+                                ng-show="opportunityform.NoOfAgentCenterLocs.$error.pattern">Not a valid data!</span><span style="color:#d9534f"
+                                ng-show="opportunityform.NoOfAgentCenterLocs.$error.required">Not a valid data!</span>
+                            <div class="col-sm-3">
+                                <input type="text" name="NoOfAgentCenterLocs" maxlength="6" ng-pattern="/^(\d)+$/" data-ng-model="OpportunityDetail.NoOfAgentCenterLocs"
+                                    class="form-control" id="Text7" placeholder="Number of Agent Locations" required title="Number of Agent Locations"
+                                    numberonly />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-3 control-label">Are Data Center and Agents Co-located</label>
+                            <span
+                                style="color:#d9534f" ng-show="opportunityform.IsDataCenterandAgentsColocated.$error.pattern">Not a valid data!</span>
+                                <div class="col-sm-3">
+                                    <select ng-model="OpportunityDetail.IsDataCenterandAgentsColocated" ng-options="item.Id as item.LocatedType for item in DataCenterLocated"
+                                        class="form-control"></select>
+                                </div>
+                        </div>
+
+                    </uib-accordion-group>
+                    <uib-accordion-group is-open="status2.open">
+
+                        <uib-accordion-heading>
+                            <span class="glyphicon glyphicon-wrench" style="color:black"></span> Configuration Detail
+                            <span
+                                class="btn btn-info btn-xs pull-right">
+                                <i class="fa" ng-class="{'fa-minus': status2.open, 'fa-plus': !status2.open}"></i>
+                                </span>
+                        </uib-accordion-heading>
+
+
+                        <div class="box-body">
+                            <div class="tab-content">
+                                <div class="tab-pane active">
+                                    <fieldset class="scheduler-border">
+                                        <legend class="scheduler-border">Travel & Expense Standard Rates</legend>
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">Visa</label><span style="color:#d9534f"
+                                                ng-show="opportunityform.visa.$error.pattern || opportunityform.visa.$error.required">Not a valid data!</span>
+                                            <div class="col-sm-3">
+                                                <input type="text" maxlength="6" name="visa" ng-pattern="/^[0-9]*$/" required ng-model="OpportunityConfigurationDetail.Visa"
+                                                    ng-style="{'background-color':OpportunityConfigurationDetail.Visa == OpportunityConfigDefault.Visa ?  '#f9f9f9': OpportunityConfigurationDetail.Visa > OpportunityConfigDefault.Visa ?  '#5cb85c': '#d9534f'}"
+                                                    class="form-control" id="title" placeholder="Visa" title="Enter Visa" numberonly
+                                                />
+                                            </div>
+
+                                            <div class="col-sm-2">
+                                                <input type="text" ng-model="OpportunityConfigDefault.Visa" class="form-control" id="title" placeholder="Visa" readonly title="Enter your visa details"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">Air Fare</label><span style="color:#d9534f"
+                                                ng-show="opportunityform.AirFare.$error.pattern || opportunityform.AirFare.$error.required">Not a valid data!</span>
+                                            <div class="col-sm-3">
+                                                <input type="text" maxlength="6" name="AirFare" ng-pattern="/^(\d)+$/" required ng-model="OpportunityConfigurationDetail.AirFare"
+                                                    ng-style="{'background-color':OpportunityConfigurationDetail.AirFare == OpportunityConfigDefault.AirFare ?  '#f9f9f9': OpportunityConfigurationDetail.AirFare > OpportunityConfigDefault.AirFare ?  '#5cb85c': '#d9534f'}"
+                                                    class="form-control" id="airFair" placeholder="Air Fare" title="Enter Air Fare"
+                                                    numberonly />
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <input type="text" ng-model="OpportunityConfigDefault.AirFare" class="form-control" id="Text1" placeholder="Air Fare" readonly
+                                                    title="Enter air fair details" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">Accommodation</label>
+                                            <span
+                                                style="color:#d9534f" ng-show="opportunityform.Accommodation.$error.pattern || opportunityform.Accommodation.$error.required">Not a valid data!</span>
+                                                <div class="col-sm-3"> 
+                                                    <input type="text" maxlength="6" name="Accommodation" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.Accommodation"
+                                                        ng-style="{'background-color':OpportunityConfigurationDetail.Accommodation == OpportunityConfigDefault.Accommodation ?  '#f9f9f9': OpportunityConfigurationDetail.Accommodation > OpportunityConfigDefault.Accommodation ?  '#5cb85c': '#d9534f'}"
+                                                        class="form-control" id="Text4" placeholder="Accommodation" required
+                                                        title="Enter Accommodation" numberonly />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" ng-model="OpportunityConfigDefault.Accommodation" class="form-control" id="Text4" placeholder="Accommodation"
+                                                        readonly title="Enter accommodation details" />
+                                                </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">Per-Diem & Laundry</label>
+                                            <span
+                                                style="color:#d9534f" ng-show="opportunityform.PerDiemLaundry.$error.pattern || opportunityform.PerDiemLaundry.$error.required">Not a valid data!</span>
+                                                <div class="col-sm-3">
+                                                    <input type="text" maxlength="6" name="PerDiemLaundry" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.PerDiemLaundry"
+                                                        ng-style="{'background-color':OpportunityConfigurationDetail.PerDiemLaundry == OpportunityConfigDefault.PerDiemLaundry ?  '#f9f9f9': OpportunityConfigurationDetail.PerDiemLaundry > OpportunityConfigDefault.PerDiemLaundry ?  '#5cb85c': '#d9534f'}"
+                                                        class="form-control" id="Text6" placeholder="Per-Diem & Laundry" required
+                                                        title="Enter Per-Diem & Laundry" numberonly />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" ng-model="OpportunityConfigDefault.PerDiemLaundry" class="form-control" id="Text6" placeholder="Per-Diem & Laundry"
+                                                        readonly title="Enter  per diem laundry details" />
+                                                </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">Local Conveyance</label>
+                                            <span
+                                                style="color:#d9534f" ng-show="opportunityform.LocalConveyance.$error.pattern || opportunityform.LocalConveyance.$error.required">Not a valid data!</span>
+                                                <div class="col-sm-3">
+                                                    <input type="text" maxlength="6" name="LocalConveyance" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.LocalConveyance"
+                                                        ng-style="{'background-color':OpportunityConfigurationDetail.LocalConveyance == OpportunityConfigDefault.LocalConveyance ?  '#f9f9f9': OpportunityConfigurationDetail.LocalConveyance > OpportunityConfigDefault.LocalConveyance ?  '#5cb85c': '#d9534f'}"
+                                                        class="form-control" id="Text8" placeholder="Local Conveyance" required
+                                                        title="Enter Local Conveyance" numberonly />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" ng-model="OpportunityConfigDefault.LocalConveyance" class="form-control" id="Text8" placeholder="Local Conveyance"
+                                                        readonly title="Enter local conveyance details" />
+                                                </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">Miscellaneous</label>
+                                            <span
+                                                style="color:#d9534f" ng-show="opportunityform.Miscellaneous.$error.pattern || opportunityform.Miscellaneous.$error.required">Not a valid data!</span>
+                                                <div class="col-sm-3">
+                                                    <input type="text" maxlength="6" name="Miscellaneous" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.Miscellaneous"
+                                                        ng-style="{'background-color':OpportunityConfigurationDetail.Miscellaneous == OpportunityConfigDefault.Miscellaneous ?  '#f9f9f9': OpportunityConfigurationDetail.Miscellaneous > OpportunityConfigDefault.Miscellaneous ?  '#5cb85c': '#d9534f'}"
+                                                        class="form-control" id="Text10" placeholder="Miscellaneous" required
+                                                        title="Enter Miscellaneous" numberonly />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" ng-model="OpportunityConfigDefault.Miscellaneous" class="form-control" id="Text10" placeholder="Miscellaneous"
+                                                        readonly title="Enter Miscellaneous detail" />
+                                                </div>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset class="scheduler-border">
+                                        <legend class="scheduler-border">Standard Resource %</legend>
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">Salary Hike %</label>
+                                            <span
+                                                style="color:#d9534f" ng-show="OpportunityConfigurationDetail.SalaryHike > 100 || opportunityform.SalaryHike.$error.pattern || opportunityform.SalaryHike.$error.required">Not a valid data!</span>
+                                                <div class="col-sm-3">
+                                                    <input type="text" maxlength="3" name="SalaryHike" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.SalaryHike"
+                                                        ng-style="{'background-color':OpportunityConfigurationDetail.SalaryHike == OpportunityConfigDefault.SalaryHike ?  '#f9f9f9': OpportunityConfigurationDetail.SalaryHike > OpportunityConfigDefault.SalaryHike ?  '#5cb85c': '#d9534f'}"
+                                                        class="form-control" id="Text14" placeholder="Salary Hike %" required
+                                                        title="Enter Salary Hike %" numberonly />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" ng-model="OpportunityConfigDefault.SalaryHike" class="form-control" id="Text14" placeholder="Salary Hike %"
+                                                        readonly title="Enter Salary hike detail" />
+                                                </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">Salary Spike %</label>
+                                            <span
+                                                style="color:#d9534f" ng-show="OpportunityConfigurationDetail.SalarySpike > 100 || opportunityform.SalarySpike.$error.pattern || opportunityform.SalarySpike.$error.required">Not a valid data!</span>
+                                                <div class="col-sm-3">
+                                                    <input type="text" maxlength="3" name="SalarySpike" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.SalarySpike"
+                                                        ng-style="{'background-color':OpportunityConfigurationDetail.SalarySpike == OpportunityConfigDefault.SalarySpike ?  '#f9f9f9': OpportunityConfigurationDetail.SalarySpike > OpportunityConfigDefault.SalarySpike ?  '#5cb85c': '#d9534f'}"
+                                                        class="form-control" id="Text16" placeholder="Salary Spike %" required
+                                                        title="Enter Salary Spike %" numberonly />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" ng-model="OpportunityConfigDefault.SalarySpike" class="form-control" id="Text16" placeholder="Salary Spike %"
+                                                        readonly title="Enter salary spike detail" />
+                                                </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">Margin%</label><span style="color:#d9534f"
+                                                ng-show="OpportunityConfigurationDetail.Margin > 100 || opportunityform.Margin.$error.pattern || opportunityform.Margin.$error.required">Not a valid data!</span>
+                                            <div class="col-sm-3">
+                                                <input type="text" maxlength="3" name="Margin" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.Margin" ng-style="{'background-color':OpportunityConfigurationDetail.Margin == OpportunityConfigDefault.Margin ?  '#f9f9f9': OpportunityConfigurationDetail.Margin > OpportunityConfigDefault.Margin ?  '#5cb85c': '#d9534f'}"
+                                                    class="form-control" id="Text18" placeholder="Margin%" required title="Enter Margin%"
+                                                    numberonly />
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <input type="text" ng-model="OpportunityConfigDefault.Margin" class="form-control" id="Text18" placeholder="Margin%" readonly
+                                                    title="Enter Margin% detail" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">Penalty %</label><span style="color:#d9534f"
+                                                ng-show="OpportunityConfigurationDetail.Penalty > 100 || opportunityform.Penalty.$error.pattern || opportunityform.Penalty.$error.required">Not a valid data!</span>
+                                            <div class="col-sm-3">
+                                                <input type="text" maxlength="3" name="Penalty" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.Penalty"
+                                                    ng-style="{'background-color':OpportunityConfigurationDetail.Penalty == OpportunityConfigDefault.Penalty ?  '#f9f9f9': OpportunityConfigurationDetail.Penalty > OpportunityConfigDefault.Penalty ?  '#5cb85c': '#d9534f'}"
+                                                    class="form-control" id="Text20" placeholder="Penalty %" required title="Enter Penalty %"
+                                                    numberonly />
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <input type="text" ng-model="OpportunityConfigDefault.Penalty" class="form-control" id="Text20" placeholder="Penalty %" readonly
+                                                    title="Enter Penalty % detail" />
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset class="scheduler-border">
+                                        <legend class="scheduler-border">Estimation</legend>
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">Working Hours per Day</label>
+                                            <span
+                                                style="color:#d9534f" ng-show="OpportunityConfigurationDetail.WorkingHoursperDay >24 || opportunityform.WorkingHoursperDay.$error.pattern || opportunityform.WorkingHoursperDay.$error.required">Not a valid data!</span>
+                                                <div class="col-sm-3">
+                                                    <input type="text" maxlength="2" name="WorkingHoursperDay" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.WorkingHoursperDay"
+                                                        ng-style="{'background-color':OpportunityConfigurationDetail.WorkingHoursperDay == OpportunityConfigDefault.WorkingHoursperDay ?  '#f9f9f9':  OpportunityConfigurationDetail.WorkingHoursperDay > OpportunityConfigDefault.WorkingHoursperDay ?  '#5cb85c': '#d9534f'}"
+                                                        class="form-control" id="Text22" placeholder="Working Hours per Day"
+                                                        required title="Enter Working Hours per Day" numberonly />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" ng-model="OpportunityConfigDefault.WorkingHoursperDay" class="form-control" id="Text22" placeholder="Working Hours per Day"
+                                                        readonly title="Enter Working Hours per Day detail" />
+                                                </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">BU Onsite - Man Days Rate</label>
+                                            <span
+                                                style="color:#d9534f" ng-show="opportunityform.BUOnsiteManDaysRate.$error.pattern || opportunityform.BUOnsiteManDaysRate.$error.required">Not a valid data!</span>
+                                                <div class="col-sm-3">
+                                                    <input type="text" maxlength="6" name="BUOnsiteManDaysRate" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.BUOnsiteManDaysRate"
+                                                        ng-style="{'background-color':OpportunityConfigurationDetail.BUOnsiteManDaysRate == OpportunityConfigDefault.BUOnsiteManDaysRate ?  '#f9f9f9': OpportunityConfigurationDetail.BUOnsiteManDaysRate > OpportunityConfigDefault.BUOnsiteManDaysRate ?  '#5cb85c': '#d9534f'}"
+                                                        class="form-control" id="Text24" placeholder="BU Onsite - Man Days Rate"
+                                                        required title="Enter BU Onsite - Man Days Rate" numberonly />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" ng-model="OpportunityConfigDefault.BUOnsiteManDaysRate" class="form-control" id="Text24" placeholder="BU Onsite - Man Days Rate"
+                                                        readonly title="Enter your name" />
+                                                </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">BU Remote - Man Days Rate</label>
+                                            <span
+                                                style="color:#d9534f" ng-show="opportunityform.BURemoteManDaysRate.$error.pattern || opportunityform.BURemoteManDaysRate.$error.required">Not a valid data!</span>
+                                                <div class="col-sm-3">
+                                                    <input type="text" maxlength="6" name="BURemoteManDaysRate" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.BURemoteManDaysRate"
+                                                        ng-style="{'background-color':OpportunityConfigurationDetail.BURemoteManDaysRate == OpportunityConfigDefault.BURemoteManDaysRate ?  '#f9f9f9': OpportunityConfigurationDetail.BURemoteManDaysRate > OpportunityConfigDefault.BURemoteManDaysRate ?  '#5cb85c': '#d9534f'}"
+                                                        class="form-control" id="Text26" placeholder="BU Remote - Man Days Rate"
+                                                        required title="Enter BU Remote - Man Days Rate" numberonly />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" ng-model="OpportunityConfigDefault.BURemoteManDaysRate" class="form-control" id="Text26" placeholder="BU Remote - Man Days Rate"
+                                                        readonly title="Enter BU Remote - Man Days Rate detail" />
+                                                </div>
+                                        </div>
+
+                                        <!--<div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">CDO Onsite - Man Days Rate</label><span style="color:#d9534f" ng-show="opportunityform.CDORemoteManDaysRate.$error.pattern || opportunityform.CDORemoteManDaysRate.$error.required">Not a valid data!</span>
+                                            <div class="col-sm-3">
+                                                <input type="text" name="CDORemoteManDaysRate" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.CDORemoteManDaysRate" ng-style="{'background-color':OpportunityConfigurationDetail.CDORemoteManDaysRate == OpportunityConfigDefault.CDORemoteManDaysRate ?  '#f9f9f9': OpportunityConfigurationDetail.CDORemoteManDaysRate > OpportunityConfigDefault.CDORemoteManDaysRate ?  '#5cb85c': '#d9534f'}" class="form-control" id="Text28" placeholder="CDO Onsite - Man Days Rate" required title="Enter your name" />
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <input type="text" ng-model="OpportunityConfigDefault.CDORemoteManDaysRate" class="form-control" id="Text28" placeholder="CDO Onsite - Man Days Rate" readonly title="Enter CDO Onsite - Man Days Rate detail" />
+                                            </div>
+                                        </div>-->
+
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">CDO Onsite - Man Days Rate</label>
+                                            <span
+                                                style="color:#d9534f" ng-show="opportunityform.CDOOnsiteManDaysRate.$error.pattern || opportunityform.CDOOnsiteManDaysRate.$error.required">Not a valid data!</span>
+                                                <div class="col-sm-3">
+                                                    <input type="text" maxlength="6" name="CDOOnsiteManDaysRate" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.CDOOnsiteManDaysRate"
+                                                        ng-style="{'background-color':OpportunityConfigurationDetail.CDOOnsiteManDaysRate == OpportunityConfigDefault.CDOOnsiteManDaysRate ?  '#f9f9f9': OpportunityConfigurationDetail.CDOOnsiteManDaysRate > OpportunityConfigDefault.CDOOnsiteManDaysRate ?  '#5cb85c': '#d9534f'}"
+                                                        class="form-control" id="Text30" placeholder="CDO Onsite - Man Days Rate"
+                                                        required title="Enter CDO Onsite - Man Days Rate" numberonly />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" ng-model="OpportunityConfigDefault.CDOOnsiteManDaysRate" class="form-control" id="Text30" placeholder="CDO Onsite - Man Days Rate"
+                                                        readonly title="Enter Man CDO Onsite - Days Rate detail" />
+                                                </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">CDO Remote - Man Days Rate	</label>
+                                            <span
+                                                style="color:#d9534f" ng-show="opportunityform.CDORemoteManDaysRate.$error.pattern || opportunityform.CDORemoteManDaysRate.$error.required">Not a valid data!</span>
+                                                <div class="col-sm-3">
+                                                    <input type="text" maxlength="6" name="CDORemoteManDaysRate" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.CDORemoteManDaysRate"
+                                                        ng-style="{'background-color':OpportunityConfigurationDetail.CDORemoteManDaysRate == OpportunityConfigDefault.CDORemoteManDaysRate ?  '#f9f9f9':OpportunityConfigurationDetail.CDORemoteManDaysRate > OpportunityConfigDefault.CDORemoteManDaysRate ?  '#5cb85c': '#d9534f'}"
+                                                        class="form-control" id="Text32" placeholder="CDO Remote - Man Days Rate"
+                                                        required title="Enter CDO Remote - Man Days Rate" numberonly />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" ng-model="OpportunityConfigDefault.CDORemoteManDaysRate" class="form-control" id="Text32" placeholder="CDO Remote - Man Days Rate"
+                                                        readonly title="Enter CDO Remote - Man Days Rate detail" />
+                                                </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">CDO Offsite - Man Days Rate</label>
+                                            <span
+                                                style="color:#d9534f" ng-show="opportunityform.CDOOffsiteManDaysRate.$error.pattern || opportunityform.CDOOffsiteManDaysRate.$error.required">Not a valid data!</span>
+                                                <div class="col-sm-3">
+                                                    <input type="text" maxlength="6" name="CDOOffsiteManDaysRate" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.CDOOffsiteManDaysRate"
+                                                        ng-style="{'background-color':OpportunityConfigurationDetail.CDOOffsiteManDaysRate == OpportunityConfigDefault.CDOOffsiteManDaysRate ?  '#f9f9f9': OpportunityConfigurationDetail.CDOOffsiteManDaysRate > OpportunityConfigDefault.CDOOffsiteManDaysRate ?  '#5cb85c': '#d9534f'}"
+                                                        class="form-control" id="Text34" placeholder="CDO Offsite - Man Days Rate"
+                                                        required title="Enter CDO Offsite - Man Days Rate" numberonly />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" ng-model="OpportunityConfigDefault.CDOOffsiteManDaysRate" class="form-control" id="Text34" placeholder="CDO Offsite - Man Days Rate"
+                                                        readonly title="Enter CDO Offsite - Man Days Rate detail" />
+                                                </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">Project Management %</label>
+                                            <span
+                                                style="color:#d9534f" ng-show="OpportunityConfigurationDetail.ProjectManagement > 100 || opportunityform.ProjectManagement.$error.pattern || opportunityform.ProjectManagement.$error.required">Not a valid data!</span>
+                                                <div class="col-sm-3">
+                                                    <input type="text" maxlength="3" name="ProjectManagement" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.ProjectManagement"
+                                                        ng-style="{'background-color':OpportunityConfigurationDetail.ProjectManagement == OpportunityConfigDefault.ProjectManagement ?  '#f9f9f9': OpportunityConfigurationDetail.ProjectManagement > OpportunityConfigDefault.ProjectManagement ?  '#5cb85c': '#d9534f'}"
+                                                        class="form-control" id="Text36" placeholder="Project Management %" required
+                                                        title="Project Management %" numberonly />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" ng-model="OpportunityConfigDefault.ProjectManagement" class="form-control" id="Text36" placeholder="Project Management %"
+                                                        readonly title="Enter Project Management % detail" />
+                                                </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">BU PM - Man Days Rate</label>
+                                            <span
+                                                style="color:#d9534f" ng-show="opportunityform.BUPMManDaysRate.$error.pattern || opportunityform.BUPMManDaysRate.$error.required">Not a valid data!</span>
+                                                <div class="col-sm-3">
+                                                    <input type="text" maxlength="6" name="BUPMManDaysRate" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.BUPMManDaysRate"
+                                                        ng-style="{'background-color':OpportunityConfigurationDetail.BUPMManDaysRate == OpportunityConfigDefault.BUPMManDaysRate ?  '#f9f9f9': OpportunityConfigurationDetail.BUPMManDaysRate > OpportunityConfigDefault.BUPMManDaysRate ?  '#5cb85c': '#d9534f'}"
+                                                        class="form-control" id="Text38" placeholder="BU PM - Man Days Rate"
+                                                        required title="BU PM - Man Days Rate" numberonly />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" ng-model="OpportunityConfigDefault.BUPMManDaysRate" class="form-control" id="Text38" placeholder="BU PM - Man Days Rate"
+                                                        readonly title="Enter BU PM - Man Days Rate detail" />
+                                                </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">CDO PM - Man Days Rate</label>
+                                            <span
+                                                style="color:#d9534f" ng-show="opportunityform.CDOPMManDaysRate.$error.pattern || opportunityform.CDOPMManDaysRate.$error.required">Not a valid data!</span>
+                                                <div class="col-sm-3">
+                                                    <input type="text" maxlength="6" name="CDOPMManDaysRate" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.CDOPMManDaysRate"
+                                                        ng-style="{'background-color':OpportunityConfigurationDetail.CDOPMManDaysRate == OpportunityConfigDefault.CDOPMManDaysRate ?  '#f9f9f9': OpportunityConfigurationDetail.CDOPMManDaysRate > OpportunityConfigDefault.CDOPMManDaysRate ? '#5cb85c': '#d9534f'}"
+                                                        class="form-control" id="Text40" placeholder="CDO PM - Man Days Rate"
+                                                        required title="CDO PM - Man Days Rate" numberonly />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" ng-model="OpportunityConfigDefault.CDOPMManDaysRate" class="form-control" id="Text40" placeholder="CDO PM - Man Days Rate"
+                                                        readonly title="Enter your name" />
+                                                </div>
+                                        </div>
+
+                                    </fieldset>
+                                    <fieldset class="scheduler-border">
+                                        <legend class="scheduler-border">ServCare</legend>
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">ServCare MAC-50 Rate</label>
+                                            <span
+                                                style="color:#d9534f" ng-show="opportunityform.ServCareMAC50Rate.$error.pattern || opportunityform.ServCareMAC50Rate.$error.required">Not a valid data!</span>
+                                                <div class="col-sm-3">
+                                                    <input type="text" maxlength="6" name="ServCareMAC50Rate" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.ServCareMAC50Rate"
+                                                        ng-style="{'background-color':OpportunityConfigurationDetail.ServCareMAC50Rate == OpportunityConfigDefault.ServCareMAC50Rate ?  '#f9f9f9':OpportunityConfigurationDetail.ServCareMAC50Rate > OpportunityConfigDefault.ServCareMAC50Rate ?  '#5cb85c': '#d9534f'}"
+                                                        class="form-control" id="Text40" placeholder="CDO PM - Man Days Rate"
+                                                        required title="CDO PM - Man Days Rate" numberonly />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" ng-model="OpportunityConfigDefault.ServCareMAC50Rate" class="form-control" id="Text40" placeholder="CDO PM - Man Days Rate"
+                                                        readonly title="Enter ServCare MAC-50 Rate detail" />
+                                                </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">ServCare CM-50 hrs Rate</label>
+                                            <span
+                                                style="color:#d9534f" ng-show="opportunityform.ServCareCM50hrsRate.$error.pattern || opportunityform.ServCareCM50hrsRate.$error.required">Not a valid data!</span>
+                                                <div class="col-sm-3">
+                                                    <input type="text" maxlength="6" name="ServCareCM50hrsRate" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.ServCareCM50hrsRate"
+                                                        ng-style="{'background-color':OpportunityConfigurationDetail.ServCareCM50hrsRate == OpportunityConfigDefault.ServCareCM50hrsRate ?  '#f9f9f9' : OpportunityConfigurationDetail.ServCareCM50hrsRate > OpportunityConfigDefault.ServCareCM50hrsRate ?  '#5cb85c': '#d9534f'}"
+                                                        class="form-control" id="Text44" placeholder="ServCare CM-50 hrs Rate"
+                                                        required title="ServCare CM-50 hrs Rate" numberonly />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" ng-model="OpportunityConfigDefault.ServCareCM50hrsRate" class="form-control" id="Text44" placeholder="ServCare CM-50 hrs Rate"
+                                                        readonly title="Enter ServCare CM-50 hrs Rate detail" />
+                                                </div>
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">ServCare Green-50 hrs Rate</label>
+                                            <span
+                                                style="color:#d9534f" ng-show="opportunityform.ServCareGreen50hrsRate.$error.pattern || opportunityform.ServCareGreen50hrsRate.$error.required">Not a valid data!</span>
+                                                <div class="col-sm-3">
+                                                    <input type="text" maxlength="6" name="ServCareGreen50hrsRate" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.ServCareGreen50hrsRate"
+                                                        ng-style="{'background-color':OpportunityConfigurationDetail.ServCareGreen50hrsRate == OpportunityConfigDefault.ServCareGreen50hrsRate ?  '#f9f9f9':OpportunityConfigurationDetail.ServCareGreen50hrsRate > OpportunityConfigDefault.ServCareGreen50hrsRate ?  '#5cb85c': '#d9534f'}"
+                                                        class="form-control" id="Text46" placeholder="ServCare Green-50 hrs Rate"
+                                                        required title="ServCare Green-50 hrs Rate" numberonly />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" ng-model="OpportunityConfigDefault.ServCareGreen50hrsRate" class="form-control" id="Text46" placeholder="ServCare Green-50 hrs Rate"
+                                                        readonly title="Enter ServCare Green-50 hrs Rate detail" />
+                                                </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">ServCare Local Resource (IM-L2)</label>
+                                            <span
+                                                style="color:#d9534f" ng-show="opportunityform.ServCareLocalResourceIML2.$error.pattern || opportunityform.ServCareLocalResourceIML2.$error.required">Not a valid data!</span>
+                                                <div class="col-sm-3">
+                                                    <input type="text" maxlength="6" name="ServCareLocalResourceIML2" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.ServCareLocalResourceIML2"
+                                                        ng-style="{'background-color':OpportunityConfigurationDetail.ServCareLocalResourceIML2 == OpportunityConfigDefault.ServCareLocalResourceIML2 ?  '#f9f9f9': OpportunityConfigurationDetail.ServCareLocalResourceIML2 > OpportunityConfigDefault.ServCareLocalResourceIML2 ?  '#5cb85c': '#d9534f'}"
+                                                        class="form-control" id="Text48" placeholder="ServCare Local Resource (IM-L2)"
+                                                        required title="ServCare Local Resource (IM-L2)" numberonly />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" ng-model="OpportunityConfigDefault.ServCareLocalResourceIML2" class="form-control" id="Text48" placeholder="ServCare Local Resource (IM-L2)"
+                                                        readonly title="Enter ServCare Local Resource detail" />
+                                                </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">ServCare Onsite Resource (PM-L2)</label>
+                                            <span
+                                                style="color:#d9534f" ng-show="opportunityform.ServCareOnsiteResourcePML2.$error.pattern || opportunityform.ServCareOnsiteResourcePML2.$error.required">Not a valid data!</span>
+                                                <div class="col-sm-3">
+                                                    <input type="text" maxlength="6" name="ServCareOnsiteResourcePML2" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.ServCareOnsiteResourcePML2"
+                                                        ng-style="{'background-color':OpportunityConfigurationDetail.ServCareOnsiteResourcePML2 == OpportunityConfigDefault.ServCareOnsiteResourcePML2 ?  '#f9f9f9': OpportunityConfigurationDetail.ServCareOnsiteResourcePML2 > OpportunityConfigDefault.ServCareOnsiteResourcePML2 ?  '#5cb85c': '#d9534f'}"
+                                                        class="form-control" id="Text50" placeholder="ServCare Onsite Resource (PM-L2)"
+                                                        required title="ServCare Onsite Resource (PM-L2)" numberonly />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" ng-model="OpportunityConfigDefault.ServCareOnsiteResourcePML2" class="form-control" id="Text50" placeholder="ServCare Onsite Resource (PM-L2)"
+                                                        readonly title="Enter ServCare Onsite Resource detail" />
+                                                </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="title" class="col-sm-3 control-label">ServCare Salary Hike %</label>
+                                            <span
+                                                style="color:#d9534f" ng-show="OpportunityConfigurationDetail.ServCareSalaryHike > 100 || opportunityform.ServCareSalaryHike.$error.pattern || opportunityform.ServCareSalaryHike.$error.required">Not a valid data!</span>
+                                                <div class="col-sm-3">
+                                                    <input type="text" maxlength="3" name="ServCareSalaryHike" ng-pattern="/^(\d)+$/" ng-model="OpportunityConfigurationDetail.ServCareSalaryHike"
+                                                        ng-style="{'background-color':OpportunityConfigurationDetail.ServCareSalaryHike == OpportunityConfigDefault.ServCareSalaryHike  ? '#f9f9f9' :   OpportunityConfigurationDetail.ServCareSalaryHike > OpportunityConfigDefault.ServCareSalaryHike ?  '#5cb85c': '#d9534f'}"
+                                                        class="form-control" id="Text52" placeholder="ServCare Salary Hike %"
+                                                        required title="Enter ServCare Salary Hike % detail" numberonly />
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" ng-model="OpportunityConfigDefault.ServCareSalaryHike" class="form-control" id="Text52" readonly placeholder="ServCare Salary Hike %"
+                                                        required title="Enter ServCare Salary Hike % detail" />
+                                                </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </uib-accordion-group>
+                </uib-accordion>
+                <div class="form-group">
+                    <div class="col-sm-offset-11 col-sm-12">
+                        <span data-ng-hide="editMode">
+<input type="submit" value="Save"  data-ng-click="SaveData(OpportunityDetail,OpportunityConfigurationDetail,'Configuration')"
+    class="btn btn-primary" />
+</span>
+                    </div>
+                </div>
+            </div>
+            <!--</form>-->
+    </div>
+</div>
+<!--
+ng-disabled="opportunityform.$invalid || OpportunityConfigurationDetail.WorkingHoursperDay >24
+                            || OpportunityConfigurationDetail.ServCareSalaryHike > 100
+            || OpportunityConfigurationDetail.ProjectManagement > 100
+            || OpportunityConfigurationDetail.Penalty > 100
+            || OpportunityConfigurationDetail.Margin > 100
+            || OpportunityConfigurationDetail.SalarySpike > 100
+            || OpportunityConfigurationDetail.SalaryHike > 100"-->

@@ -1,0 +1,134 @@
+﻿<div ng-include="'js/views/confirmModel.html'">
+</div>
+<div ng-include="'js/views/Utilities/AddOpportunities.html'"></div>
+<div ng-include="'js/views/Utilities/TagOpportunity.html'"></div>
+<!--<div ng-include="'js/views/Utilities/LockMyDay.html'"></div>-->
+<!--<div class="tab-content">-->
+<!--<form class="form-horizontal" role="form" name="opportunityform">-->
+<!--<div class="tab-pane active">-->
+<div class="box box-info" style="margin-top:20px">
+    <div class="box-header with-border">
+        <h3 class="box-title">My Day - Task Creation</h3>&nbsp;&nbsp;
+        <a ng-show="IsSCUser" data-ng-click="ShowLock()" style="cursor:pointer">
+            <img src="{{ view360imgPath }}Lock.jpg" class="img-circle" width="30" height="30" title="Lock My Day">
+        </a>
+        <button title="Click to select opportunities" data-ng-click="GetOppForMyDay()" class="btn btn-sm btn-info btn-flat pull-right">Choose Opportunities to Add <i class="fa fa-plus" style="color:white"></i></button>
+        <button title="Click to add NEW opportunity" data-ng-click="AddNEWOpp()" class="btn btn-sm btn-info btn-flat pull-right">NEW Opportunity <i class="fa fa-plus" style="color:white"></i></button>
+        <button title="Click to tag opportunity" data-ng-click="GetOppsToTag()" class="btn btn-sm btn-info btn-flat pull-right">Tag Opportunity <i class="fa fa-chain-broken" style="color:white"></i></button>
+    </div>
+    <div class="box-body" style="max-height:475px;overflow-y:auto">
+        <form class="form-group" name="mydayform" novalidate>
+            <table class="table no-margin table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Work Date <span style="color:red">*</span></th>
+                        <th>Opp ID <span style="color:red">*</span></th>
+                        <th>Opportunity Name <span style="color:red">*</span></th>
+                        <th>SBU <span style="color:red">*</span></th>
+                        <th>Task Type <span style="color:red">*</span></th>
+                        <th>Note <span style="color:red">*</span></th>
+                        <th>Duration(hh:mm)<span style="color:red">*</span></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>                    
+                    <tr data-ng-repeat="opp in MyTasks">
+                        <td>
+                            <p>
+                                <a title="Clone Row" style="cursor:pointer" ng-click="ReplicateRow(opp)"><i class="fa fa-plus-square" style="color: black"></i></a>
+                            </p>
+                        </td>
+                        <td class="col-md-2">
+                            <div class='input-group date' datetimepicker ng-model="opp.WorkDate">
+                                <input name="picker" style="font-size: 0.8em" type='text' class="form-control" readonly/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </td>
+                        <td class="col-md-1">
+                            <select name="oppId" style="font-size: 0.8em" ng-change="OnOppIdChanged(opp)" class="form-control" ng-options="item for item in SelectedOpps" ng-model="opp.OppId"
+                                title="{{opp.OppId}}" required>
+                             <option value="">Select Opportunity</option>
+                        </select></td>
+                        </td>
+                        <td class="col-md-2">
+                            <input name="oppName" style="font-size: 0.8em" ng-disabled="opp.OppId == 'NEW' ? false: true" class="form-control" type="text" maxlength="120" ng-model="opp.OpportunityName"
+                                title="{{opp.OpportunityName}}"/></td>
+                        <td class="col-md-2">
+                            <select name="sbu" style="font-size: 0.8em" ng-disabled="opp.OppId == 'NEW' || opp.OppId == 'NONE' ? false: true" class="form-control" ng-options="item for item in AllSBUs"
+                                ng-model="opp.SBU" title="{{opp.SBU}}" required><option value="">Select SBU</option></select></td>
+                        <td class="col-md-2">
+                            <select name="task" style="font-size: 0.8em" ng-change="IsTaskLeave(opp)" class="form-control" ng-options="item.TaskTypeId as item.TaskName for item in TaskTypes" ng-model="opp.TaskTypeId"
+                                title="{{item.TaskName}}" required><option value="">Select Task Type</option></select></td>
+                        <td class="col-md-2">
+                            <!--<input class="form-control" title="{{opp.Note}}" type="text" maxlength="255" ng-model="opp.Note" required/>-->
+                            <textarea name="note" style="font-size: 0.8em" id="txtArea" rows="2" class="form-control" title="{{opp.Note}}" maxlength="255" ng-model="opp.Note" required></textarea>
+                            </td>
+                        <td class="col-md-1">
+                            <!--<input class="form-control" type="time" ng-model="opp.Duration" onlytime required/>-->
+                           
+                            <input name="hh" ng-disabled="opp.TaskTypeId == 32 ? true: false" style="width:45px;" type="number" min="0" max="23" maxlength="2" ng-model="opp.hhDuration" ng-init="opp.hhDuration=0"
+                                required/>&nbsp;:
+                                <input name="mm" ng-disabled="opp.TaskTypeId == 30 || opp.TaskTypeId == 32 ? true: false" style="width:45px;" type="number" min="0" max="59" maxlength="2" ng-model="opp.mmDuration" ng-init="opp.mmDuration=0"
+                                required/>                                                    
+                        </td>                      
+                        <td>
+                            <p>
+                                <a title="Remove Row" style="cursor:pointer" ng-click="showconfirm(opp,this)"><i class="fa fa-times-circle" style="color: red"></i></a>
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <div class="col-sm-offset-2 col-sm-10">
+            <span data-ng-hide="editMode">
+                <!--<input type="submit" value="Save As Draft" ng-disabled="paymentConfigForm.$invalid" data-ng-click="SaveOrSubmit('save')" class="btn btn-primary" />-->
+                <input title="Submit Task" type="submit" value="Submit Task" 
+                ng-disabled="!mydayform.oppName.$valid ||!mydayform.sbu.$valid ||!mydayform.task.$valid ||!mydayform.note.$valid ||!mydayform.hh.$valid ||!mydayform.mm.$valid ||!mydayform.oppId.$valid || MyTasks.length == 0" 
+                data-ng-click="SaveOrSubmit('submit')" class="btn btn-primary" />
+            </span>
+        </div>
+    </div>
+</div> 
+                  
+<div class="modal fade" id="lockModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="width:30%">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #3c8dbc;color:white">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h4 class="modal-title" id="myModalLabel" ng-hide="editMode">Lock My Day</h4>
+            </div>
+            <div class="modal-body">
+                <form novalidate class="form-horizontal" name="lockform">
+                    <div class="row">
+                        <div class="box-body">
+                            <div class="col-md-3">
+                                <label>Lock Until: </label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class='input-group date' pickdate ng-model="date.LockDate">
+                                    <input type='text' class="form-control" readonly required />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <input class="btn btn-sm btn-info btn-rounded" data-ng-click="SetLock(date.LockDate)" type="submit"
+                                value="Set Lock" />
+                            <input class="btn btn-sm btn-info btn-rounded" data-ng-click="ReleaseLock()" type="submit" value="Release Lock" />
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

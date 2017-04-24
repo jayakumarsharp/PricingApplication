@@ -1,0 +1,380 @@
+﻿<!--<div>
+    <h3>Workspace</h3>
+</div>-->
+<div class="box box-info collapsed-box" style="margin-top:20px" ng-app="homeApp">
+    <div ng-include="'js/views/Users/View360.html'"></div>
+    <div ng-include="'js/views/Opportunity/ManualOpportunity.html'"></div>
+    <div class="box-header with-border">
+        <h3 class="box-title">Opportunities </h3>
+        <button ng-show="IsSCUser" data-ng-click="ManualOpportunityModel()" class="btn btn-xs btn-info btn-flat">Add New <i class="fa fa-plus" style="color:white"></i></button>
+        <!--<button data-ng-click="GetOpportunityForUser()" class="btn btn-xs btn-info btn-flat">Refresh Grid </button>-->
+        <a data-ng-click="GetOpportunityForUser()" style="cursor:pointer">
+            <img src="{{ view360imgPath }}reload.jpg" class="img-circle" width="27" height="27" title="Refresh">
+        </a>
+        <div class="pull-right">
+            <button type="button" class="btn btn-info btn-xs" data-widget="collapse">
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+
+    </div>
+    <!-- /.box-header -->
+
+    <div class="box-body">
+        <section class="content">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <!--<div class="box box-primary">-->
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div data-ng-repeat="Header in HeaderData  | filter:search" class="col-lg-2">
+                        <!-- small box -->
+                        <div ng-click="HeaderClick(Header)" class="small-box bg-{{ Header.Color }}" style="cursor: pointer; overflow: hidden">
+                            <div>
+                                <div class="inner">
+                                    <h3 style="padding:0 0 0 5px; margin: 0;">{{ Header.COUNT }}</h3>
+                                    <p style="padding:0 0 0 5px; margin: 0;">{{ Header.SBU }}</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-stats-bars"></i>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                        <!-- ./col -->
+                    </div>
+                    <!-- /.row -->
+                    <!-- Main row -->
+                </div>
+                <!--</div>-->
+                <div class="row">
+                    <section class="col-lg-12 connectedSortable">
+                        <div id="opportunityGrid" data-ag-grid="gridOptions" class="ag-blue" style="height: 300px;"></div>
+                    </section>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+
+</div>
+<div class="row">
+    <section class="col-lg-6 connectedSortable ui-sortable">
+        <div ng-hide="!showDeliverables" class="box box-success" style="max-height:250px">
+            <div class="box-header with-border">
+                <i class="fa fa-bookmark"></i>
+                <h3 class="box-title"> Deliverables for Today</h3>
+                <button type="button" class="btn btn-success btn-xs pull-right" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div style="max-height: 175px; overflow-y:scroll">
+                    <ul class="todo-list ui-sortable" ng-repeat="opp in DeliverablesToday">
+                        <li>
+                            <!-- drag handle -->
+                            <label>
+                                <i class="fa fa-ellipsis-v"></i>
+                                <i class="fa fa-ellipsis-v"></i>
+                            </label>
+                            <!-- todo text -->
+                            <a ng-click="View360(opp.id)" style="cursor:pointer">
+                                <span class="text">{{opp.OpportunityName}}</span>
+                            </a>
+                            <div class="pull-right">
+                                <a style="cursor:pointer" ng-click="View360(opp.id)"><i class="fa fa-external-link-square" style="color: #00a65a"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div ng-hide="!showMyOpps" class="box box-danger" style="max-height:250px">
+            <div class="box-header with-border">
+                <i class="fa fa-star"></i>
+                <h3 class="box-title"> Assigned To Me</h3>
+                <button type="button" class="btn btn-danger btn-xs pull-right" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div style="max-height: 175px; overflow-y:scroll">
+                    <ul class="todo-list ui-sortable" ng-repeat="opp in MyOpps">
+                        <li>
+                            <!-- drag handle -->
+                            <label>
+                                <i class="fa fa-ellipsis-v"></i>
+                                <i class="fa fa-ellipsis-v"></i>
+                            </label>
+                            <!-- todo text -->
+                            <a ng-click="View360(opp.id)" style="cursor:pointer">
+                                <span class="text">{{opp.OpportunityName}}</span>
+                            </a>
+                            <small ng-show="IsNewlyAssigned(opp.id)" class="label label-info"><i class="fa fa-clock-o"></i> Owner: {{opp.AccManagerName}}</small>
+                            <small ng-show="IsNewlyAssigned(opp.id)" class="label label-success"><i class="fa fa-clock-o"></i> New</small>
+                            <!-- Emphasis label -->
+                            <!--<small class="label label-danger"><i class="fa fa-clock-o"></i> 2 mins</small>-->
+                            <!-- General tools such as edit or delete-->
+                            <div class="pull-right">
+                                <a style="cursor:pointer" ng-click="View360(opp.id)"><i class="fa fa-external-link-square" style="color: #dd4b39"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <!--<div class="box-footer clearfix no-border">
+                <button type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Add item</button>
+            </div>-->
+        </div>
+        <div ng-hide="!showOppsCreatedToday" class="box box-primary" style="max-height:250px">
+            <div class="box-header with-border">
+                <i class="fa fa-tasks"></i>
+                <h3 class="box-title"> New Opportunities Today</h3>
+                <button type="button" class="btn btn-primary btn-xs pull-right" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div style="max-height: 175px; overflow-y:scroll">
+                    <ul class="todo-list ui-sortable" ng-repeat="opp in OppsCreatedToday">
+                        <li>
+                            <!-- drag handle -->
+                            <label>
+                                <i class="fa fa-ellipsis-v"></i>
+                                <i class="fa fa-ellipsis-v"></i>
+                            </label>
+                            <!-- todo text -->
+                            <a ng-click="View360(opp.id)" style="cursor:pointer">
+                                <span class="text">{{opp.OpportunityName}}</span>
+                            </a>
+                            <!-- Emphasis label -->
+                            <!--<small class="label label-danger"><i class="fa fa-clock-o"></i> 2 mins</small>-->
+                            <!-- General tools such as edit or delete-->
+                            <div class="pull-right">
+                                <a style="cursor:pointer" ng-click="View360(opp.id)"><i class="fa fa-external-link-square" style="color: #3c8dbc"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div ng-hide="!showOppsThisQuarter" class="box box-info" style="max-height:250px">
+            <div class="box-header with-border">
+                <i class="fa fa-pie-chart"></i>
+                <h3 class="box-title"> Opportunities this Quarter</h3>
+                <button type="button" class="btn btn-info btn-xs pull-right" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div style="max-height: 175px; overflow-y:scroll">
+                    <ul class="todo-list ui-sortable" ng-repeat="opp in OppsThisQuarter">
+                        <li>
+                            <!-- drag handle -->
+                            <label>
+                                <i class="fa fa-ellipsis-v"></i>
+                                <i class="fa fa-ellipsis-v"></i>
+                            </label>
+                            <!-- todo text -->
+                            <a ng-click="View360(opp.id)" style="cursor:pointer">
+                                <span class="text">{{opp.OpportunityName}}</span>
+                            </a>
+                            <!-- Emphasis label -->
+                            <!--<small class="label label-danger"><i class="fa fa-clock-o"></i> 2 mins</small>-->
+                            <!-- General tools such as edit or delete-->
+                            <div class="pull-right">
+                                <a style="cursor:pointer" ng-click="View360(opp.id)"><i class="fa fa-external-link-square" style="color: #00acd6"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="col-lg-6  connectedSortable ui-sortable">
+        <div ng-hide="!showDeliverables" class="box box-warning" style="max-height:250px">
+            <div class="box-header with-border">
+                <i class="fa fa-bookmark-o xs"></i>
+                <h3 class="box-title"> Deliverables for Tomorrow</h3>
+                <button type="button" class="btn btn-warning btn-xs pull-right" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div style="max-height: 175px; overflow-y:scroll">
+                    <ul class="todo-list ui-sortable" ng-repeat="opp in DeliverablesTomorrow">
+                        <li>
+                            <!-- drag handle -->
+                            <label>
+                                <i class="fa fa-ellipsis-v"></i>
+                                <i class="fa fa-ellipsis-v"></i>
+                            </label>
+                            <!-- todo text -->
+                            <a ng-click="View360(opp.id)" style="cursor:pointer">
+                                <span class="text">{{opp.OpportunityName}}</span>
+                            </a>
+                            <div class="pull-right">
+                                <a style="cursor:pointer" ng-click="View360(opp.id)"><i class="fa fa-external-link-square" style="color: #e08e0b"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div ng-hide="!showUnassigned" class="box box-success" style="max-height:250px">
+            <div class="box-header with-border">
+                <i class="fa fa-star-o"></i>
+                <h3 class="box-title"> Unassigned Opportunities</h3>
+                <button type="button" class="btn btn-success btn-xs pull-right" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div style="max-height: 175px; overflow-y:scroll">
+                    <ul class="todo-list ui-sortable" ng-repeat="opp in Unassigned">
+                        <li>
+                            <!-- drag handle -->
+                            <label>
+                                <i class="fa fa-ellipsis-v"></i>
+                                <i class="fa fa-ellipsis-v"></i>
+                            </label>
+                            <!-- todo text -->
+                            <a ng-click="View360(opp.id)" style="cursor:pointer">
+                                <span class="text">{{opp.OpportunityName}}</span>
+                            </a>
+                            <!--<small class="label label-danger"><i class="fa fa-clock-o"></i> Owner: {{opp.AccManagerName}}</small>-->
+                            <!--                           Emphasis label -->
+                            <!--<
+                            small class="label label-danger"><i class="fa fa-clock-o"></i> 2 mins</small>-->
+                            <!--
+                            General tools such as edit or delete-->
+                            <div <div <div class="pull-right">
+                                <a style="cursor:pointer" ng-click="View360(opp.id)"><i class="fa fa-external-link-square" style="color: #00a65a"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <!--<div class="box-footer clearfix no-border">
+                <button type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Add item</button>
+            </div>-->
+        </div>
+        <div class="box box-info" style="max-height:300px">
+            <div class="box-header with-border">
+                <i class="fa fa-calendar"></i>
+                <h3 class="box-title"> Find Opportunities By Date</h3>
+                <button type="button" class="btn btn-info btn-xs pull-right" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+            <!-- /.box-header -->
+
+            <div class="box-body">
+                <div class="box-header with-border">
+                    <div class="col-md-12">
+                        <div class="col-md-2">
+                            <label>From: </label>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group date" data-provide="datepicker">
+                                <input required name="frmDate" ng-model="frmDate" type="text" id="frmDate" style="font-size:8pt" class="form-control" readonly>
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <label>To: </label>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group date" data-provide="datepicker">
+                                <input required name="toDate" ng-model="toDate" type="text" id="toDate" style="font-size:8pt" class="form-control" readonly>
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <a><i ng-click="FindOppByDate(frmDate, toDate)" class="glyphicon glyphicon-search"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-header with-border" ng-show="ShowDateMessage">
+                    <label style="color:red">{{DateMessage}}</label>
+                </div>
+                <div style="max-height: 133px; overflow-y:scroll">
+                    <ul class="todo-list ui-sortable" ng-repeat="opp in OppsFoundByDate">
+                        <li>
+                            <!-- drag handle -->
+                            <label>
+                                <i class="fa fa-ellipsis-v"></i>
+                                <i class="fa fa-ellipsis-v"></i>
+                            </label>
+                            <!-- todo text -->
+                            <a ng-click="View360(opp.id)" style="cursor:pointer">
+                                <span class="text">{{opp.OpportunityName}}</span>
+                            </a>
+                            <!--<small class="label label-danger"><i class="fa fa-clock-o"></i> Owner: {{opp.AccManagerName}}</small>-->
+                            <!--
+                            Emphasis label -->
+                            <!--<
+                            small class="label label-danger"><i class="fa fa-clock-o"></i> 2 mins</small>-->
+                            <!--
+                            General tools such as edit or delete-->
+                            <div <div <div class="pull-right">
+                                <a style="cursor:pointer" ng-click="View360(opp.id)"><i class="fa fa-external-link-square" style="color: #00acd6"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <!--<div class="box-footer clearfix no-border">
+                <button type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Add item</button>
+            </div>-->
+        </div>
+        <div ng-hide="!showOppsThisMonth" class="box box-danger" style="max-height:250px">
+            <div class="box-header with-border">
+                <i class="fa fa-th-list"></i>
+                <h3 class="box-title"> Opportunities this Month</h3>
+                <button type="button" class="btn btn-danger btn-xs pull-right" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div style="max-height: 175px; overflow-y:scroll">
+                    <ul class="todo-list ui-sortable" ng-repeat="opp in OppsThisMonth">
+                        <li>
+                            <!-- drag handle -->
+                            <label>
+                                <i class="fa fa-ellipsis-v"></i>
+                                <i class="fa fa-ellipsis-v"></i>
+                            </label>
+                            <!-- todo text -->
+                            <a ng-click="View360(opp.id)" style="cursor:pointer">
+                                <span class="text">{{opp.OpportunityName}}</span>
+                            </a>
+                            <!-- Emphasis label -->
+                            <!--<small class="label label-danger"><i class="fa fa-clock-o"></i> 2 mins</small>-->
+                            <!-- General tools such as edit or delete-->
+                            <div class="pull-right">
+                                <a style="cursor:pointer" ng-click="View360(opp.id)"><i class="fa fa-external-link-square" style="color: #dd4b39"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,57 @@
+﻿<div class="box box-info">
+    <form name="upload_form">
+        <div class="box-header with-border">
+            <h2 class="box-title">Holiday Calendar Upload</h2>
+            <div class="form-group">
+                <label class="col-sm-offset-4 col-xs-3">Upload Holiday Calendar file in (.xls/.xlsx) format: </label>
+                <input type="file" class=" col-xs-3 btn btn-sm btn-info btn-rounded" ngf-select ng-model="file" name="file" />
+
+                <i ng-show="upload_form.file.$error.required">*required</i><br>
+                <i ng-show="upload_form.file.$error.maxSize">File too large 
+            {{file.size / 1000000|number:1}}MB: max 20M</i>
+
+                <p>{{progress}}</p>
+
+
+            </div>
+            <div class="row">
+                <button class="pull-right btn btn-sm btn-primary" style="margin-right: 5%;" type="submit" ng-click="submit()">Upload</button>
+            </div>
+
+        </div>
+
+
+    </form>
+    <div class="box-body" style="max-height:475px;overflow-y:auto;overflow-x:hidden; margin-left : 15%;">
+        <div class="row">
+            <div class="col-xs-1">
+                <label>Year: </label>
+            </div>
+            <div class="col-md-3">
+                <select class="form-control" ng-change="GetData(holiday.Year,holiday.Location)" ng-options="item.Year as item.Year for item in Years"
+                    ng-model="holiday.Year" title="- Select Year -">
+                        <option value="">- Select Year -</option>
+                </select>
+            </div>
+            <div class="col-xs-1">
+                <label>Location: </label>
+            </div>
+            <div class="col-md-3">
+                <select class="form-control" ng-change="GetData(holiday.Year,holiday.Location)" ng-options="item.Id as item.Location for item in Locations"
+                    ng-model="holiday.Location" title="- Select Location -"> 
+                        <option value="">- Select Location -</option>
+                </select>
+            </div>
+            <!--<div class="col-md-2">
+                <button title="Click to add NEW opportunity" data-ng-click="AddNEWOpp()" class="btn btn-sm btn-info btn-flat pull-right">NEW Opportunity <i class="fa fa-plus" style="color:white"></i></button>
+            </div>-->
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="mnbxcont">
+            <div data-ag-grid="HolidayGrid" class="ag-blue" style="color:#000;width:60%;margin-left:20%"></div>
+
+            <!--height:475px !important;-->
+        </div>
+    </div>
+</div>

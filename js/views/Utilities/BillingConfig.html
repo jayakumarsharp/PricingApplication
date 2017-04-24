@@ -1,0 +1,38 @@
+﻿<div ng-include="'js/views/confirmModel.html'"></div>
+<div class="box box-info" style="margin-top:20px">
+    <div class="box-header with-border">
+        <h3 class="box-title">Billing Report Configuration</h3>
+        <hr />
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>Select Billing Period: </label>
+            </div>
+            <div class="col-md-4">
+                <select class="form-control" ng-change="GetBillingConfig(billConfig.BillingPeriod)" ng-model="billConfig.BillingPeriod" title="- Select the Billing Period -" required>
+                        <option value="">- Select Billing Period -</option>
+                        <option value="2014"> FY  2014 - 2015</option>
+                        <option value="2015"> FY  2015 - 2016</option>
+                        <option value="2016"> FY  2016 - 2017</option>
+                        <option value="2017"> FY  2017 - 2018</option>
+                        <option value="2018"> FY  2018 - 2019</option>
+                        <option value="2019"> FY  2019 - 2020</option>
+                        <option value="2020"> FY  2020 - 2021</option>
+                        <option value="2021"> FY  2021 - 2022</option>
+                        <option value="2022"> FY  2022 - 2023</option>
+                        <option value="2023"> FY  2023 - 2024</option>
+                        <option value="2024"> FY  2024 - 2025</option>
+                        <option value="2025"> FY  2025 - 2026</option>
+                </select>
+            </div>  
+            <div>
+                <button title="Update BillingConfig" data-ng-click="UpdateBillingConfig()" class="btn btn-sm btn-info btn-rounded pull-right">Update Configuration</button>
+            </div>
+            
+        </div>
+    </div>
+    <div class="box-body" ng-show="billConfig.ShowGrid">
+        <div class="mnbxcont">
+            <div data-ag-grid="BillingConfigGrid" class="ag-blue" style="color:#000;height: 400px !important;width:100%;"></div>
+        </div>
+    </div>
+</div>

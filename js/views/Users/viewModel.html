@@ -1,0 +1,95 @@
+﻿<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="width:40%">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #3c8dbc;color:white">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h4 class="modal-title" id="myModalLabel">View User</h4>
+            </div>
+            <div class="modal-body" style="height:450px;overflow-y:auto">
+                <div class="box-comments">
+                    <form class="form-horizontal" role="form" name="viewuser">                       
+                        <div class="form-group">
+                            <label for="Name" class="col-sm-5 control-label">Name</label>
+                            <div class="col-sm-7" style="margin-top:6px">
+                                {{User.UserName}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Address" class="col-sm-5 control-label">Email ID</label>
+                            <div class="col-sm-7" style="margin-top:6px">
+                                {{User.EmailId}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Role" class="col-sm-5 control-label">Type</label>
+                            <div class="col-sm-7" style="margin-top:6px">
+                                {{GetTypeName(User.TypeId)}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Role" class="col-sm-5 control-label">Role</label>
+                            <div class="col-sm-7" style="margin-top:6px">
+                                {{GetRoleName(User.RoleId)}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="SBU" class="col-sm-5 control-label">User SBU</label>
+                            <div class="col-sm-7" style="margin-top:6px;">
+                                <ul ng-repeat="item in User.selectedSBU">
+                                    <li>{{GetSBUName(item.SBUID)}}</li>
+                                </ul>
+                            </div>
+                        </div>  
+                        <div class="form-group">
+                            <label for="SBU" class="col-sm-5 control-label">Billing SBU</label>
+                            <div class="col-sm-7" style="margin-top:6px;">
+                                <ul ng-repeat="item in User.selectedBillingSBU">
+                                    <li>{{GetSBUName(item.SBUID)}}</li>
+                                </ul>
+                            </div>
+                        </div>                      
+                        <div class="form-group">
+                            <label for="Status" class="col-sm-5 control-label">Status</label>
+                            <div class="col-sm-7" style="margin-top:6px">
+                                {{User.Status}}
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label for="Role" class="col-sm-5 control-label">Billing Type</label>
+                            <div class="col-sm-7" style="margin-top:6px">
+                                {{GetBillingName(User.BillingId)}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Role" class="col-sm-5 control-label">Base Skill</label>
+                            <div class="col-sm-7" style="margin-top:6px">
+                                {{GetBaseSkillName(User.BaseSkillId)}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Role" class="col-sm-5 control-label">Location</label>
+                            <div class="col-sm-7" style="margin-top:6px">
+                                {{GetLocationName(User.LocationId)}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Role" class="col-sm-5 control-label">First Working Date</label>
+                            <div class="col-sm-7" style="margin-top:6px">
+                                {{User.FirstWorkingDate}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Status" class="col-sm-5 control-label">Last Working Date</label>
+                            <div class="col-sm-7" style="margin-top:6px">
+                                {{User.LastWorkingDate}}
+                            </div>
+                        </div>
+                    </form>
+                </div>             
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" name="closeUserView" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,525 @@
+﻿<ul class="nav nav-tabs">
+    <li>
+        <a href="OppSiteConfig/{{OppId}}/{{MaxGroupID}}">Opportunity Configuration</a>
+    </li>
+    <li>
+        <a href="Resource/{{OppId}}/{{MaxGroupID}}">Resourcing</a>
+    </li>
+    <li class="active">
+        <a href="TandEPS/{{OppId}}/{{MaxGroupID}}">T & E</a>
+    </li>
+    <li>
+        <a href="DaySheet/{{OppId}}/{{MaxGroupID}}" data-toggle="tab">Estimation - PS </a>
+    </li>
+    <li>
+        <a href="PriceList/{{OppId}}/{{MaxGroupID}}">Pricing Sheet</a>
+    </li>
+    <li>
+        <a <a href="PaymentList/{{OppId}}/{{MaxGroupID}}">Payment Sheet</a>
+    </li>
+    <li>
+        <a href="GrossMargin/{{OppId}}/{{MaxGroupID}}">Project Margin</a>
+    </li>
+
+    <div my360></div>
+</ul>
+<div class="tab-pane active">
+    <div class="box-body">
+        <div>
+            <div>
+                <div>
+
+                    <span style="color:blue;">{{ OppDetail.OpportunityName }}</span> {{Version }} <span style="color:red;"
+                        ng-if="sheetholdedby.length > 0">{{SheetLockedMessage}}</span> <span ng-show="isEditClicked" class="margin-r-5"
+                        style="color: blue;">- <timer countdown="840" autostart="false" finish-callback="finished()" interval="1000">{{minutes}} Min, {{seconds}} Sec</timer> </span>
+
+                    <button class="btn bg-teal btn-flat pull-right" ng-click="MakeContainerFullScreen(DefautState)"><i title="expand" ng-show="!DefautState" class="fa fa-expand"></i> <i title="collapse" ng-show="DefautState" class="fa fa-compress"></i></button>
+                    <button uib-popover-template="dynamicPopover.templateUrl" popover-placement="bottom" type="button" class="btn btn-default pull-right margin-r-5 ">Version History</button>
+                    <button class="btn bg-maroon btn-flat margin-r-5 pull-right" ng-show="isEditClicked" ng-click="SaveAsTandEResourcePop()"><i class="fa fa-save"></i>&nbsp;Save As</button>
+                    <button class="btn bg-purple btn-flat margin-r-5 pull-right" ng-show="isEditClicked" ng-click="SaveTandEResourcePop()"><i class="fa fa-save"></i>&nbsp;Save</button>
+                    <button class="btn bg-blue btn-flat margin-r-5 pull-right" ng-show="isEditClicked" ng-click="IgnoreTandEResourceChanges()"><i class="glyphicon glyphicon-remove-circle"></i>&nbsp;Discard</button>
+                    <button class="btn bg-blue btn-flat margin-r-5 pull-right" ng-show="isTandEResourceEditable && !isEditClicked" ng-click="EditTandEResource()"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+                    <!--<button class="btn bg-green-active btn-flat" style="margin-left:10px;" ng-show="isEditClicked" id="btnaddTandEResource" ng-click="AddTandEResourceRow()"
+                        title="Add Row"><i class="fa fa-plus"></i> </button>
+                    <button class="btn bg-red-active btn-flat" ng-show="isEditClicked" ng-click="DeleteTandEResourceRow()" title="Delete Row"><i class="fa fa-trash"></i> </button>-->
+
+                    <script type="text/ng-template" id="myPopoverTemplate.html">
+                    <div class="form-group" style="width:400px">
+                        <div ng-repeat="opp in Versions | orderBy:PriceSheetId:true">
+                            <a ng-class="{'blinktext': {{opp.PriceSheetId}}==GroupId }" href="TandEResource/{{OppId}}/{{opp.PriceSheetId}}">{{opp.Version}}&nbsp;&nbsp;<span class="badge bg-maroon">{{opp.CreatedBy}}</span>&nbsp;&nbsp;<span class="badge bg-blue" title="{{opp.Comment}}">{{opp.Comment.length > 10 ? opp.Comment.substring(0,9)+'..' : opp.Comment }}</span><span class="badge bg-yellow">{{opp.CreatedOn.length > 10 ? opp.CreatedOn.substring(0,10) : opp.CreatedOn}}</span> </a>
+                        </div>
+                    </div>
+                    
+                </script>
+                </div>
+                <div style="padding-top:2px;">
+
+                    <ul class="tabrow" data-as-sortable="" data-ng-model="tabs">
+                        <li> <a href="TandEPS/{{OppId}}/{{MaxGroupID}}" class="ng-binding" data-as-sortable-item-handle> PS </a>
+                        </li>
+                        <li class="active"><a href="TandEResource/{{OppId}}/{{MaxGroupID}}" data-as-sortable-item-handle> Resourcing </a>
+                        </li>
+                    </ul>
+                    <div>
+                        <div>
+
+                            <div class="container-fluid">
+                                <!--<div class="container">-->
+                                <div class="mnbxcont">
+                                    <div data-ag-grid="TandEResourceGrid" class="ag-blue" style="color:#000;height:450px"></div>
+                                </div>
+                                <!--</div>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div id="showTimeout" class="modal fade" modal="showModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color: #3c8dbc;color:white;height:10%">
+                                    <button type="button" class="close" data-dismiss="modal" ng-click="closepopup_TandEResource()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">TandE Resource Sheet Attention</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p> Please take your action : Allocated 15 minutes is going to end</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" ng-click="closepopup_TandEResource()" data-dismiss="modal">Discard</button>
+                                    <button type="button" class="btn btn-success" ng-click="AddTandEResourceSheet(false)"><i class="glyphicon glyphicon-ok"></i>&nbsp; Save Changes</button>
+                                    <button type="button" class="btn btn-danger" ng-click="IncreaseAdditionalTimeToSheet()">Increase Time</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="showSaveAs" class="modal fade" modal="showModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form novalidate class="form-horizontal" role="form" name="model">
+                                    <div class="modal-header" style="background-color: #3c8dbc;color:white;height:10%">
+                                        <button type="button" class="close" data-dismiss="modal" ng-click="CancelTandEResourceSheetsaveas()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">Save As Into New Version</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="TypeID" class="col-sm-3 control-label">Comment</label>
+                                            <div class="col-sm-6" style="margin-top:6px">
+                                                <input class="form-control" type="text" ng-model="SaveComment" title="Enter comment" ng-required="true" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-success" ng-disabled="model.$invalid" ng-click="SaveAsTandEResource()"><i class="glyphicon glyphicon-ok"></i>&nbsp;Save</button>
+                                        <button type="button" class="btn btn-danger" ng-click="CancelTandEResourceSheetsaveas()"><i class="glyphicon glyphicon-remove"></i>&nbsp;Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div id="ShowSave" class="modal fade" modal="showModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color: #3c8dbc;color:white;height:10%">
+                                    <button type="button" class="close" data-dismiss="modal" ng-click="CancelTandEResourceSheet()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Save Changes</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p> Are you sure want to save changes to the T and E sheet?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" ng-click="SaveTandEResource(false)"><i class="glyphicon glyphicon-ok"></i>&nbsp; Save changes</button>
+                                    <button type="button" class="btn btn-danger" ng-click="CancelTandEResourceSheet()"><i class="glyphicon glyphicon-remove"></i>&nbsp;Cancel</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="showUnsaved" class="modal fade" modal="showModal" role="dialog" data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color: #3c8dbc;color:white;height:10%">
+                                    <button type="button" class="close" data-dismiss="modal" ng-click="CloseTandEResourceSheetdiscard()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Unsaved Changes</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p> You have unsaved changes. Leave the page?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" ng-click="saveasTandEResourceSheetdiscard()"><i class="glyphicon glyphicon-ok"></i>&nbsp; Save changes</button>
+                                    <button type="button" class="btn btn-danger" ng-click="CancelTandEResourceSheetdiscard()"><i class="glyphicon glyphicon-remove"></i>&nbsp;Ignore Changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <style type="text/css">
+            .animationload {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(255, 255, 255, 0.85);
+                z-index: 999999;
+            }
+            
+            .animationload .loader {
+                width: 200px;
+                height: 200px;
+                font-size: 0;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                background-image: url("\images/loader.gif");
+                background-repeat: no-repeat;
+                background-position: center;
+                margin: -100px 0 0 -100px;
+            }
+            
+            .ag-header-group-cell-label {
+                position: relative;
+            }
+            
+            .ag-header-expand-icon {
+                position: absolute;
+                left: 0;
+                top: 5px;
+            }
+            
+            .ag-blue .ag-header-group-text {
+                margin-left: 12px;
+            }
+            
+            .ag-blue .ag-row-odd {
+                background-color: #ffffff;
+            }
+            
+            select {
+                border: 0px;
+                outline: 0px;
+            }
+            
+            input {
+                border: 0px;
+                outline: 0px
+            }
+            
+            .ag-blue .ag-row-selected {
+                background-color: #C2D98B !important;
+            }
+            
+            .ag-blue .ag-row-selected select {
+                background-color: #C2D98B !important;
+            }
+            
+            .ag-blue .ag-row-selected input {
+                background-color: #C2D98B !important;
+            }
+            
+            .ag-blue .ag-cell-selected select {
+                background-color: #ffffff !important;
+            }
+            
+            .ag-blue .ag-cell-selected input {
+                background-color: #ffffff !important;
+            }
+        </style>
+
+        <div id="loader" class="animationload hide">
+            <div class="loader">
+                Loading...
+            </div>
+        </div>
+        <style type="text/css">
+            /*.ag-fresh .ag-header-group-text {
+            float: right !important;
+        }*/
+            
+            .animationload {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(255, 255, 255, 0.85);
+                z-index: 999999;
+            }
+            
+            .animationload .loader {
+                width: 200px;
+                height: 200px;
+                font-size: 0;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                background-image: url("\images/loader.gif");
+                background-repeat: no-repeat;
+                background-position: center;
+                margin: -100px 0 0 -100px;
+            }
+            
+            .ag-header-expand-icon {
+                position: relative;
+                float: left;
+                /*margin-top: -24px;
+            margin-left: -9px;
+                        color: #008CBA;*/
+                font-weight: 500;
+            }
+            
+            .popover-content {
+                overflow-y: scroll;
+                height: 100px;
+            }
+            
+            #overlay {
+                display: none;
+            }
+            
+            .ag-blue .ag-row-selected {
+                background-color: #C2D98B !important;
+                /*C2D98B*/
+            }
+            
+            .ag-blue .ag-row-odd {
+                background-color: #ffffff;
+            }
+            /*.ag-header-cell-label {
+            overflow: visible;
+            white-space: normal;
+        }*/
+            
+            .redbackground {
+                background-color: #e66953 !important;
+            }
+            
+            .greenbackground {
+                background-color: green !important;
+            }
+            
+            .blockbackground {
+                background-color: #808080 !important;
+            }
+            
+            .nonservion {
+                padding-left: 27px !important;
+                color: #475F77;
+            }
+            
+            .content {
+                padding: 0px !important;
+            }
+            
+            .test1 nav-tabs > li.active > a,
+            .nav-tabs > li.active > a:focus,
+            .nav-tabs > li.active > a:hover {
+                font-weight: 600;
+            }
+            
+            .test1 .nav > li > a {
+                padding: 5px 12px;
+                margin-top: -5px;
+            }
+            
+            .tab-container {
+                position: relative;
+                .nav.nav-tabs {
+                    border-bottom: 0;
+                    z-index: 1;
+                    margin-bottom: 0;
+                    white-space: nowrap;
+                    display: block;
+                    > li {
+                        position: relative;
+                        background-color: #e9e7e4;
+                        border: 1px solid #b5b4b4;
+                        border-right: 0;
+                        color: #656d78;
+                        text-decoration: none;
+                        position: relative;
+                        display: block;
+                        padding: 0;
+                        float: left;
+                    }
+                    &.is-sorting {
+                        li[data-toggle="modal"] {
+                            @include opacity(.3);
+                        }
+                    }
+                }
+            }
+            
+            .tab-container {
+                .nav.nav-tabs {
+                    > li {
+                        .static-tab {
+                            color: red;
+                        }
+                    }
+                }
+            }
+            
+            .tab-content {
+                background-color: #fff;
+                border: 1px solid #b5b4b4;
+                padding: 15px 30px;
+                float: left;
+                width: 100%;
+            }
+            
+            nav-tabs>li {
+                float: left;
+                margin-bottom: 0px;
+            }
+            
+            .tab-content {
+                background-color: #fff;
+                border: 1px solid #b5b4b4;
+                padding: 15px 30px;
+            }
+            
+            .nav-tabs>li {
+                margin-bottom: 0px !important;
+            }
+            
+            .nav-tabs {
+                border-bottom: 1px solid #fff;
+            }
+            
+            .tab-content {
+                border-color: #fff !important;
+            }
+            
+            .tabrow {
+                /*text-align: center;*/
+                list-style: none;
+                margin: 10px 2px 10px;
+                padding: 0;
+                line-height: 28px;
+                height: 30px;
+                overflow: hidden;
+                position: relative;
+            }
+            
+            .tabrow li {
+                border: 1px solid #AAA;
+                background: #D1D1D1;
+                background: linear-gradient(top, #ECECEC 50%, #D1D1D1 100%);
+                display: inline-block;
+                position: relative;
+                z-index: 0;
+                border-bottom-left-radius: 6px;
+                border-bottom-right-radius: 6px;
+                /*box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), inset 0 1px 0 #FFF;
+            text-shadow: 0 1px #FFF;*/
+                margin: 0 -5px;
+                padding: 0 30px;
+            }
+            
+            .tabrow a {
+                color: #555;
+                text-decoration: none;
+            }
+            
+            .tabrow li.active {
+                background: #FFF;
+                color: #333;
+                z-index: 2;
+                border-top-color: #FFF;
+            }
+            
+            .tabrow:before {
+                position: absolute;
+                content: "";
+                width: 100%;
+                top: 0;
+                left: 0;
+                border-top: 1px solid #AAA;
+                z-index: 1;
+            }
+            
+            .tabrow li.active:before {
+                box-shadow: 2px 0px 0 #FFF;
+            }
+            
+            .tabrow li.active:after {
+                box-shadow: -2px 0px 0 #FFF;
+            }
+            
+            .tabs1 {
+                list-style: none;
+                padding: 0;
+            }
+            
+            .tabs1 a {
+                /* Make them block level
+		     and only as wide as they need */
+                float: left;
+                padding: 5px 20px;
+                text-decoration: none;
+                /* Default colors */
+                color: black;
+                background: #ddc385;
+                /* Only round the top corners */
+                -webkit-border-top-left-radius: 15px;
+                -webkit-border-top-right-radius: 15px;
+                -moz-border-radius-topleft: 15px;
+                -moz-border-radius-topright: 15px;
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+            }
+            
+            .tabs1 .active {
+                /* Highest, active tab is on top */
+                z-index: 3;
+            }
+            
+            .tabs1 .active a {
+                /* Colors when tab is active */
+                background: white;
+                color: black;
+            }
+            
+            .tabs1 li a:after,
+            .tabs1 li a:before {
+                /* Circles are circular */
+                -webkit-border-radius: 10px;
+                -moz-border-radius: 10px;
+                border-radius: 10px;
+                background: #222;
+                /* Circles over squares */
+                z-index: 2;
+            }
+            /* First and last tabs have different
+		   outside color needs */
+            /** Transition **/
+            
+            .tran3s,
+            .filter-pan {
+                transition: all 0.3s ease-in-out;
+                -webkit-transition: all 0.3s ease-in-out;
+                -moz-transition: all 0.3s ease-in-out;
+                -o-transition: all 0.3s ease-in-out;
+                transition: all 0.3s ease-in-out;
+            }
+            /*
+ * Row with equal height columns
+ * --------------------------------------------------
+ */
+            
+            .redbackground {
+                background-color: #e66953 !important;
+            }
+            
+            .parentstyleapply {
+                background: red;
+            }
+        </style>

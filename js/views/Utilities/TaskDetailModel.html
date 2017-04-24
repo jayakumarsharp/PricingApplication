@@ -1,0 +1,73 @@
+﻿<div class="modal fade" id="TaskDetailModel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="width:40%">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #3c8dbc;color:white;height:10%">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h4 class="modal-title" id="myModalLabel">Edit {{opp.OppId}}</h4>
+            </div>
+            <div class="modal-body">
+                <form novalidate class="form-horizontal" role="form" name="editTaskForm">
+                    <div class="form-group">
+                        <label for="SBU" class="col-sm-3 control-label">Opportunity Name</label>
+                        <div class="col-sm-8" style="margin-top:6px">
+                            <input class="form-control" type="text" ng-model="opp.OpportunityName" disabled />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="SBU" class="col-sm-3 control-label">Opportunity SBU</label>
+                        <div class="col-sm-8" style="margin-top:6px">
+                            <input ng-show="!makeSBUEditable" class="form-control" type="text" ng-model="opp.SBU" disabled />
+                            <select required ng-show="makeSBUEditable" class="form-control" ng-options="item for item in AllSBUs" ng-model="opp.SBU" title="Select SBU">
+                                <option value="">- All -</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="SBU" class="col-sm-3 control-label">Work Date</label>
+                        <div class="col-sm-8" style="margin-top:6px">
+                            <div class='input-group date' datetimepicker ng-model="opp.WorkDate">
+                                <input type='text' class="form-control" readonly/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="SBU" class="col-sm-3 control-label">Task Type</label>
+                        <div class="col-sm-8" style="margin-top:6px">
+                            <select class="form-control" ng-options="item.TaskTypeId as item.TaskName for item in TaskTypes" ng-model="opp.TaskTypeId"
+                                title="{{item.TaskName}}" required><option value=""> - Select Task Type -</option></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="RoleID" class="col-sm-3 control-label">Note</label>
+                        <div class="col-sm-8" style="margin-top:6px">
+                            <input class="form-control" type="text" maxlength="255" ng-model="opp.Note" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="RoleID" class="col-sm-3 control-label">Duration (hh:mm)</label>
+                        <div class="col-sm-2" style="margin-top:6px">
+                            <!--<input class="form-control" type="time" ng-model="opp.Duration" onlytime required />-->
+                            <input style="width:65px" class="form-control" type="number" min="0" max="23" maxlength="2" ng-model="opp.hhDuration" required/>
+                        </div>
+                        <div class="col-sm-1" style="margin-top:6px;">
+                            <input style="width:65px" class="form-control" type="number" min="0" max="59" maxlength="2" ng-model="opp.mmDuration" ng-init="opp.mmDuration=0"
+                                required/>
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <div class="pull-right">
+                            <span>
+                                <input type="button" value="Edit Task" ng-disabled="editTaskForm.$invalid || opp.Duration == '' || opp.SBU == undefined" ng-click="EditTask()" class="btn btn-primary" />
+                            </span>
+                            <input type="button" value="Cancel" data-ng-click="cancel()" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
