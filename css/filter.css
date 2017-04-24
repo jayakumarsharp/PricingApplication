@@ -1,0 +1,137 @@
+/** Transition **/
+
+.tran3s,
+.filter-pan {
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.filter-pan {
+    position: fixed;
+    background-color: #1a1e2b;
+    z-index: 999;
+    width: 275px;
+    padding: 10px;
+    top: 40px;
+    bottom: 0;
+    /*left: -200px;*/
+    /*visibility: hidden;
+    opacity: 0;*/
+    overflow: hidden;
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.5);
+}
+
+.filter-pan h1 {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 1em;
+    line-height: 30px;
+}
+
+.filter-pan h1 span {
+    float: left;
+}
+
+.filter-pan h1 .icon-filter-close {
+    cursor: pointer;
+}
+
+.filter-pan h2 {
+    color: #a8a9ab;
+    font-size: 0.8em;
+    border-bottom: 1px solid #3c404b;
+}
+
+.filter-pan h2:before {
+    content: "";
+    float: left;
+    width: 20px;
+    height: 20px;
+    background: url(../images/sprite.png) no-repeat -419px -117px;
+    opacity: 0.6;
+}
+
+.filter-pan h2 .select-all {
+    float: right;
+    background: transparent;
+    border: none;
+    font-size: 1em;
+    margin: 0;
+    outline: none;
+}
+
+.filter-pan h2 .select-all:before {
+    content: "";
+    float: left;
+    background: url(../images/sprite.png) no-repeat -264px -216px;
+    width: 25px;
+    margin-top: -2px;
+    height: 15px;
+    opacity: 0.6;
+}
+
+.filter-pan .filter-col2:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.filter-pan .filter-col2 li {
+    width: 50%;
+    padding: 2px;
+    float: left;
+    font-size: 0.7em;
+    font-weight: 300;
+}
+
+.filter-pan .filter-col2 li a {
+    float: left;
+    width: 100%;
+    padding: 3px 5px;
+    color: #fff;
+    background-color: #313541;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.filter-pan .filter-col2 li a:hover {
+    text-decoration: none;
+    background-color: #048bc5;
+}
+
+.filter-pan .filter-col2 li.selected a {
+    background-color: #048bc5;
+    padding-right: 25px;
+    position: relative;
+}
+
+.filter-pan .filter-col2 li.selected a:before {
+    content: "";
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    background-color: #ff0000;
+    right: 3px;
+    background: url(../images/sprite.png) no-repeat -267px -218px;
+}
+
+.filter-pan.open {
+    opacity: 1;
+    visibility: visible;
+    left: 94px;
+}
+
+.filter-pan .nav {
+    max-height: 90%;
+    overflow: auto;
+    position: absolute;
+}
+
+#slimbar {
+    background-color: #fff !important;
+}
